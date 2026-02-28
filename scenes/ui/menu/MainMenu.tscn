@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://hncvs2dark16"]
+
+[ext_resource type="Script" uid="uid://bi7qkl6wy4kgj" path="res://scripts/ui/menu/main_menu.gd" id="1_manl8"]
+
+[node name="MainScene" type="Control" unique_id=637151267]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_manl8")
+
+[node name="HUD" type="Control" parent="." unique_id=311684479]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Health" type="Label" parent="HUD" unique_id=1934834251]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Health"
+
+[node name="Menu" type="Control" parent="." unique_id=1839401242]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Menu" unique_id=427615195]
+layout_mode = 0
+offset_left = 538.0
+offset_top = 276.0
+offset_right = 649.0
+offset_bottom = 307.0
+text = "Load Combat"
+
+[node name="MenuButton" type="MenuButton" parent="Menu" unique_id=650724377]
+layout_mode = 0
+offset_left = 558.0
+offset_top = 315.0
+offset_right = 628.0
+offset_bottom = 346.0
+text = "Settings"
+
+[node name="PopupMenu" type="PopupMenu" parent="Menu/MenuButton" unique_id=1333958032]
+
+[connection signal="pressed" from="Menu/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Menu/MenuButton" to="." method="_on_menu_button_pressed"]

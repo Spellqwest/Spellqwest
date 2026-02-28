@@ -2,7 +2,22 @@
 
 [ext_resource type="Script" uid="uid://ckf2na7dk34sk" path="res://scenes/testing/label.gd" id="1_rwoa1"]
 [ext_resource type="Script" uid="uid://j2ejcvg2ndcf" path="res://scenes/testing/player.gd" id="2_l3xao"]
-[ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="3_m3brq"]
+[ext_resource type="Texture2D" uid="uid://ce4eofx8k7k4" path="res://assets/visual/characters/player/qwentin_frame1.png" id="3_l3xao"]
+[ext_resource type="Texture2D" uid="uid://c8vsuumyw7tie" path="res://assets/visual/characters/player/qwentin_frame2.png" id="4_m3brq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4tegd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_l3xao")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_m3brq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lt4yx"]
 size = Vector2(129, 129)
@@ -23,11 +38,15 @@ visible_characters = 16
 script = ExtResource("1_rwoa1")
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1704373371]
+position = Vector2(576, 318)
 script = ExtResource("2_l3xao")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=874414922]
-texture = ExtResource("3_m3brq")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=1173336157]
+sprite_frames = SubResource("SpriteFrames_4tegd")
+animation = &"idle"
+frame_progress = 0.0123298345
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=255031019]
+visible = false
 position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_lt4yx")
