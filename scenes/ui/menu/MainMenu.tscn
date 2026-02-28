@@ -27,13 +27,13 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" type="Button" parent="Menu" unique_id=427615195]
+[node name="PlayButton" type="Button" parent="Menu" unique_id=302783355]
 layout_mode = 0
-offset_left = 538.0
-offset_top = 276.0
-offset_right = 649.0
-offset_bottom = 307.0
-text = "Load Combat"
+offset_left = 570.0
+offset_top = 268.0
+offset_right = 611.0
+offset_bottom = 299.0
+text = "Play"
 
 [node name="MenuButton" type="MenuButton" parent="Menu" unique_id=650724377]
 layout_mode = 0
@@ -44,6 +44,18 @@ offset_bottom = 346.0
 text = "Settings"
 
 [node name="PopupMenu" type="PopupMenu" parent="Menu/MenuButton" unique_id=1333958032]
+oversampling_override = 1.0
+title = "Settings"
+position = Vector2i(400, 200)
 
-[connection signal="pressed" from="Menu/Button" to="." method="_on_button_pressed"]
+[node name="QuitButton" type="Button" parent="Menu" unique_id=102097839]
+layout_mode = 0
+offset_left = 572.0
+offset_top = 353.0
+offset_right = 614.0
+offset_bottom = 384.0
+text = "Quit"
+
+[connection signal="pressed" from="Menu/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Menu/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Menu/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -1,3 +1,24 @@
 [gd_scene format=3 uid="uid://dmrugvhx56n0h"]
 
+[ext_resource type="Script" uid="uid://bcnn7pxgtty48" path="res://scripts/combat/combat_screen.gd" id="1_v5uiv"]
+[ext_resource type="PackedScene" uid="uid://dg0d2tj5k7oio" path="res://scenes/game/combat/board/Keyboard.tscn" id="2_8jdeh"]
+[ext_resource type="PackedScene" uid="uid://dtyn235oh0i1s" path="res://scenes/game/combat/entities/Enemy.tscn" id="3_csoi5"]
+[ext_resource type="PackedScene" uid="uid://ggotfsx1sk0r" path="res://scenes/ui/combat/CombatHUD.tscn" id="4_3mw0u"]
+
 [node name="CombatScreen" type="Node2D" unique_id=207275243]
+script = ExtResource("1_v5uiv")
+
+[node name="Keyboard" parent="." unique_id=1499620130 instance=ExtResource("2_8jdeh")]
+
+[node name="Enemy" parent="." unique_id=2014145719 instance=ExtResource("3_csoi5")]
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=833730490]
+
+[node name="CombatHud" parent="." unique_id=334824799 instance=ExtResource("4_3mw0u")]
+
+[node name="Placeholder" type="Label" parent="." unique_id=329897895]
+offset_left = 502.0
+offset_top = 315.0
+offset_right = 715.0
+offset_bottom = 338.0
+text = "Placeholder Combat Screen"
