@@ -11,17 +11,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_manl8")
 
-[node name="HUD" type="Control" parent="." unique_id=311684479]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Health" type="Label" parent="HUD" unique_id=1934834251]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Health"
-
 [node name="Menu" type="Control" parent="." unique_id=1839401242]
 anchors_preset = 0
 offset_right = 40.0

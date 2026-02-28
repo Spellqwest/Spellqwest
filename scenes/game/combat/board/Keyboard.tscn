@@ -1,3 +1,16 @@
 [gd_scene format=3 uid="uid://dg0d2tj5k7oio"]
 
-[node name="Keyboard" type="Node2D" unique_id=1499620130]
+[sub_resource type="TileSet" id="TileSet_2je8n"]
+
+[node name="KeyboardArea" type="Node2D" unique_id=1499620130]
+
+[node name="Keyboard" type="TileMapLayer" parent="." unique_id=152297136]
+tile_set = SubResource("TileSet_2je8n")
+
+[node name="PressedOverlay" type="TileMapLayer" parent="." unique_id=107325148]
+
+[node name="Keys" type="Node2D" parent="." unique_id=2120027082]
+
+[node name="Key_A" type="Node2D" parent="Keys" unique_id=1926494147]
+
+[node name="Sprite2D" type="Sprite2D" parent="Keys/Key_A" unique_id=1608294755]

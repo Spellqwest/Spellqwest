@@ -5,7 +5,6 @@ Resources are great when you want:
 - typed fields
 - editor-friendly editing
 - easy referencing from scenes and scripts
-(Difference to data/defs = data/defs has just numbers and stuff, this also has logic and can be directly used per drag and drop e.g.)
 
 Typical contents:
 - item resources (base item types, rarities, affixes)
