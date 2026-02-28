@@ -1,11 +1,47 @@
 extends Node
 
+@onready var keyboard = $Keyboard
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+var typed: String = ""
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		var token := _key_to_token(event)
+		if token == "":
+			return
+
+		$Keyboard.handle_letter(token)  # movement/visual
+
+		# If you have a typing buffer for spells:
+		# usually DON'T add shift to the spell string
+		if token != "shift_r":
+			typed += token
+
+func _key_to_letter(event):
+	if event.unicode == 0:
+		return ""
+	var s = char(event.unicode).to_lower()
+	if s >= "a" and s <= "z":
+		print(s)
+		return s
+	return ""
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _key_to_token(event: InputEventKey) -> String:
+	if event.keycode == KEY_SHIFT:
+		return "shift_r"
+
+	match event.keycode:
+		KEY_MINUS:
+			return "-"
+		KEY_PERIOD:
+			return "."
+		KEY_COMMA:
+			return ","
+
+	if event.unicode != 0:
+		var s := char(event.unicode).to_lower()
+		if s.length() == 1 and s[0] >= "a" and s[0] <= "z":
+			return s
+
+	return ""

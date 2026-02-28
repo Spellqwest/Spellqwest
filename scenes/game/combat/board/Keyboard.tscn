@@ -1,16 +1,743 @@
-[gd_scene format=3 uid="uid://dg0d2tj5k7oio"]
+[gd_scene format=4 uid="uid://dg0d2tj5k7oio"]
 
-[sub_resource type="TileSet" id="TileSet_2je8n"]
+[ext_resource type="Script" uid="uid://dre2lx0a8cceo" path="res://scripts/combat/keyboard/keyboard_area.gd" id="1_gnik0"]
+[ext_resource type="Texture2D" uid="uid://docmj8kv5sicp" path="res://assets/visual/environment/combat/keyboard/unpressed/A_unpressed.png" id="1_n3a4u"]
+[ext_resource type="Texture2D" uid="uid://dfpnwp4rct5o0" path="res://assets/visual/environment/combat/keyboard/unpressed/B_unpressed.png" id="2_2qogm"]
+[ext_resource type="Texture2D" uid="uid://c6kmhbjghwa07" path="res://assets/visual/environment/combat/keyboard/unpressed/H_unpressed.png" id="3_gnik0"]
+[ext_resource type="Texture2D" uid="uid://cj360a1qel2ac" path="res://assets/visual/environment/combat/keyboard/unpressed/I_unpressed.png" id="4_c71q8"]
+[ext_resource type="Texture2D" uid="uid://cp6f5ssddluu1" path="res://assets/visual/environment/combat/keyboard/unpressed/J_unpressed.png" id="5_byqnn"]
+[ext_resource type="Texture2D" uid="uid://c35f38i5dnrnl" path="res://assets/visual/environment/combat/keyboard/unpressed/K_unpressed.png" id="6_oijga"]
+[ext_resource type="Texture2D" uid="uid://0fml37xltc4t" path="res://assets/visual/environment/combat/keyboard/unpressed/L_unpressed.png" id="7_xukg5"]
+[ext_resource type="Texture2D" uid="uid://bm50nuglr5u0t" path="res://assets/visual/environment/combat/keyboard/unpressed/M_unpressed.png" id="8_w4fik"]
+[ext_resource type="Texture2D" uid="uid://bm5y3pt0xqymp" path="res://assets/visual/environment/combat/keyboard/unpressed/N_unpressed.png" id="9_v2yq4"]
+[ext_resource type="Texture2D" uid="uid://cfjvhrhtio7ee" path="res://assets/visual/environment/combat/keyboard/unpressed/O_unpressed.png" id="10_cikkr"]
+[ext_resource type="Texture2D" uid="uid://dikc07vqtjer8" path="res://assets/visual/environment/combat/keyboard/unpressed/P_unpressed.png" id="11_1yb5b"]
+[ext_resource type="Texture2D" uid="uid://bteh2bjql72pp" path="res://assets/visual/environment/combat/keyboard/unpressed/Q_unpressed.png" id="12_sb57k"]
+[ext_resource type="Texture2D" uid="uid://c6tb61ufgk2tt" path="res://assets/visual/environment/combat/keyboard/unpressed/C_unpressed.png" id="13_1l4ki"]
+[ext_resource type="Texture2D" uid="uid://bjtm45t1vwtee" path="res://assets/visual/environment/combat/keyboard/unpressed/R_unpressed.png" id="14_rktg2"]
+[ext_resource type="Texture2D" uid="uid://dmey8gygbnan4" path="res://assets/visual/environment/combat/keyboard/unpressed/Shift_unpressed.png" id="15_paamd"]
+[ext_resource type="Texture2D" uid="uid://cf0f4pjv4oe00" path="res://assets/visual/environment/combat/keyboard/unpressed/S_unpressed.png" id="16_5u5d7"]
+[ext_resource type="Texture2D" uid="uid://die3idqve4xeq" path="res://assets/visual/environment/combat/keyboard/unpressed/T_unpressed.png" id="17_xgwwf"]
+[ext_resource type="Texture2D" uid="uid://b82ljnkixlur5" path="res://assets/visual/environment/combat/keyboard/unpressed/U_unpressed.png" id="18_y3ivc"]
+[ext_resource type="Texture2D" uid="uid://ds2dofcuvyx74" path="res://assets/visual/environment/combat/keyboard/unpressed/V_unpressed.png" id="19_3fgue"]
+[ext_resource type="Texture2D" uid="uid://cjvjfxfkoatuu" path="res://assets/visual/environment/combat/keyboard/unpressed/W_unpressed.png" id="20_da4de"]
+[ext_resource type="Texture2D" uid="uid://bojtcn3vy56g4" path="res://assets/visual/environment/combat/keyboard/unpressed/X_unpressed.png" id="21_nnivm"]
+[ext_resource type="Texture2D" uid="uid://crqmegjwpwpqp" path="res://assets/visual/environment/combat/keyboard/unpressed/Y_unpressed.png" id="22_40rek"]
+[ext_resource type="Texture2D" uid="uid://d0eofjtnkehh3" path="res://assets/visual/environment/combat/keyboard/unpressed/Z_unpressed.png" id="23_fsb3n"]
+[ext_resource type="Texture2D" uid="uid://ce25ap2ix44jl" path="res://assets/visual/environment/combat/keyboard/unpressed/D_unpressed.png" id="24_b56nm"]
+[ext_resource type="Texture2D" uid="uid://x42gudos7xdo" path="res://assets/visual/environment/combat/keyboard/unpressed/Comma_unpressed.png" id="25_orq7l"]
+[ext_resource type="Texture2D" uid="uid://c50e083tmol0b" path="res://assets/visual/environment/combat/keyboard/unpressed/Dash_unpressed.png" id="26_f82y0"]
+[ext_resource type="Texture2D" uid="uid://dx727so6epfsw" path="res://assets/visual/environment/combat/keyboard/unpressed/Dot_unpressed.png" id="27_8lgfn"]
+[ext_resource type="Texture2D" uid="uid://h8y6furrp3kl" path="res://assets/visual/environment/combat/keyboard/unpressed/E_unpressed.png" id="28_eaj4n"]
+[ext_resource type="Texture2D" uid="uid://dk333tbv1ma6j" path="res://assets/visual/environment/combat/keyboard/unpressed/F_unpressed.png" id="29_vb8l7"]
+[ext_resource type="Texture2D" uid="uid://dmmmmvrwpwgjq" path="res://assets/visual/environment/combat/keyboard/unpressed/G_unpressed.png" id="30_fp2jh"]
+[ext_resource type="PackedScene" uid="uid://ct8bcijajebkg" path="res://scenes/game/combat/entities/Player.tscn" id="31_2qogm"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f081g"]
+resource_name = "A"
+texture = ExtResource("1_n3a4u")
+texture_region_size = Vector2i(8, 8)
+0:0/next_alternative_id = 3
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "a"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+2:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qc4uf"]
+resource_name = "B"
+texture = ExtResource("2_2qogm")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "b"
+0:1/0 = 0
+1:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:1/0 = 0
+3:0/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+1:2/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_akn01"]
+resource_name = "H"
+texture = ExtResource("3_gnik0")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "h"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+2:2/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+3:2/0 = 0
+3:1/0 = 0
+3:0/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+1:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4cjww"]
+resource_name = "I"
+texture = ExtResource("4_c71q8")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "i"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+1:2/0 = 0
+0:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8auq3"]
+resource_name = "J"
+texture = ExtResource("5_byqnn")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "j"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+3:2/0 = 0
+2:2/0 = 0
+1:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_roqie"]
+resource_name = "K"
+texture = ExtResource("6_oijga")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "k"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mjclu"]
+resource_name = "L"
+texture = ExtResource("7_xukg5")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "l"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+1:2/0 = 0
+0:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jinim"]
+resource_name = "M"
+texture = ExtResource("8_w4fik")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "m"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+2:2/0 = 0
+3:0/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xrboq"]
+resource_name = "N"
+texture = ExtResource("9_v2yq4")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "n"
+0:1/0 = 0
+1:1/0 = 0
+3:0/0 = 0
+2:0/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_phmh6"]
+resource_name = "O"
+texture = ExtResource("10_cikkr")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "o"
+0:1/0 = 0
+1:1/0 = 0
+3:0/0 = 0
+2:0/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+3:3/0 = 0
+0:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2i3gv"]
+resource_name = "P"
+texture = ExtResource("11_1yb5b")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "p"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+1:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lay36"]
+resource_name = "Q"
+texture = ExtResource("12_sb57k")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "q"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+2:2/0 = 0
+1:2/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:1/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oy52p"]
+resource_name = "C"
+texture = ExtResource("13_1l4ki")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "c"
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ur2gj"]
+resource_name = "R"
+texture = ExtResource("14_rktg2")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "r"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+3:1/0 = 0
+3:0/0 = 0
+1:2/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gl81b"]
+resource_name = "Shift"
+texture = ExtResource("15_paamd")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "shift_r"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+3:0/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mgp72"]
+resource_name = "S"
+texture = ExtResource("16_5u5d7")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "s"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+2:2/0 = 0
+1:2/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+3:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ncj8o"]
+resource_name = "T"
+texture = ExtResource("17_xgwwf")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "t"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+1:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gi2ei"]
+resource_name = "U"
+texture = ExtResource("18_y3ivc")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "u"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+2:2/0 = 0
+1:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2xvoj"]
+resource_name = "V"
+texture = ExtResource("19_3fgue")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "v"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wj4c7"]
+resource_name = "W"
+texture = ExtResource("20_da4de")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "w"
+0:1/0 = 0
+1:1/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+2:2/0 = 0
+2:1/0 = 0
+2:0/0 = 0
+1:2/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+0:2/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6lswn"]
+resource_name = "X"
+texture = ExtResource("21_nnivm")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "x"
+0:1/0 = 0
+1:1/0 = 0
+3:0/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:1/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3k7cx"]
+resource_name = "Y"
+texture = ExtResource("22_40rek")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "y"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+2:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xe4bg"]
+resource_name = "Z"
+texture = ExtResource("23_fsb3n")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "z"
+0:1/0 = 0
+1:1/0 = 0
+3:0/0 = 0
+2:0/0 = 0
+1:2/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+0:2/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+2:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_blbc2"]
+resource_name = "D"
+texture = ExtResource("24_b56nm")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "d"
+0:1/0 = 0
+1:1/0 = 0
+3:0/0 = 0
+2:0/0 = 0
+2:2/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+3:2/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ofmr"]
+resource_name = "Comma"
+texture = ExtResource("25_orq7l")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = ","
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+2:2/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+3:3/0 = 0
+3:2/0 = 0
+3:1/0 = 0
+3:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rf8yr"]
+resource_name = "Dash"
+texture = ExtResource("26_f82y0")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "-"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+2:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8d5ft"]
+resource_name = "Dot"
+texture = ExtResource("27_8lgfn")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "."
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+3:2/0 = 0
+2:2/0 = 0
+1:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_httm6"]
+resource_name = "E"
+texture = ExtResource("28_eaj4n")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "e"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_85lkc"]
+resource_name = "F"
+texture = ExtResource("29_vb8l7")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "f"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s1wbv"]
+resource_name = "G"
+texture = ExtResource("30_fp2jh")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = "g"
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_1rap6"]
+tile_size = Vector2i(8, 8)
+custom_data_layer_0/name = "letter"
+custom_data_layer_0/type = 4
+sources/0 = SubResource("TileSetAtlasSource_f081g")
+sources/1 = SubResource("TileSetAtlasSource_qc4uf")
+sources/2 = SubResource("TileSetAtlasSource_oy52p")
+sources/3 = SubResource("TileSetAtlasSource_blbc2")
+sources/4 = SubResource("TileSetAtlasSource_6ofmr")
+sources/5 = SubResource("TileSetAtlasSource_rf8yr")
+sources/6 = SubResource("TileSetAtlasSource_8d5ft")
+sources/7 = SubResource("TileSetAtlasSource_httm6")
+sources/8 = SubResource("TileSetAtlasSource_85lkc")
+sources/9 = SubResource("TileSetAtlasSource_s1wbv")
+sources/10 = SubResource("TileSetAtlasSource_akn01")
+sources/11 = SubResource("TileSetAtlasSource_4cjww")
+sources/12 = SubResource("TileSetAtlasSource_8auq3")
+sources/13 = SubResource("TileSetAtlasSource_roqie")
+sources/14 = SubResource("TileSetAtlasSource_mjclu")
+sources/15 = SubResource("TileSetAtlasSource_jinim")
+sources/16 = SubResource("TileSetAtlasSource_xrboq")
+sources/17 = SubResource("TileSetAtlasSource_phmh6")
+sources/18 = SubResource("TileSetAtlasSource_2i3gv")
+sources/19 = SubResource("TileSetAtlasSource_lay36")
+sources/20 = SubResource("TileSetAtlasSource_ur2gj")
+sources/21 = SubResource("TileSetAtlasSource_gl81b")
+sources/22 = SubResource("TileSetAtlasSource_mgp72")
+sources/23 = SubResource("TileSetAtlasSource_ncj8o")
+sources/24 = SubResource("TileSetAtlasSource_gi2ei")
+sources/25 = SubResource("TileSetAtlasSource_2xvoj")
+sources/26 = SubResource("TileSetAtlasSource_wj4c7")
+sources/27 = SubResource("TileSetAtlasSource_6lswn")
+sources/28 = SubResource("TileSetAtlasSource_3k7cx")
+sources/29 = SubResource("TileSetAtlasSource_xe4bg")
 
 [node name="KeyboardArea" type="Node2D" unique_id=1499620130]
+script = ExtResource("1_gnik0")
+player_offset = Vector2(10, -12)
 
 [node name="Keyboard" type="TileMapLayer" parent="." unique_id=152297136]
-tile_set = SubResource("TileSet_2je8n")
+scale = Vector2(1.6, 1.6)
+tile_map_data = PackedByteArray("AAD8//7/CQAAAAAAAAD8////CQAAAAEAAAD8/wAACQAAAAIAAAD8/wEACQAAAAMAAAD9//7/CQABAAAAAAD9////CQABAAEAAAD9/wAACQABAAIAAAD9/wEACQABAAMAAAD+//7/CQACAAAAAAD+////CQACAAEAAAD+/wAACQACAAIAAAD+/wEACQACAAMAAAD///7/CQADAAAAAAD/////CQADAAEAAAD//wAACQADAAIAAAD//wEACQADAAMAAAABAP7/CgAAAAAAAAABAP//CgAAAAEAAAABAAAACgAAAAIAAAABAAEACgAAAAMAAAACAP7/CgABAAAAAAACAP//CgABAAEAAAACAAAACgABAAIAAAACAAEACgABAAMAAAADAP7/CgACAAAAAAADAP//CgACAAEAAAADAAAACgACAAIAAAADAAEACgACAAMAAAAEAP7/CgADAAAAAAAEAP//CgADAAEAAAAEAAAACgADAAIAAAAEAAEACgADAAMAAAD3//7/CAAAAAAAAAD3////CAAAAAEAAAD3/wAACAAAAAIAAAD3/wEACAAAAAMAAAD4//7/CAABAAAAAAD4////CAABAAEAAAD4/wAACAABAAIAAAD4/wEACAABAAMAAAD5//7/CAACAAAAAAD5////CAACAAEAAAD5/wAACAACAAIAAAD5/wEACAACAAMAAAD6//7/CAADAAAAAAD6////CAADAAEAAAD6/wAACAADAAIAAAD6/wEACAADAAMAAADy//7/AwAAAAAAAADy////AwAAAAEAAADy/wAAAwAAAAIAAADy/wEAAwAAAAMAAADz//7/AwABAAAAAADz////AwABAAEAAADz/wAAAwABAAIAAADz/wEAAwABAAMAAAD0//7/AwACAAAAAAD0////AwACAAEAAAD0/wAAAwACAAIAAAD0/wEAAwACAAMAAAD1//7/AwADAAAAAAD1////AwADAAEAAAD1/wAAAwADAAIAAAD1/wEAAwADAAMAAADt//7/FgAAAAAAAADt////FgAAAAEAAADt/wAAFgAAAAIAAADt/wEAFgAAAAMAAADu//7/FgABAAAAAADu////FgABAAEAAADu/wAAFgABAAIAAADu/wEAFgABAAMAAADv//7/FgACAAAAAADv////FgACAAEAAADv/wAAFgACAAIAAADv/wEAFgACAAMAAADw//7/FgADAAAAAADw////FgADAAEAAADw/wAAFgADAAIAAADw/wEAFgADAAMAAADo//7/AAAAAAAAAADo////AAAAAAEAAADo/wAAAAAAAAIAAADo/wEAAAAAAAMAAADp//7/AAABAAAAAADp////AAABAAEAAADp/wAAAAABAAIAAADp/wEAAAABAAMAAADq//7/AAACAAAAAADq////AAACAAEAAADq/wAAAAACAAIAAADq/wEAAAACAAMAAADr//7/AAADAAAAAADr////AAADAAEAAADr/wAAAAADAAIAAADr/wEAAAADAAMAAAAGAP7/DAAAAAAAAAAGAP//DAAAAAEAAAAGAAAADAAAAAIAAAAGAAEADAAAAAMAAAAHAP7/DAABAAAAAAAHAP//DAABAAEAAAAHAAAADAABAAIAAAAHAAEADAABAAMAAAAIAP7/DAACAAAAAAAIAP//DAACAAEAAAAIAAAADAACAAIAAAAIAAEADAACAAMAAAAJAP7/DAADAAAAAAAJAP//DAADAAEAAAAJAAAADAADAAIAAAAJAAEADAADAAMAAAALAP7/DQAAAAAAAAALAP//DQAAAAEAAAALAAAADQAAAAIAAAALAAEADQAAAAMAAAAMAP7/DQABAAAAAAAMAP//DQABAAEAAAAMAAAADQABAAIAAAAMAAEADQABAAMAAAANAP7/DQACAAAAAAANAP//DQACAAEAAAANAAAADQACAAIAAAANAAEADQACAAMAAAAOAP7/DQADAAAAAAAOAP//DQADAAEAAAAOAAAADQADAAIAAAAOAAEADQADAAMAAAAQAP7/DgAAAAAAAAAQAP//DgAAAAEAAAAQAAAADgAAAAIAAAAQAAEADgAAAAMAAAARAP7/DgABAAAAAAARAP//DgABAAEAAAARAAAADgABAAIAAAARAAEADgABAAMAAAASAP7/DgACAAAAAAASAP//DgACAAEAAAASAAAADgACAAIAAAASAAEADgACAAMAAAATAP7/DgADAAAAAAATAP//DgADAAEAAAATAAAADgADAAIAAAATAAEADgADAAMAAAAVAP7/BQAAAAAAAAAVAP//BQAAAAEAAAAVAAAABQAAAAIAAAAVAAEABQAAAAMAAAAWAP7/BQABAAAAAAAWAP//BQABAAEAAAAWAAAABQABAAIAAAAWAAEABQABAAMAAAAXAP7/BQACAAAAAAAXAP//BQACAAEAAAAXAAAABQACAAIAAAAXAAEABQACAAMAAAAYAP7/BQADAAAAAAAYAP//BQADAAEAAAAYAAAABQADAAIAAAAYAAEABQADAAMAAADo/wMAHAAAAAAAAADo/wQAHAAAAAEAAADo/wUAHAAAAAIAAADo/wYAHAAAAAMAAADp/wMAHAABAAAAAADp/wQAHAABAAEAAADp/wUAHAABAAIAAADp/wYAHAABAAMAAADq/wMAHAACAAAAAADq/wQAHAACAAEAAADq/wUAHAACAAIAAADq/wYAHAACAAMAAADr/wMAHAADAAAAAADr/wQAHAADAAEAAADr/wUAHAADAAIAAADr/wYAHAADAAMAAADt/wMAGwAAAAAAAADt/wQAGwAAAAEAAADt/wUAGwAAAAIAAADt/wYAGwAAAAMAAADu/wMAGwABAAAAAADu/wQAGwABAAEAAADu/wUAGwABAAIAAADu/wYAGwABAAMAAADv/wMAGwACAAAAAADv/wQAGwACAAEAAADv/wUAGwACAAIAAADv/wYAGwACAAMAAADw/wMAGwADAAAAAADw/wQAGwADAAEAAADw/wUAGwADAAIAAADw/wYAGwADAAMAAADy/wMAAgAAAAAAAADy/wQAAgAAAAEAAADy/wUAAgAAAAIAAADy/wYAAgAAAAMAAADz/wMAAgABAAAAAADz/wQAAgABAAEAAADz/wUAAgABAAIAAADz/wYAAgABAAMAAAD0/wMAAgACAAAAAAD0/wQAAgACAAEAAAD0/wUAAgACAAIAAAD0/wYAAgACAAMAAAD1/wMAAgADAAAAAAD1/wQAAgADAAEAAAD1/wUAAgADAAIAAAD1/wYAAgADAAMAAAD3/wMAGQAAAAAAAAD3/wQAGQAAAAEAAAD3/wUAGQAAAAIAAAD3/wYAGQAAAAMAAAD4/wMAGQABAAAAAAD4/wQAGQABAAEAAAD4/wUAGQABAAIAAAD4/wYAGQABAAMAAAD5/wMAGQACAAAAAAD5/wQAGQACAAEAAAD5/wUAGQACAAIAAAD5/wYAGQACAAMAAAD6/wMAGQADAAAAAAD6/wQAGQADAAEAAAD6/wUAGQADAAIAAAD6/wYAGQADAAMAAAD8/wMAAQAAAAAAAAD8/wQAAQAAAAEAAAD8/wUAAQAAAAIAAAD8/wYAAQAAAAMAAAD9/wMAAQABAAAAAAD9/wQAAQABAAEAAAD9/wUAAQABAAIAAAD9/wYAAQABAAMAAAD+/wMAAQACAAAAAAD+/wQAAQACAAEAAAD+/wUAAQACAAIAAAD+/wYAAQACAAMAAAD//wMAAQADAAAAAAD//wQAAQADAAEAAAD//wUAAQADAAIAAAD//wYAAQADAAMAAAABAAMAEAAAAAAAAAABAAQAEAAAAAEAAAABAAUAEAAAAAIAAAABAAYAEAAAAAMAAAACAAMAEAABAAAAAAACAAQAEAABAAEAAAACAAUAEAABAAIAAAACAAYAEAABAAMAAAADAAMAEAACAAAAAAADAAQAEAACAAEAAAADAAUAEAACAAIAAAADAAYAEAACAAMAAAAEAAMAEAADAAAAAAAEAAQAEAADAAEAAAAEAAUAEAADAAIAAAAEAAYAEAADAAMAAAAGAAMADwAAAAAAAAAGAAQADwAAAAEAAAAGAAUADwAAAAIAAAAGAAYADwAAAAMAAAAHAAMADwABAAAAAAAHAAQADwABAAEAAAAHAAUADwABAAIAAAAHAAYADwABAAMAAAAIAAMADwACAAAAAAAIAAQADwACAAEAAAAIAAUADwACAAIAAAAIAAYADwACAAMAAAAJAAMADwADAAAAAAAJAAQADwADAAEAAAAJAAUADwADAAIAAAAJAAYADwADAAMAAAALAAMABAAAAAAAAAALAAQABAAAAAEAAAALAAUABAAAAAIAAAALAAYABAAAAAMAAAAMAAMABAABAAAAAAAMAAQABAABAAEAAAAMAAUABAABAAIAAAAMAAYABAABAAMAAAANAAMABAACAAAAAAANAAQABAACAAEAAAANAAUABAACAAIAAAANAAYABAACAAMAAAAOAAMABAADAAAAAAAOAAQABAADAAEAAAAOAAUABAADAAIAAAAOAAYABAADAAMAAAAQAAMABgAAAAAAAAAQAAQABgAAAAEAAAAQAAUABgAAAAIAAAAQAAYABgAAAAMAAAARAAMABgABAAAAAAARAAQABgABAAEAAAARAAUABgABAAIAAAARAAYABgABAAMAAAASAAMABgACAAAAAAASAAQABgACAAEAAAASAAUABgACAAIAAAASAAYABgACAAMAAAATAAMABgADAAAAAAATAAQABgADAAEAAAATAAUABgADAAIAAAATAAYABgADAAMAAAAVAAMAFQAAAAAAAAAVAAQAFQAAAAEAAAAVAAUAFQAAAAIAAAAVAAYAFQAAAAMAAAAWAAMAFQABAAAAAAAWAAQAFQABAAEAAAAWAAUAFQABAAIAAAAWAAYAFQABAAMAAAAXAAMAFQACAAAAAAAXAAQAFQACAAEAAAAXAAUAFQACAAIAAAAXAAYAFQACAAMAAAAYAAMAFQADAAAAAAAYAAQAFQADAAEAAAAYAAUAFQADAAIAAAAYAAYAFQADAAMAAADo//n/EwAAAAAAAADo//r/EwAAAAEAAADo//v/EwAAAAIAAADo//z/EwAAAAMAAADp//n/EwABAAAAAADp//r/EwABAAEAAADp//v/EwABAAIAAADp//z/EwABAAMAAADq//n/EwACAAAAAADq//r/EwACAAEAAADq//v/EwACAAIAAADq//z/EwACAAMAAADr//n/EwADAAAAAADr//r/EwADAAEAAADr//v/EwADAAIAAADr//z/EwADAAMAAADt//n/GgAAAAAAAADt//r/GgAAAAEAAADt//v/GgAAAAIAAADt//z/GgAAAAMAAADu//n/GgABAAAAAADu//r/GgABAAEAAADu//v/GgABAAIAAADu//z/GgABAAMAAADv//n/GgACAAAAAADv//r/GgACAAEAAADv//v/GgACAAIAAADv//z/GgACAAMAAADw//n/GgADAAAAAADw//r/GgADAAEAAADw//v/GgADAAIAAADw//z/GgADAAMAAADy//n/BwAAAAAAAADy//r/BwAAAAEAAADy//v/BwAAAAIAAADy//z/BwAAAAMAAADz//n/BwABAAAAAADz//r/BwABAAEAAADz//v/BwABAAIAAADz//z/BwABAAMAAAD0//n/BwACAAAAAAD0//r/BwACAAEAAAD0//v/BwACAAIAAAD0//z/BwACAAMAAAD1//n/BwADAAAAAAD1//r/BwADAAEAAAD1//v/BwADAAIAAAD1//z/BwADAAMAAAD3//n/FAAAAAAAAAD3//r/FAAAAAEAAAD3//v/FAAAAAIAAAD3//z/FAAAAAMAAAD4//n/FAABAAAAAAD4//r/FAABAAEAAAD4//v/FAABAAIAAAD4//z/FAABAAMAAAD5//n/FAACAAAAAAD5//r/FAACAAEAAAD5//v/FAACAAIAAAD5//z/FAACAAMAAAD6//n/FAADAAAAAAD6//r/FAADAAEAAAD6//v/FAADAAIAAAD6//z/FAADAAMAAAD8//n/FwAAAAAAAAD8//r/FwAAAAEAAAD8//v/FwAAAAIAAAD8//z/FwAAAAMAAAD9//n/FwABAAAAAAD9//r/FwABAAEAAAD9//v/FwABAAIAAAD9//z/FwABAAMAAAD+//n/FwACAAAAAAD+//r/FwACAAEAAAD+//v/FwACAAIAAAD+//z/FwACAAMAAAD///n/FwADAAAAAAD///r/FwADAAEAAAD///v/FwADAAIAAAD///z/FwADAAMAAAABAPn/HQAAAAAAAAABAPr/HQAAAAEAAAABAPv/HQAAAAIAAAABAPz/HQAAAAMAAAACAPn/HQABAAAAAAACAPr/HQABAAEAAAACAPv/HQABAAIAAAACAPz/HQABAAMAAAADAPn/HQACAAAAAAADAPr/HQACAAEAAAADAPv/HQACAAIAAAADAPz/HQACAAMAAAAEAPn/HQADAAAAAAAEAPr/HQADAAEAAAAEAPv/HQADAAIAAAAEAPz/HQADAAMAAAAGAPn/GAAAAAAAAAAGAPr/GAAAAAEAAAAGAPv/GAAAAAIAAAAGAPz/GAAAAAMAAAAHAPn/GAABAAAAAAAHAPr/GAABAAEAAAAHAPv/GAABAAIAAAAHAPz/GAABAAMAAAAIAPn/GAACAAAAAAAIAPr/GAACAAEAAAAIAPv/GAACAAIAAAAIAPz/GAACAAMAAAAJAPn/GAADAAAAAAAJAPr/GAADAAEAAAAJAPv/GAADAAIAAAAJAPz/GAADAAMAAAALAPn/CwAAAAAAAAALAPr/CwAAAAEAAAALAPv/CwAAAAIAAAALAPz/CwAAAAMAAAAMAPn/CwABAAAAAAAMAPr/CwABAAEAAAAMAPv/CwABAAIAAAAMAPz/CwABAAMAAAANAPn/CwACAAAAAAANAPr/CwACAAEAAAANAPv/CwACAAIAAAANAPz/CwACAAMAAAAOAPn/CwADAAAAAAAOAPr/CwADAAEAAAAOAPv/CwADAAIAAAAOAPz/CwADAAMAAAAQAPn/EQAAAAAAAAAQAPr/EQAAAAEAAAAQAPv/EQAAAAIAAAAQAPz/EQAAAAMAAAARAPn/EQABAAAAAAARAPr/EQABAAEAAAARAPv/EQABAAIAAAARAPz/EQABAAMAAAASAPn/EQACAAAAAAASAPr/EQACAAEAAAASAPv/EQACAAIAAAASAPz/EQACAAMAAAATAPn/EQADAAAAAAATAPr/EQADAAEAAAATAPv/EQADAAIAAAATAPz/EQADAAMAAAAVAPn/EgAAAAAAAAAVAPr/EgAAAAEAAAAVAPv/EgAAAAIAAAAVAPz/EgAAAAMAAAAWAPn/EgABAAAAAAAWAPr/EgABAAEAAAAWAPv/EgABAAIAAAAWAPz/EgABAAMAAAAXAPn/EgACAAAAAAAXAPr/EgACAAEAAAAXAPv/EgACAAIAAAAXAPz/EgACAAMAAAAYAPn/EgADAAAAAAAYAPr/EgADAAEAAAAYAPv/EgADAAIAAAAYAPz/EgADAAMAAAA=")
+tile_set = SubResource("TileSet_1rap6")
 
 [node name="PressedOverlay" type="TileMapLayer" parent="." unique_id=107325148]
 
-[node name="Keys" type="Node2D" parent="." unique_id=2120027082]
-
-[node name="Key_A" type="Node2D" parent="Keys" unique_id=1926494147]
-
-[node name="Sprite2D" type="Sprite2D" parent="Keys/Key_A" unique_id=1608294755]
+[node name="Player" parent="." unique_id=933002215 instance=ExtResource("31_2qogm")]

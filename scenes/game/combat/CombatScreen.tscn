@@ -4,16 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://dg0d2tj5k7oio" path="res://scenes/game/combat/board/Keyboard.tscn" id="2_8jdeh"]
 [ext_resource type="PackedScene" uid="uid://dtyn235oh0i1s" path="res://scenes/game/combat/entities/Enemy.tscn" id="3_csoi5"]
 [ext_resource type="PackedScene" uid="uid://ggotfsx1sk0r" path="res://scenes/ui/combat/CombatHUD.tscn" id="4_3mw0u"]
-[ext_resource type="PackedScene" uid="uid://ct8bcijajebkg" path="res://scenes/game/combat/entities/Player.tscn" id="4_8jdeh"]
 
 [node name="CombatScreen" type="Node2D" unique_id=207275243]
 script = ExtResource("1_v5uiv")
 
 [node name="Keyboard" parent="." unique_id=1499620130 instance=ExtResource("2_8jdeh")]
+position = Vector2(602, 513)
 
 [node name="Enemy" parent="." unique_id=2014145719 instance=ExtResource("3_csoi5")]
-
-[node name="Player" parent="." unique_id=933002215 instance=ExtResource("4_8jdeh")]
 
 [node name="CombatHud" parent="." unique_id=334824799 instance=ExtResource("4_3mw0u")]
 

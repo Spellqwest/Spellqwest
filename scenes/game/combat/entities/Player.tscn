@@ -1,3 +1,31 @@
 [gd_scene format=3 uid="uid://ct8bcijajebkg"]
 
-[node name="Player" type="Node2D" unique_id=933002215]
+[ext_resource type="Texture2D" uid="uid://ce4eofx8k7k4" path="res://assets/visual/characters/player/qwentin_frame1.png" id="1_agn33"]
+[ext_resource type="Texture2D" uid="uid://c8vsuumyw7tie" path="res://assets/visual/characters/player/qwentin_frame2.png" id="2_41ijf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_31ss6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_agn33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_41ijf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_77ct5"]
+size = Vector2(45, 72)
+
+[node name="Player" type="CharacterBody2D" unique_id=693042130]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1649306381]
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_31ss6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=840138744]
+position = Vector2(1.5, 3)
+shape = SubResource("RectangleShape2D_77ct5")
