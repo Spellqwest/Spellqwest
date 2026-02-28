@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SpellResource" format=3 uid="uid://6mt2oo5sxy7c"]
+
+[ext_resource type="Script" uid="uid://twjoq0y7wvjn" path="res://scripts/combat/spells/spell_resource.gd" id="1_h28pv"]
+
+[resource]
+script = ExtResource("1_h28pv")
+id = "1"
+display_name = "Fire"
+cast = "fire"
+damage = 5
+metadata/_custom_type_script = "uid://twjoq0y7wvjn"

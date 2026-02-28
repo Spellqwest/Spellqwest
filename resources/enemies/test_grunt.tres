@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnemyResource" format=3 uid="uid://cm0ortatcdrrr"]
+
+[ext_resource type="Script" uid="uid://bb6711hoq4n6k" path="res://scripts/combat/enemies/enemy_resource.gd" id="1_cicpy"]
+[ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="1_kpweo"]
+
+[resource]
+script = ExtResource("1_cicpy")
+id = "testgrunt"
+display_name = "Test Grunt"
+max_hp = 8
+speed = 120.0
+contact_damage = 5
+icon = ExtResource("1_kpweo")
+gold_reward = 4
+metadata/_custom_type_script = "uid://bb6711hoq4n6k"

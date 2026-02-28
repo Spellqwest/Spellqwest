@@ -19,23 +19,6 @@ Examples:
 - run state snapshots
 - meta progression saves (falls wir zu dem Punkt kommen)
 
-## defs/
-"Definitions" = raw descriptions of game content.
-Put content here when you want to tune/balance/add content without touching code.
-
-Subfolders:
-- `enemies/` — enemy stats, archetypes, behaviors (as data references)
-- `bosses/` — boss stats/phases as data
-- `items/` — item definitions (name, rarity, tags, effects references)
-- `item_sets/` — groups/collections for shops, pools, unlocks
-- `spells/` — spell definitions (word, cost, damage, effect refs)
-- `stages/` — stage metadata (biomes, enemy pools, boss list)
-- `events/` — map events (shop, rest, treasure, story events)
-- `map_nodes/` — node types & weights (combat/event/elite/etc.)
-- `tutorials/` — tutorial step definitions (text, triggers, rules)
-
-Format can be `.tres` (Godot Resources), `.json`, `.cfg`, etc. (Choose one approach and stick to it.Eins aussuchen und konsitent bleiben. Empfehle .tres)
-
 ## pools/
 Weighted/random selection tables used for roguelike generation.
 Examples:
