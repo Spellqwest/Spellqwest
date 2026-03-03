@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dg0d2tj5k7oio" path="res://scenes/game/combat/board/Keyboard.tscn" id="2_8jdeh"]
 [ext_resource type="PackedScene" uid="uid://dtyn235oh0i1s" path="res://scenes/game/combat/entities/Enemy.tscn" id="3_csoi5"]
 [ext_resource type="PackedScene" uid="uid://ggotfsx1sk0r" path="res://scenes/ui/combat/CombatHUD.tscn" id="4_3mw0u"]
+[ext_resource type="Script" uid="uid://sfowtyk7n7dt" path="res://scripts/combat/keyboard/typing_input.gd" id="5_8jdeh"]
 
 [node name="CombatScreen" type="Node2D" unique_id=207275243]
 script = ExtResource("1_v5uiv")
@@ -19,3 +20,6 @@ player_offset = Vector2(-4, -35)
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=562895090]
 
 [node name="CombatHud" parent="CanvasLayer" unique_id=334824799 instance=ExtResource("4_3mw0u")]
+
+[node name="TypingInput" type="Node" parent="." unique_id=1210425475]
+script = ExtResource("5_8jdeh")
