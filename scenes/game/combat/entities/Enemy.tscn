@@ -1,12 +1,57 @@
 [gd_scene format=3 uid="uid://dtyn235oh0i1s"]
 
+[ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="1_7s70j"]
+[ext_resource type="Script" uid="uid://e0ewfa888245" path="res://scenes/game/combat/entities/enemy.gd" id="1_43hdt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mk2x"]
+atlas = ExtResource("1_7s70j")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0jhp"]
+atlas = ExtResource("1_7s70j")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iq00j"]
+atlas = ExtResource("1_7s70j")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypgpa"]
+atlas = ExtResource("1_7s70j")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x0ge7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7mk2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r0jhp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iq00j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ypgpa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jxn12"]
+size = Vector2(64, 62)
 
 [node name="Enemy" type="Node2D" unique_id=2014145719]
+script = ExtResource("1_43hdt")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1134119514]
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=572512190]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D" unique_id=941970582]
+position = Vector2(166, 117)
+sprite_frames = SubResource("SpriteFrames_x0ge7")
+frame_progress = 0.35336453
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2003421444]
+position = Vector2(166, 117)
 shape = SubResource("RectangleShape2D_jxn12")
