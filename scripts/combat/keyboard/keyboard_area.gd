@@ -49,21 +49,17 @@ func handle_letter(letter: String):
 
 	var label_cell: Vector2i = letter_to_cell[letter]
 
-	# Compute the top-left of the 4x4 key block from the label cell
 	var anchor: Vector2i = label_cell - letter_cell_offset
 
-	# Restore last pressed block
 	if _has_last:
 		for entry in _last_saved:
 			keyboard.set_cell(entry.cell, entry.source_id, entry.atlas, entry.alt)
 		_last_saved.clear()
 
-	# Save + press new block
 	_last_saved = _save_block(anchor)
 	_set_block_pressed(anchor)
 	_has_last = true
 
-	# Move player to center of the block (or tweak player_offset)
 	var center_cell := anchor + Vector2i(key_block_size.x / 2, key_block_size.y / 2)
 	var pos := keyboard.map_to_local(center_cell)
 	player.global_position = keyboard.to_global(pos) + player_offset
