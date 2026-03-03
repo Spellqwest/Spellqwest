@@ -1,6 +1,7 @@
 extends Node
 
 @onready var keyboard = $Keyboard
+@onready var hud = $CanvasLayer/CombatHud 
 
 var typed: String = ""
 
@@ -12,10 +13,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		$Keyboard.handle_letter(token)  # movement/visual
 
-		# If you have a typing buffer for spells:
-		# usually DON'T add shift to the spell string
 		if token != "shift_r":
 			typed += token
+			hud.set_typed_text(typed)
 
 func _key_to_letter(event):
 	if event.unicode == 0:

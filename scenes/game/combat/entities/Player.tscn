@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c8vsuumyw7tie" path="res://assets/visual/characters/player/qwentin_frame2.png" id="2_41ijf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_31ss6"]
+resource_name = "idle"
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -25,6 +26,8 @@ size = Vector2(45, 72)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1649306381]
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_31ss6")
+autoplay = "default"
+frame_progress = 0.6720566
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=840138744]
 position = Vector2(1.5, 3)
