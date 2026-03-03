@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="SpellResource" format=3 uid="uid://cwwlue4ulxqa0"]
 
-[ext_resource type="Script" uid="uid://twjoq0y7wvjn" path="res://scripts/combat/spells/spell_resource.gd" id="1_ewhog"]
+[ext_resource type="Script" uid="uid://twjoq0y7wvjn" path="res://scripts/combat/spells/dmg_spell_resource.gd" id="1_ewhog"]
 
 [resource]
 script = ExtResource("1_ewhog")
-id = "2"
+id = &"spell_acid"
 display_name = "Acid"
-cast = "acid"
+word = "acid"
 damage = 3
 type = 1
 metadata/_custom_type_script = "uid://twjoq0y7wvjn"

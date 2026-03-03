@@ -5,7 +5,7 @@ signal token_typed(token: String)
 signal buffer_changed(buffer: String)
 signal buffer_submitted(buffer: String)
 
-@export var typing_delay: float = 0.1
+@export var typing_delay: float = 0.1 #100ms delay
 var buffer: String = ""
 var _can_type: bool = true
 
@@ -41,24 +41,22 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	emit_signal("token_typed", token)
 
-	# shift should move/press but not enter buffer
-	if token != "shift":
+	var non_typing_tokens := {"shift": true, ".": true, ",": true}
+
+	if not non_typing_tokens.has(token):
 		buffer += token
 		emit_signal("buffer_changed", buffer)
 
 	_start_cooldown()
 
 func _key_to_token(e: InputEventKey) -> String:
-	# Right shift only -> "shift"
 	if e.keycode == KEY_SHIFT:
-		if right_shift_physical != -1 and e.physical_keycode == right_shift_physical:
-			return "shift"
-		return ""  # ignore left shift
+		return "shift"
 
 	match e.keycode:
-		KEY_MINUS:  return "-"
 		KEY_PERIOD: return "."
 		KEY_COMMA:  return ","
+		KEY_MINUS:  return "-"
 
 	if e.unicode != 0:
 		var s := char(e.unicode).to_lower()

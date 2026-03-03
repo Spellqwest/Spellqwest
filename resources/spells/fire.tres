@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="SpellResource" format=3 uid="uid://6mt2oo5sxy7c"]
 
-[ext_resource type="Script" uid="uid://twjoq0y7wvjn" path="res://scripts/combat/spells/spell_resource.gd" id="1_h28pv"]
+[ext_resource type="Script" uid="uid://twjoq0y7wvjn" path="res://scripts/combat/spells/dmg_spell_resource.gd" id="1_h28pv"]
 
 [resource]
 script = ExtResource("1_h28pv")
-id = "1"
+id = &"spell_fire"
 display_name = "Fire"
-cast = "fire"
+word = "fire"
 damage = 5
 metadata/_custom_type_script = "uid://twjoq0y7wvjn"

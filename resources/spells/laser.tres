@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="SpellResource" format=3 uid="uid://cluomifsomujk"]
 
-[ext_resource type="Script" uid="uid://twjoq0y7wvjn" path="res://scripts/combat/spells/spell_resource.gd" id="1_uv8qa"]
+[ext_resource type="Script" uid="uid://twjoq0y7wvjn" path="res://scripts/combat/spells/dmg_spell_resource.gd" id="1_uv8qa"]
 
 [resource]
 script = ExtResource("1_uv8qa")
-id = "3"
+id = &"spell_laser"
 display_name = "Laser"
-cast = "laser"
+word = "laser"
 damage = 4
 type = 2
 metadata/_custom_type_script = "uid://twjoq0y7wvjn"
