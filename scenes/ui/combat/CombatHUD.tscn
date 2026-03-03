@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://ggotfsx1sk0r"]
 
+[ext_resource type="Script" uid="uid://t6qf8q5lhqiw" path="res://scripts/ui/combat/combat_hud.gd" id="1_kxaub"]
+
 [node name="CombatHud" type="Control" unique_id=334824799]
 layout_mode = 3
 anchors_preset = 15
@@ -7,44 +9,58 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_kxaub")
 
-[node name="PlayerInfo" type="Control" parent="." unique_id=560742695]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="TypedPanel" type="PanelContainer" parent="." unique_id=393242415]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.571
+anchor_right = 0.5
+anchor_bottom = 0.571
+offset_left = -20.0
+offset_top = 230.992
+offset_right = 20.0
+offset_bottom = 270.984
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="HealthLabel" type="Label" parent="PlayerInfo" unique_id=922508593]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="TypedLabel" type="Label" parent="TypedPanel" unique_id=838467090]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=529861586]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+
+[node name="TopBar" type="HBoxContainer" parent="MarginContainer" unique_id=257072242]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TopBar" unique_id=1372776848]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/TopBar/VBoxContainer" unique_id=922508593]
+layout_mode = 2
 text = "Health: 100/100"
 
-[node name="ChargeLabel" type="Label" parent="PlayerInfo" unique_id=1369618604]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 21.0
-offset_right = 162.0
-offset_bottom = 44.0
+[node name="ChargeLabel" type="Label" parent="MarginContainer/TopBar/VBoxContainer" unique_id=1369618604]
+layout_mode = 2
 text = "Current Charge: 0/50"
 
-[node name="CoinLabel" type="Label" parent="PlayerInfo" unique_id=2050148459]
-layout_mode = 0
-offset_left = 1016.0
-offset_top = -1.0
-offset_right = 1077.0
-offset_bottom = 22.0
+[node name="Spacer" type="Control" parent="MarginContainer/TopBar" unique_id=67363747]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CoinLabel" type="Label" parent="MarginContainer/TopBar" unique_id=2050148459]
+layout_direction = 3
+layout_mode = 2
 text = "Coins: 0"
 
-[node name="TypedLabel" type="Label" parent="." unique_id=838467090]
-layout_mode = 0
-offset_left = 581.0
-offset_top = 367.0
-offset_right = 621.0
-offset_bottom = 390.0
-
-[node name="PlaceholderButton" type="Button" parent="." unique_id=980171442]
-layout_mode = 0
-offset_left = 1090.0
-offset_right = 1190.0
-offset_bottom = 31.0
-text = "Placeholder"
+[node name="InventoryButton" type="Button" parent="MarginContainer/TopBar" unique_id=980171442]
+layout_direction = 3
+layout_mode = 2
+text = "Inv"
