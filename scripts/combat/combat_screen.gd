@@ -1,21 +1,36 @@
 extends Node
 
 @onready var keyboard = $Keyboard
+@onready var hud = $CanvasLayer/CombatHud 
 
+var can_type: bool = true
+
+@export var typing_delay: float = 0.1  # 0.1 = 100ms between inputs
 var typed: String = ""
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not can_type:
+		return
+	
+	if event.keycode == KEY_ENTER:
+			typed = ""
+			hud.set_typed_text(typed)
+			return
+
 	if event is InputEventKey and event.pressed and not event.echo:
 		var token := _key_to_token(event)
 		if token == "":
 			return
 
-		$Keyboard.handle_letter(token)  # movement/visual
+		can_type = false  # block input
 
-		# If you have a typing buffer for spells:
-		# usually DON'T add shift to the spell string
-		if token != "shift_r":
+		$Keyboard.handle_letter(token)
+
+		if token != "shift":
 			typed += token
+			hud.set_typed_text(typed)
+
+		_start_typing_cooldown()
 
 func _key_to_letter(event):
 	if event.unicode == 0:
@@ -45,3 +60,7 @@ func _key_to_token(event: InputEventKey) -> String:
 			return s
 
 	return ""
+	
+func _start_typing_cooldown():
+	await get_tree().create_timer(typing_delay).timeout
+	can_type = true

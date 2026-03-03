@@ -9,18 +9,13 @@
 script = ExtResource("1_v5uiv")
 
 [node name="Keyboard" parent="." unique_id=1499620130 instance=ExtResource("2_8jdeh")]
-position = Vector2(600, 513)
+position = Vector2(554, 500)
 player_offset = Vector2(-4, -35)
 
 [node name="Enemy" parent="." unique_id=2014145719 instance=ExtResource("3_csoi5")]
 
-[node name="CombatHud" parent="." unique_id=334824799 instance=ExtResource("4_3mw0u")]
-
-[node name="Placeholder" type="Label" parent="." unique_id=329897895]
-offset_left = 502.0
-offset_top = 315.0
-offset_right = 715.0
-offset_bottom = 338.0
-text = "Placeholder Combat Screen"
-
 [node name="SpawnTimer" type="Timer" parent="." unique_id=833730490]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=562895090]
+
+[node name="CombatHud" parent="CanvasLayer" unique_id=334824799 instance=ExtResource("4_3mw0u")]
