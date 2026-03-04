@@ -1,6 +1,8 @@
 extends Node
 
-var learned_spell_ids: Dictionary = {} # StringName -> true
+@export var stats: PlayerStats
+
+var learned_spell_ids: Dictionary = {} 
 
 func learn_spell(id: StringName) -> void:
 	learned_spell_ids[id] = true

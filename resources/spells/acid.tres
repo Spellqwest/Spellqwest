@@ -9,4 +9,5 @@ display_name = "Acid"
 word = "acid"
 damage = 3
 type = 1
+cast_time = 1.2
 metadata/_custom_type_script = "uid://twjoq0y7wvjn"

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ce4eofx8k7k4" path="res://assets/visual/characters/player/qwentin_frame1.png" id="1_agn33"]
 [ext_resource type="Texture2D" uid="uid://c8vsuumyw7tie" path="res://assets/visual/characters/player/qwentin_frame2.png" id="2_41ijf"]
 [ext_resource type="Script" uid="uid://b600gyftk50ak" path="res://scripts/combat/player/run_state.gd" id="3_41ijf"]
+[ext_resource type="Script" uid="uid://jdvdtf3h8dso" path="res://scripts/combat/player/cast_buffer.gd" id="4_31ss6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_31ss6"]
 resource_name = "idle"
@@ -36,3 +37,6 @@ shape = SubResource("RectangleShape2D_77ct5")
 
 [node name="RunState" type="Node" parent="." unique_id=858708026]
 script = ExtResource("3_41ijf")
+
+[node name="CastBuffer" type="Node" parent="." unique_id=1700130899]
+script = ExtResource("4_31ss6")

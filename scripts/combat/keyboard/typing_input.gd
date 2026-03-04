@@ -9,9 +9,6 @@ signal buffer_submitted(buffer: String)
 var buffer: String = ""
 var _can_type: bool = true
 
-# Right shift only: set this to your right shift physical keycode
-@export var right_shift_physical: int = -1
-
 func _unhandled_input(event: InputEvent) -> void:
 	if not _can_type:
 		return
@@ -19,7 +16,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	var e := event as InputEventKey
 
-	# Enter submits (and clears)
+	# Enter submits (and clears) DEBUG
 	if e.keycode == KEY_ENTER or e.keycode == KEY_KP_ENTER:
 		emit_signal("buffer_submitted", buffer)
 		buffer = ""
@@ -27,7 +24,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_start_cooldown()
 		return
 
-	# Backspace deletes
+	# Backspace deletes DEBUG
 	if e.keycode == KEY_BACKSPACE:
 		if buffer.length() > 0:
 			buffer = buffer.substr(0, buffer.length() - 1)

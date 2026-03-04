@@ -13,11 +13,11 @@ var letter_to_cell: Dictionary = {}
 
 var _has_last := false
 var _last_saved: Array = []
-var _last_cell: Vector2i
-var _last_source_id: int
-var _last_atlas_coords: Vector2i
-var _last_alt: int
-var _last_anchor: Vector2i
+# var _last_cell: Vector2i
+# var _last_source_id: int
+# var _last_atlas_coords: Vector2i
+# var _last_alt: int
+# var _last_anchor: Vector2i
 
 func _ready():
 	var ts := keyboard.tile_set
