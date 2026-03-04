@@ -16,8 +16,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	var e := event as InputEventKey
 
-	# Enter submits (and clears) DEBUG
-	if e.keycode == KEY_ENTER or e.keycode == KEY_KP_ENTER:
+	# Space submits (and clears)
+	if e.keycode == KEY_SPACE:
 		emit_signal("buffer_submitted", buffer)
 		buffer = ""
 		emit_signal("buffer_changed", buffer)

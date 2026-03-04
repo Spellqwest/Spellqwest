@@ -1,8 +1,8 @@
 extends Node
+class_name RunState
 
 @export var stats: PlayerStats
-
-var learned_spell_ids: Dictionary = {} 
+var learned_spell_ids: Dictionary = {}  # id -> true
 
 func learn_spell(id: StringName) -> void:
 	learned_spell_ids[id] = true
@@ -16,3 +16,9 @@ func learn_all_spells(spells: Array) -> void:
 		if s == null:
 			continue
 		learn_spell(s.id)
+
+func get_learned_spell_ids() -> Array[StringName]:
+	var out: Array[StringName] = []
+	for k in learned_spell_ids.keys():
+		out.append(k as StringName)
+	return out

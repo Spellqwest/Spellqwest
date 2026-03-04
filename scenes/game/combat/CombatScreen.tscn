@@ -5,15 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://dtyn235oh0i1s" path="res://scenes/game/combat/entities/Enemy.tscn" id="3_csoi5"]
 [ext_resource type="PackedScene" uid="uid://ggotfsx1sk0r" path="res://scenes/ui/combat/CombatHUD.tscn" id="4_3mw0u"]
 [ext_resource type="Script" uid="uid://sfowtyk7n7dt" path="res://scripts/combat/keyboard/typing_input.gd" id="5_8jdeh"]
-[ext_resource type="Script" uid="uid://de7cu4a00xfj3" path="res://scripts/combat/spells/spell_book.gd" id="6_csoi5"]
-[ext_resource type="Script" uid="uid://bywsfladnesh6" path="res://scripts/combat/spells/combat_caster.gd" id="6_xcp1j"]
+[ext_resource type="Script" uid="uid://bywsfladnesh6" path="res://scripts/combat/combat_caster.gd" id="6_xcp1j"]
 [ext_resource type="PackedScene" uid="uid://cdcf7epaotmw7" path="res://scenes/game/combat/entities/damageEntitiy/PlayerProjectile.tscn" id="7_l4sx5"]
-[ext_resource type="Resource" uid="uid://cluomifsomujk" path="res://resources/spells/laser.tres" id="7_oanbv"]
-[ext_resource type="Resource" uid="uid://6mt2oo5sxy7c" path="res://resources/spells/fire.tres" id="8_xcp1j"]
 [ext_resource type="PackedScene" uid="uid://c4wn5dt427owq" path="res://scenes/game/combat/entities/damageEntitiy/Beam.tscn" id="9_8e817"]
-[ext_resource type="Resource" uid="uid://cwwlue4ulxqa0" path="res://resources/spells/boom.tres" id="9_ossvp"]
-[ext_resource type="PackedScene" path="res://scenes/testing/TargetRectangle.tscn" id="11_ossvp"]
-[ext_resource type="Resource" uid="uid://bh1sycq6ypbhb" path="res://resources/spells/acid.tres" id="13_7gxrj"]
+[ext_resource type="PackedScene" uid="uid://b8tibmymd6xb" path="res://scenes/testing/TargetRectangle.tscn" id="11_ossvp"]
 [ext_resource type="PackedScene" uid="uid://dyp7rxt6wdhhx" path="res://scenes/game/combat/entities/damageEntitiy/DamageZone.tscn" id="13_se7e0"]
 
 [node name="CombatScreen" type="Node2D" unique_id=207275243]
@@ -42,11 +37,6 @@ damage_zone_scene = ExtResource("13_se7e0")
 damage_zone_parent_path = NodePath("../PlayerAttacks/DamageZones")
 beam_scene = ExtResource("9_8e817")
 beam_parent_path = NodePath("../PlayerAttacks/Beams")
-
-[node name="SpellBook" type="Node" parent="." unique_id=575682282]
-script = ExtResource("6_csoi5")
-spells = Array[Resource]([ExtResource("7_oanbv"), ExtResource("8_xcp1j"), ExtResource("9_ossvp"), ExtResource("13_7gxrj")])
-metadata/_custom_type_script = "uid://de7cu4a00xfj3"
 
 [node name="TargetRectangle" parent="." unique_id=231060104 instance=ExtResource("11_ossvp")]
 

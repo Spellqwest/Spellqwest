@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://t6qf8q5lhqiw" path="res://scripts/ui/combat/combat_hud.gd" id="1_kxaub"]
 [ext_resource type="PackedScene" uid="uid://43ggc3fbj3ku" path="res://scenes/ui/combat/CastSlot.tscn" id="2_o46td"]
-[ext_resource type="Texture2D" uid="uid://d27knx712m6bu" path="res://assets/visual/ui/inv_button.png" id="3_w4bit"]
+[ext_resource type="Texture2D" uid="uid://c3rscovib77db" path="res://assets/visual/ui/common/spellbook.png" id="3_y8sw0"]
+[ext_resource type="Texture2D" uid="uid://d27knx712m6bu" path="res://assets/visual/ui/common/inv_button.png" id="4_stujv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kxaub"]
 bg_color = Color(0.6, 0.6, 0.6, 0.27450982)
@@ -46,6 +47,7 @@ grow_horizontal = 2
 
 [node name="TopBar" type="HBoxContainer" parent="MarginContainer" unique_id=257072242]
 layout_mode = 2
+theme_override_constants/separation = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TopBar" unique_id=1372776848]
 custom_minimum_size = Vector2(200, 0)
@@ -68,10 +70,15 @@ layout_direction = 3
 layout_mode = 2
 text = "Coins: 0"
 
+[node name="BookButton" type="TextureButton" parent="MarginContainer/TopBar" unique_id=869453316]
+layout_mode = 2
+texture_normal = ExtResource("3_y8sw0")
+stretch_mode = 5
+
 [node name="InventoryButton" type="TextureButton" parent="MarginContainer/TopBar" unique_id=1723783668]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture_normal = ExtResource("3_w4bit")
+texture_normal = ExtResource("4_stujv")
 stretch_mode = 5
 
 [node name="CastPanel" type="PanelContainer" parent="." unique_id=916796526]
