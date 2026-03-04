@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cdcf7epaotmw7"]
+
+[ext_resource type="Script" uid="uid://33l73278cck6" path="res://scripts/combat/attacks/projectiles/player_spells/projectile.gd" id="1_boboq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m12re"]
+size = Vector2(28, 39)
+
+[node name="PlayerProjectile" type="Area2D" unique_id=2020111845]
+z_index = 2
+script = ExtResource("1_boboq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=316581548]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_m12re")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1172886886]
+scale = Vector2(4, 4)

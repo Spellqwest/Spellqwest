@@ -1,12 +1,30 @@
-[gd_resource type="Resource" script_class="SpellResource" format=3 uid="uid://6mt2oo5sxy7c"]
+[gd_resource type="Resource" script_class="ProjectileSpellResource" format=3 uid="uid://6mt2oo5sxy7c"]
 
-[ext_resource type="Script" uid="uid://twjoq0y7wvjn" path="res://scripts/combat/spells/dmg_spell_resource.gd" id="1_h28pv"]
+[ext_resource type="Script" uid="uid://pud16bymn56f" path="res://scripts/combat/spells/spell_type_resources/projectile_spell_resource.gd" id="1_h28pv"]
+[ext_resource type="Texture2D" uid="uid://cijd6ebj5qk2a" path="res://assets/visual/projectiles/spells/testspell1.png" id="1_kr2ic"]
+[ext_resource type="Texture2D" uid="uid://cm7nnl7ncxbcn" path="res://assets/visual/projectiles/spells/testspell2.png" id="2_pdcel"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kr2ic"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_kr2ic")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_pdcel")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
 
 [resource]
 script = ExtResource("1_h28pv")
+projectile_speed = 700.0
 id = &"spell_fire"
 display_name = "Fire"
 word = "fire"
 damage = 5
-cast_time = 0.2
+cast_time = 0.4
+spell_frames = SubResource("SpriteFrames_kr2ic")
 metadata/_custom_type_script = "uid://twjoq0y7wvjn"

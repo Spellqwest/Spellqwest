@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="SpellResource" format=3 uid="uid://cluomifsomujk"]
+[gd_resource type="Resource" script_class="BeamSpellResource" format=3 uid="uid://cluomifsomujk"]
 
-[ext_resource type="Script" uid="uid://twjoq0y7wvjn" path="res://scripts/combat/spells/dmg_spell_resource.gd" id="1_uv8qa"]
+[ext_resource type="Script" uid="uid://cd325vvg4e8w1" path="res://scripts/combat/spells/spell_type_resources/beam_spell_resource.gd" id="1_uv8qa"]
 
 [resource]
 script = ExtResource("1_uv8qa")

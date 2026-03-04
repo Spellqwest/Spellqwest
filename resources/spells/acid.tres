@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="SpellResource" format=3 uid="uid://cwwlue4ulxqa0"]
+[gd_resource type="Resource" script_class="AOESpellResource" format=3 uid="uid://cwwlue4ulxqa0"]
 
-[ext_resource type="Script" uid="uid://twjoq0y7wvjn" path="res://scripts/combat/spells/dmg_spell_resource.gd" id="1_ewhog"]
+[ext_resource type="Script" uid="uid://bdik7pvdf8h0x" path="res://scripts/combat/spells/spell_type_resources/aoe_spell_resource.gd" id="1_ewhog"]
 
 [resource]
 script = ExtResource("1_ewhog")
+projectile_speed = 300.0
 id = &"spell_acid"
 display_name = "Acid"
 word = "acid"
