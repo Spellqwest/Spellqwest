@@ -10,6 +10,5 @@ func _ready() -> void:
 	spell_book.set_spells(ContentDB.get_all_spells())
 
 	run_state.learn_all_spells(spell_book.get_all_spells())
-	print("RunRoot learned ids:", run_state.get_learned_spell_ids())
 
 	combat_screen.setup(run_state, spell_book)

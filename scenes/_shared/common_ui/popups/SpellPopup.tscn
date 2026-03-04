@@ -38,10 +38,13 @@ horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer" unique_id=1356431068]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="SpellList" type="VBoxContainer" parent="Panel/VBoxContainer/ScrollContainer" unique_id=1727494406]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="CloseButton" type="Button" parent="Panel/VBoxContainer" unique_id=582525058]
 layout_mode = 2

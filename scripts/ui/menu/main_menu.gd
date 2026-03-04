@@ -1,10 +1,9 @@
 extends Control
 
 func _ready() -> void:
-	print("Menu loaded")
+	pass
 
 func _on_play_button_pressed() -> void:
-	print("Play pressed!")
 	get_tree().change_scene_to_file("res://scenes/game/RunRoot.tscn")
 	
 func _on_menu_button_pressed() -> void:
