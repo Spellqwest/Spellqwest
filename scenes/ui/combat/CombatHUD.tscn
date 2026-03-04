@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://t6qf8q5lhqiw" path="res://scripts/ui/combat/combat_hud.gd" id="1_kxaub"]
 [ext_resource type="PackedScene" uid="uid://43ggc3fbj3ku" path="res://scenes/ui/combat/CastSlot.tscn" id="2_o46td"]
+[ext_resource type="Texture2D" uid="uid://d27knx712m6bu" path="res://assets/visual/ui/inv_button.png" id="3_w4bit"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kxaub"]
 bg_color = Color(0.6, 0.6, 0.6, 0.27450982)
@@ -67,10 +68,11 @@ layout_direction = 3
 layout_mode = 2
 text = "Coins: 0"
 
-[node name="InventoryButton" type="Button" parent="MarginContainer/TopBar" unique_id=980171442]
-layout_direction = 3
+[node name="InventoryButton" type="TextureButton" parent="MarginContainer/TopBar" unique_id=1723783668]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-text = "Inv"
+texture_normal = ExtResource("3_w4bit")
+stretch_mode = 5
 
 [node name="CastPanel" type="PanelContainer" parent="." unique_id=916796526]
 layout_mode = 1

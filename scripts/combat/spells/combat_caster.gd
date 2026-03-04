@@ -33,7 +33,7 @@ func _cast_projectile(spell: SpellResource, origin: Vector2) -> void:
 	p.setup(vel, spell.damage, spell.spell_frames, spell.spell_anim)
 	
 func _cast_aoe(spell: SpellResource, origin: Vector2) -> void:
-	pass
+	print("Elias mag Männer")
 	
 func _cast_beam(spell: SpellResource, origin: Vector2) -> void:
 	pass
