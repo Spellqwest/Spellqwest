@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://6mt2oo5sxy7c" path="res://resources/spells/fire.tres" id="8_xcp1j"]
 [ext_resource type="Resource" uid="uid://cwwlue4ulxqa0" path="res://resources/spells/acid.tres" id="9_ossvp"]
 [ext_resource type="PackedScene" uid="uid://b8tibmymd6xb" path="res://scenes/testing/TargetRectangle.tscn" id="11_ossvp"]
+[ext_resource type="PackedScene" uid="uid://dyp7rxt6wdhhx" path="res://scenes/game/combat/entities/DamageZone.tscn" id="13_se7e0"]
 
 [node name="CombatScreen" type="Node2D" unique_id=207275243]
 script = ExtResource("1_v5uiv")
@@ -35,6 +36,8 @@ script = ExtResource("5_8jdeh")
 script = ExtResource("6_xcp1j")
 projectile_scene = ExtResource("7_l4sx5")
 projectile_parent_path = NodePath("../Projectiles")
+damage_zone_scene = ExtResource("13_se7e0")
+damage_zone_parent_path = NodePath("../DamageZones")
 
 [node name="SpellBook" type="Node" parent="." unique_id=575682282]
 script = ExtResource("6_csoi5")
@@ -44,3 +47,5 @@ metadata/_custom_type_script = "uid://de7cu4a00xfj3"
 [node name="TargetRectangle" parent="." unique_id=231060104 instance=ExtResource("11_ossvp")]
 
 [node name="Projectiles" type="Node2D" parent="." unique_id=701978765]
+
+[node name="DamageZones" type="Node2D" parent="." unique_id=1211076164]

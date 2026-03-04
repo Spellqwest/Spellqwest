@@ -1,3 +1,17 @@
 [gd_scene format=3 uid="uid://dyp7rxt6wdhhx"]
 
-[node name="DamageZone" type="Node2D" unique_id=1665727947]
+[ext_resource type="Script" uid="uid://c5rujmq30725r" path="res://scripts/combat/attacks/projectiles/player_spells/damage_zone.gd" id="1_jxwtm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oqjmf"]
+
+[node name="DamageZone" type="Area2D" unique_id=1779708309]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("1_jxwtm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=496378553]
+shape = SubResource("CircleShape2D_oqjmf")
+
+[node name="TickTimer" type="Timer" parent="." unique_id=1744605106]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1180045940]

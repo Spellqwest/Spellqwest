@@ -6,6 +6,8 @@
 size = Vector2(1149, 39)
 
 [node name="TargetRectangle" type="Area2D" unique_id=231060104]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_b7lc8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1857335515]
