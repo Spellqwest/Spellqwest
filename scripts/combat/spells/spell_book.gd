@@ -1,7 +1,7 @@
 extends Node
 class_name SpellBook
 
-@export var spells: Array[Resource] = []  # SpellResource .tres here
+@export var spells: Array[Resource] = []  
 var _by_word: Dictionary = {} # word -> spell
 
 func _ready() -> void:

@@ -9,6 +9,10 @@ class_name CombatCaster
 @export var damage_zone_parent_path: NodePath
 @onready var damage_zone_parent: Node = get_node_or_null(damage_zone_parent_path)
 
+@export var beam_scene: PackedScene
+@export var beam_parent_path: NodePath
+@onready var beam_parent: Node = get_node_or_null(beam_parent_path)
+
 func cast(spell: SpellResource, origin: Vector2) -> void:
 	if spell is AOESpellResource:
 		_cast_aoe_projectile(spell as AOESpellResource, origin)
@@ -52,8 +56,8 @@ func _cast_aoe_projectile(spell: AOESpellResource, origin: Vector2) -> void:
 
 	p.impacted.connect(_on_projectile_impacted_spawn_zone.bind(spell), CONNECT_ONE_SHOT)
 
-func _on_projectile_impacted_spawn_zone(world_pos: Vector2, hit_area: Area2D, spell: AOESpellResource) -> void:
-	_spawn_damage_zone(spell, world_pos)
+func _on_projectile_impacted_spawn_zone(world_pos: Vector2, _hit_area: Area2D, spell: AOESpellResource) -> void:
+	call_deferred("_spawn_damage_zone", spell, world_pos)
 
 func _spawn_damage_zone(spell: AOESpellResource, world_pos: Vector2) -> void:
 	if damage_zone_scene == null:
@@ -62,11 +66,36 @@ func _spawn_damage_zone(spell: AOESpellResource, world_pos: Vector2) -> void:
 
 	var dz := damage_zone_scene.instantiate() as DamageZone
 	var parent: Node = damage_zone_parent if damage_zone_parent != null else get_tree().current_scene
-	parent.add_child(dz)
 
+	parent.add_child(dz)
 	dz.global_position = world_pos
 	dz.z_index = 40
 	dz.setup_from_spell(spell)
 
-func _cast_beam(spell: SpellResource, origin: Vector2) -> void:
-	pass
+func _cast_beam(spell: BeamSpellResource, origin: Vector2) -> void:
+	if beam_scene == null:
+		push_error("CombatCaster: beam_scene not assigned")
+		return
+
+	var b := beam_scene.instantiate() as Beam
+	var parent: Node = beam_parent if beam_parent != null else get_tree().current_scene
+	parent.add_child(b)
+
+	b.global_position = origin
+	b.z_index = 50
+
+	var dir := Vector2.UP
+	var beam_length := 920.0
+	var beam_width := 24.0
+
+	b.setup(
+		spell.damage,
+		spell.lifetime,
+		spell.hit_delay,
+		spell.spell_frames,
+		spell.spell_anim,
+		dir,
+		beam_length,
+		beam_width
+	)
+	b.start()

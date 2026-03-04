@@ -10,4 +10,4 @@ func _ready() -> void:
 
 func take_damage(amount: int) -> void:
 	hp -= amount
-	print("DUMMY HIT for", amount, "HP left:", hp)
+	print("DUMMY HIT for ", amount, "HP left:", hp)

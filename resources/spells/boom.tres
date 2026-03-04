@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="AOESpellResource" format=3 uid="uid://bh1sycq6ypbhb"]
+[gd_resource type="Resource" script_class="AOESpellResource" format=3 uid="uid://cwwlue4ulxqa0"]
 
 [ext_resource type="Script" uid="uid://bdik7pvdf8h0x" path="res://scripts/combat/spells/spell_type_resources/aoe_spell_resource.gd" id="1_ewhog"]
 [ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="1_je6a8"]
 [ext_resource type="Texture2D" uid="uid://cijd6ebj5qk2a" path="res://assets/visual/projectiles/spells/testspell1.png" id="3_5mgoa"]
 [ext_resource type="Texture2D" uid="uid://cm7nnl7ncxbcn" path="res://assets/visual/projectiles/spells/testspell2.png" id="4_3q2uh"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_je6a8"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_nvhr6"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -16,7 +16,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_5mgoa"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_dphg5"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -27,24 +27,21 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 2.0
+"speed": 1.0
 }]
 
 [resource]
 script = ExtResource("1_ewhog")
-aoe_mode = 1
 aoe_radius = 50.0
 aoe_delay = 0.1
-aoe_duration = 3.0
-aoe_tick_damage = 2
-aoe_tick_rate = 0.25
-aoe_frames = SubResource("SpriteFrames_je6a8")
-projectile_speed = 400.0
-id = &"spell_acid"
-display_name = "Acid"
-word = "acid"
-damage = 3
+aoe_damage_once = 20
+aoe_duration = 0.1
+aoe_frames = SubResource("SpriteFrames_nvhr6")
+projectile_speed = 300.0
+id = &"spell_boom"
+display_name = "Boom"
+word = "boom"
 type = 1
-cast_time = 1.0
-spell_frames = SubResource("SpriteFrames_5mgoa")
-metadata/_custom_type_script = "uid://bdik7pvdf8h0x"
+cast_time = 1.2
+spell_frames = SubResource("SpriteFrames_dphg5")
+metadata/_custom_type_script = "uid://twjoq0y7wvjn"

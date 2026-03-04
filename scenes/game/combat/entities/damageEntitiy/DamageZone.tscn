@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dyp7rxt6wdhhx"]
 
-[ext_resource type="Script" uid="uid://c5rujmq30725r" path="res://scripts/combat/attacks/projectiles/player_spells/damage_zone.gd" id="1_jxwtm"]
+[ext_resource type="Script" uid="uid://c5rujmq30725r" path="res://scripts/combat/attacks/player_spells/damage_zone.gd" id="1_jxwtm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oqjmf"]
 

@@ -1,13 +1,28 @@
 [gd_resource type="Resource" script_class="BeamSpellResource" format=3 uid="uid://cluomifsomujk"]
 
 [ext_resource type="Script" uid="uid://cd325vvg4e8w1" path="res://scripts/combat/spells/spell_type_resources/beam_spell_resource.gd" id="1_uv8qa"]
+[ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="2_6nr8y"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_30dt1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6nr8y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [resource]
 script = ExtResource("1_uv8qa")
+lifetime = 2.0
+hit_delay = 0.25
 id = &"spell_laser"
 display_name = "Laser"
 word = "laser"
 damage = 4
 type = 2
 cast_time = 3.0
+spell_frames = SubResource("SpriteFrames_30dt1")
 metadata/_custom_type_script = "uid://twjoq0y7wvjn"
