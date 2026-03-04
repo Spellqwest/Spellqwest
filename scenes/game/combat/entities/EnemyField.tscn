@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cddydqcioelua"]
+
+[ext_resource type="Script" uid="uid://cwndtny7s78d7" path="res://scenes/game/combat/entities/enemy_field.gd" id="1_leacl"]
+
+[node name="EnemyField" type="Node2D" unique_id=124356476]
+script = ExtResource("1_leacl")
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=1245629443]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

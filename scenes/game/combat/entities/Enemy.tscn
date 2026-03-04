@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dtyn235oh0i1s"]
 
 [ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="1_7s70j"]
-[ext_resource type="Script" uid="uid://e0ewfa888245" path="res://scenes/game/combat/entities/enemy.gd" id="1_43hdt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mk2x"]
 atlas = ExtResource("1_7s70j")
@@ -43,7 +42,6 @@ animations = [{
 size = Vector2(64, 62)
 
 [node name="Enemy" type="Node2D" unique_id=2014145719]
-script = ExtResource("1_43hdt")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1134119514]
 
