@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://ct8bcijajebkg"]
 
+[ext_resource type="Script" uid="uid://b6x3dwkujnl8" path="res://scripts/combat/player/player.gd" id="1_31ss6"]
 [ext_resource type="Texture2D" uid="uid://ce4eofx8k7k4" path="res://assets/visual/characters/player/qwentin_frame1.png" id="1_agn33"]
 [ext_resource type="Texture2D" uid="uid://c8vsuumyw7tie" path="res://assets/visual/characters/player/qwentin_frame2.png" id="2_41ijf"]
-[ext_resource type="Script" path="res://scripts/combat/player/cast_buffer.gd" id="4_31ss6"]
+[ext_resource type="Resource" uid="uid://hnjtgorluvht" path="res://resources/player_stats.tres" id="2_77ct5"]
+[ext_resource type="Script" uid="uid://jdvdtf3h8dso" path="res://scripts/combat/player/cast_buffer.gd" id="4_31ss6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_31ss6"]
 resource_name = "idle"
@@ -24,6 +26,8 @@ size = Vector2(45, 72)
 
 [node name="Player" type="CharacterBody2D" unique_id=693042130]
 z_index = 3
+script = ExtResource("1_31ss6")
+stats = ExtResource("2_77ct5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1649306381]
 scale = Vector2(0.6, 0.6)

@@ -2,6 +2,7 @@ extends Node
 class_name CombatScreen
 
 @onready var keyboard = $Keyboard
+@onready var player = $Keyboard/Player
 @onready var hud = $CanvasLayer/CombatHud
 @onready var typing = $TypingInput
 @onready var cast_buffer = $Keyboard/Player/CastBuffer
@@ -20,6 +21,7 @@ func _ready() -> void:
 	typing.buffer_submitted.connect(_on_buffer_submitted)
 	cast_buffer.spell_ready.connect(_on_spell_ready)
 
+	hud.set_player(player)
 	hud.set_cast_buffer(cast_buffer)
 
 	if run_state != null and spell_book != null:

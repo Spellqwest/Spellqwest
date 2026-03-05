@@ -55,11 +55,11 @@ layout_mode = 2
 
 [node name="HealthLabel" type="Label" parent="MarginContainer/TopBar/VBoxContainer" unique_id=922508593]
 layout_mode = 2
-text = "Health: 100/100"
+text = "HP: 100/100"
 
 [node name="ChargeLabel" type="Label" parent="MarginContainer/TopBar/VBoxContainer" unique_id=1369618604]
 layout_mode = 2
-text = "Current Charge: 0/50"
+text = "Charge: 0/50"
 
 [node name="Spacer" type="Control" parent="MarginContainer/TopBar" unique_id=67363747]
 layout_mode = 2
