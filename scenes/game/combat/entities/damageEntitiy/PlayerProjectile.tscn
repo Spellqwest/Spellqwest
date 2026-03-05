@@ -16,4 +16,4 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_m12re")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1172886886]
-scale = Vector2(4, 4)
+scale = Vector2(2, 2)

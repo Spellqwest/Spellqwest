@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AOESpellResource" format=3 uid="uid://cwwlue4ulxqa0"]
+[gd_resource type="Resource" script_class="AOESpellResource" format=3 uid="uid://di7atophu2kny"]
 
 [ext_resource type="Script" uid="uid://bdik7pvdf8h0x" path="res://scripts/combat/spells/spell_type_resources/aoe_spell_resource.gd" id="1_ewhog"]
 [ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="1_je6a8"]
