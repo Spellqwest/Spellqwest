@@ -4,6 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://dg0d2tj5k7oio" path="res://scenes/game/combat/board/Keyboard.tscn" id="2_8jdeh"]
 [ext_resource type="PackedScene" uid="uid://dtyn235oh0i1s" path="res://scenes/game/combat/entities/Enemy.tscn" id="3_csoi5"]
 [ext_resource type="PackedScene" uid="uid://ggotfsx1sk0r" path="res://scenes/ui/combat/CombatHUD.tscn" id="4_3mw0u"]
+[ext_resource type="Script" uid="uid://sfowtyk7n7dt" path="res://scripts/combat/keyboard/typing_input.gd" id="5_8jdeh"]
+[ext_resource type="Script" path="res://scripts/combat/combat_caster.gd" id="6_xcp1j"]
+[ext_resource type="PackedScene" uid="uid://cdcf7epaotmw7" path="res://scenes/game/combat/entities/damageEntitiy/PlayerProjectile.tscn" id="7_l4sx5"]
+[ext_resource type="PackedScene" uid="uid://c4wn5dt427owq" path="res://scenes/game/combat/entities/damageEntitiy/Beam.tscn" id="9_8e817"]
+[ext_resource type="PackedScene" uid="uid://dyp7rxt6wdhhx" path="res://scenes/game/combat/entities/damageEntitiy/DamageZone.tscn" id="13_se7e0"]
 
 [node name="CombatScreen" type="Node2D" unique_id=207275243]
 script = ExtResource("1_v5uiv")
@@ -19,3 +24,23 @@ player_offset = Vector2(-4, -35)
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=562895090]
 
 [node name="CombatHud" parent="CanvasLayer" unique_id=334824799 instance=ExtResource("4_3mw0u")]
+
+[node name="TypingInput" type="Node" parent="." unique_id=1210425475]
+script = ExtResource("5_8jdeh")
+
+[node name="CombatCaster" type="Node" parent="." unique_id=568675554]
+script = ExtResource("6_xcp1j")
+projectile_scene = ExtResource("7_l4sx5")
+projectile_parent_path = NodePath("../PlayerAttacks/Projectiles")
+damage_zone_scene = ExtResource("13_se7e0")
+damage_zone_parent_path = NodePath("../PlayerAttacks/DamageZones")
+beam_scene = ExtResource("9_8e817")
+beam_parent_path = NodePath("../PlayerAttacks/Beams")
+
+[node name="PlayerAttacks" type="Node" parent="." unique_id=643289807]
+
+[node name="Projectiles" type="Node2D" parent="PlayerAttacks" unique_id=701978765]
+
+[node name="DamageZones" type="Node2D" parent="PlayerAttacks" unique_id=1211076164]
+
+[node name="Beams" type="Node2D" parent="PlayerAttacks" unique_id=64170475]

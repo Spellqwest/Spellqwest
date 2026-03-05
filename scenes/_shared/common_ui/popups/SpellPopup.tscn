@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://cpdku8m8j0ulp"]
+
+[ext_resource type="Script" uid="uid://bwxds4j038hdj" path="res://scripts/ui/widgets/spell_popup.gd" id="1_ll88w"]
+
+[node name="SpellPopup" type="Control" unique_id=820535664]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ll88w")
+
+[node name="Panel" type="Panel" parent="." unique_id=403369382]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.83100003
+anchor_top = 0.35200003
+anchor_right = 0.98600006
+anchor_bottom = 0.89400005
+offset_left = -0.31201172
+offset_top = -0.09602356
+offset_right = 0.12792969
+offset_bottom = -0.31201172
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1161708536]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=308302041]
+layout_mode = 2
+text = "Learned Spells"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer" unique_id=1356431068]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpellList" type="VBoxContainer" parent="Panel/VBoxContainer/ScrollContainer" unique_id=1727494406]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CloseButton" type="Button" parent="Panel/VBoxContainer" unique_id=582525058]
+layout_mode = 2
+text = "Close"
+
+[connection signal="pressed" from="Panel/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

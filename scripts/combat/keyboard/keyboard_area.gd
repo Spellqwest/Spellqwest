@@ -13,19 +13,16 @@ var letter_to_cell: Dictionary = {}
 
 var _has_last := false
 var _last_saved: Array = []
-var _last_cell: Vector2i
-var _last_source_id: int
-var _last_atlas_coords: Vector2i
-var _last_alt: int
-var _last_anchor: Vector2i
+# var _last_cell: Vector2i
+# var _last_source_id: int
+# var _last_atlas_coords: Vector2i
+# var _last_alt: int
+# var _last_anchor: Vector2i
 
 func _ready():
 	var ts := keyboard.tile_set
 	for i in ts.get_source_count():
 		var id := ts.get_source_id(i)
-		var src := ts.get_source(id)
-		if src is TileSetAtlasSource:
-			print("SOURCE:", id, " TEX:", src.texture)
 	_build_mapping()
 	position.x = get_viewport_rect().size.x / 2 - 8
 
@@ -39,8 +36,6 @@ func _build_mapping():
 		var letter = data.get_custom_data("letter")
 		if letter != null:
 			letter_to_cell[str(letter).to_lower()] = cell
-
-	print("Mapped keys:", letter_to_cell.keys())
 
 func handle_letter(letter: String):
 	letter = letter.to_lower()
@@ -60,7 +55,7 @@ func handle_letter(letter: String):
 	_set_block_pressed(anchor)
 	_has_last = true
 
-	var center_cell := anchor + Vector2i(key_block_size.x / 2, key_block_size.y / 2)
+	var center_cell := anchor + Vector2i(key_block_size.x / 2, key_block_size.y / 2) #nötig i guess, hab vergessen für was :D
 	var pos := keyboard.map_to_local(center_cell)
 	player.global_position = keyboard.to_global(pos) + player_offset
 
