@@ -98,3 +98,6 @@ func _set_block_pressed(anchor: Vector2i) -> void:
 				continue
 			var atlas := keyboard.get_cell_atlas_coords(cell)
 			keyboard.set_cell(cell, pressed_source_id, atlas, 0)
+
+func player_damaged(damage: int) -> void:
+	player.take_damage(damage)

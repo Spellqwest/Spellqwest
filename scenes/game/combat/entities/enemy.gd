@@ -17,4 +17,8 @@ func take_damage(amount: int) -> void:
 	current_hp = max(0, current_hp - amount)
 	if(current_hp <= 0): 
 		queue_free()
-		
+
+func _on_area_entered(area: Area2D) -> void:
+	if(area.has_method("player_damaged")):
+		area.call("player_damaged", enemy_stats.contact_damage)
+		queue_free()
