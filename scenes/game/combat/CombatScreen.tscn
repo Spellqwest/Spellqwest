@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bcnn7pxgtty48" path="res://scripts/combat/combat_screen.gd" id="1_v5uiv"]
 [ext_resource type="PackedScene" uid="uid://dg0d2tj5k7oio" path="res://scenes/game/combat/board/Keyboard.tscn" id="2_8jdeh"]
-[ext_resource type="PackedScene" uid="uid://dtyn235oh0i1s" path="res://scenes/game/combat/entities/Enemy.tscn" id="3_csoi5"]
 [ext_resource type="PackedScene" uid="uid://ggotfsx1sk0r" path="res://scenes/ui/combat/CombatHUD.tscn" id="4_3mw0u"]
+[ext_resource type="PackedScene" uid="uid://cddydqcioelua" path="res://scenes/game/combat/entities/EnemyField.tscn" id="4_v5uiv"]
 [ext_resource type="Script" uid="uid://sfowtyk7n7dt" path="res://scripts/combat/keyboard/typing_input.gd" id="5_8jdeh"]
 [ext_resource type="Script" path="res://scripts/combat/combat_caster.gd" id="6_xcp1j"]
 [ext_resource type="PackedScene" uid="uid://cdcf7epaotmw7" path="res://scenes/game/combat/entities/damageEntitiy/PlayerProjectile.tscn" id="7_l4sx5"]
@@ -17,14 +17,11 @@ script = ExtResource("1_v5uiv")
 position = Vector2(554, 500)
 player_offset = Vector2(-4, -35)
 
-[node name="Enemy" parent="." unique_id=2014145719 instance=ExtResource("3_csoi5")]
-
-[node name="SpawnTimer" type="Timer" parent="." unique_id=833730490]
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=562895090]
 
 [node name="CombatHud" parent="CanvasLayer" unique_id=334824799 instance=ExtResource("4_3mw0u")]
 
+[node name="EnemyField" parent="." unique_id=124356476 instance=ExtResource("4_v5uiv")]
 [node name="TypingInput" type="Node" parent="." unique_id=1210425475]
 script = ExtResource("5_8jdeh")
 

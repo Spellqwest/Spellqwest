@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bdm84mdfv0n6i"]
 
+[ext_resource type="Script" uid="uid://dlxphxabd4ywv" path="res://scenes/testing/test_1.gd" id="1_4tegd"]
 [ext_resource type="Script" uid="uid://ckf2na7dk34sk" path="res://scenes/testing/label.gd" id="1_rwoa1"]
 [ext_resource type="Script" uid="uid://j2ejcvg2ndcf" path="res://scenes/testing/player.gd" id="2_l3xao"]
 [ext_resource type="Texture2D" uid="uid://ce4eofx8k7k4" path="res://assets/visual/characters/player/qwentin_frame1.png" id="3_l3xao"]
@@ -23,6 +24,7 @@ animations = [{
 size = Vector2(129, 129)
 
 [node name="Root" type="Node2D" unique_id=1760683574]
+script = ExtResource("1_4tegd")
 
 [node name="Label" type="Label" parent="." unique_id=1824780383]
 offset_left = 566.0
@@ -50,3 +52,9 @@ frame_progress = 0.0123298345
 visible = false
 position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_lt4yx")
+
+[node name="Timer" type="Timer" parent="." unique_id=2040359034]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_enemy_timer_timeout"]
