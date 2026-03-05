@@ -1,6 +1,14 @@
 [gd_scene format=3 uid="uid://ggotfsx1sk0r"]
 
 [ext_resource type="Script" uid="uid://t6qf8q5lhqiw" path="res://scripts/ui/combat/combat_hud.gd" id="1_kxaub"]
+[ext_resource type="PackedScene" uid="uid://43ggc3fbj3ku" path="res://scenes/ui/combat/CastSlot.tscn" id="2_o46td"]
+[ext_resource type="Texture2D" uid="uid://c3rscovib77db" path="res://assets/visual/ui/common/spellbook.png" id="3_y8sw0"]
+[ext_resource type="Texture2D" uid="uid://d27knx712m6bu" path="res://assets/visual/ui/common/inv_button.png" id="4_stujv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kxaub"]
+bg_color = Color(0.6, 0.6, 0.6, 0.27450982)
+expand_margin_top = 8.0
+expand_margin_right = 8.0
 
 [node name="CombatHud" type="Control" unique_id=334824799]
 layout_mode = 3
@@ -10,6 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kxaub")
+slot_scene = ExtResource("2_o46td")
 
 [node name="TypedPanel" type="PanelContainer" parent="." unique_id=393242415]
 layout_mode = 1
@@ -38,6 +47,7 @@ grow_horizontal = 2
 
 [node name="TopBar" type="HBoxContainer" parent="MarginContainer" unique_id=257072242]
 layout_mode = 2
+theme_override_constants/separation = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TopBar" unique_id=1372776848]
 custom_minimum_size = Vector2(200, 0)
@@ -45,11 +55,11 @@ layout_mode = 2
 
 [node name="HealthLabel" type="Label" parent="MarginContainer/TopBar/VBoxContainer" unique_id=922508593]
 layout_mode = 2
-text = "Health: 100/100"
+text = "HP: 100/100"
 
 [node name="ChargeLabel" type="Label" parent="MarginContainer/TopBar/VBoxContainer" unique_id=1369618604]
 layout_mode = 2
-text = "Current Charge: 0/50"
+text = "Charge: 0/50"
 
 [node name="Spacer" type="Control" parent="MarginContainer/TopBar" unique_id=67363747]
 layout_mode = 2
@@ -60,7 +70,27 @@ layout_direction = 3
 layout_mode = 2
 text = "Coins: 0"
 
-[node name="InventoryButton" type="Button" parent="MarginContainer/TopBar" unique_id=980171442]
-layout_direction = 3
+[node name="BookButton" type="TextureButton" parent="MarginContainer/TopBar" unique_id=869453316]
 layout_mode = 2
-text = "Inv"
+texture_normal = ExtResource("3_y8sw0")
+stretch_mode = 5
+
+[node name="InventoryButton" type="TextureButton" parent="MarginContainer/TopBar" unique_id=1723783668]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture_normal = ExtResource("4_stujv")
+stretch_mode = 5
+
+[node name="CastPanel" type="PanelContainer" parent="." unique_id=916796526]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.60300004
+anchor_right = 0.186
+anchor_bottom = 1.0
+offset_top = 0.25598145
+offset_right = -0.27200317
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kxaub")
+
+[node name="CastGrid" type="GridContainer" parent="CastPanel" unique_id=616515452]
+layout_mode = 2

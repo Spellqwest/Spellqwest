@@ -1,19 +1,18 @@
 extends Control
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	print("Menu loaded")
+@onready var settings_window: Window = $SettingsWindow
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass # Replace with function body.
-	
+func _ready() -> void:
+	settings_window.hide()
+
 func _on_play_button_pressed() -> void:
-	print("Play pressed!") # <- test
-	get_tree().change_scene_to_file("res://scenes/game/combat/CombatScreen.tscn")
-	
+	get_tree().change_scene_to_file("res://scenes/game/RunRoot.tscn")
+
 func _on_menu_button_pressed() -> void:
-	pass # Replace with function body.
+	settings_window.popup_centered()
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+func _on_close_button_pressed() -> void:
+	settings_window.hide()
