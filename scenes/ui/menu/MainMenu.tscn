@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://hncvs2dark16"]
 
 [ext_resource type="Script" uid="uid://bi7qkl6wy4kgj" path="res://scripts/ui/menu/main_menu.gd" id="1_manl8"]
+[ext_resource type="AudioStream" uid="uid://c2ke0eyc33ntp" path="res://assets/audio/music/menu_music.ogg" id="2_ul53e"]
 
 [node name="MainScene" type="Control" unique_id=637151267]
 layout_mode = 3
@@ -64,14 +65,14 @@ theme_override_constants/separation = 16
 
 [node name="AudioLabel" type="Label" parent="SettingsWindow/VBoxContainer/HBoxContainer" unique_id=161703048]
 layout_mode = 2
-text = "Volume"
+text = "Master Volume"
 
 [node name="VolumeSlider" type="HSlider" parent="SettingsWindow/VBoxContainer/HBoxContainer" unique_id=664309614]
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 value = 100.0
 rounded = true
-tick_count = 10
+tick_count = 8
 
 [node name="FullscreenToggle" type="CheckBox" parent="SettingsWindow/VBoxContainer" unique_id=2083845597]
 layout_mode = 2
@@ -80,7 +81,12 @@ layout_mode = 2
 layout_mode = 2
 text = "Close"
 
+[node name="MenuMusic" type="AudioStreamPlayer" parent="." unique_id=1576124039]
+stream = ExtResource("2_ul53e")
+autoplay = true
+
 [connection signal="pressed" from="Menu/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/SettingsButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="value_changed" from="SettingsWindow/VBoxContainer/HBoxContainer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="pressed" from="SettingsWindow/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
