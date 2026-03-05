@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://scripts/combat/combat_caster.gd" id="6_xcp1j"]
 [ext_resource type="PackedScene" uid="uid://cdcf7epaotmw7" path="res://scenes/game/combat/entities/damageEntitiy/PlayerProjectile.tscn" id="7_l4sx5"]
 [ext_resource type="PackedScene" uid="uid://c4wn5dt427owq" path="res://scenes/game/combat/entities/damageEntitiy/Beam.tscn" id="9_8e817"]
-[ext_resource type="PackedScene" uid="uid://b8tibmymd6xb" path="res://scenes/testing/TargetRectangle.tscn" id="11_ossvp"]
 [ext_resource type="PackedScene" uid="uid://dyp7rxt6wdhhx" path="res://scenes/game/combat/entities/damageEntitiy/DamageZone.tscn" id="13_se7e0"]
 
 [node name="CombatScreen" type="Node2D" unique_id=207275243]
@@ -37,8 +36,6 @@ damage_zone_scene = ExtResource("13_se7e0")
 damage_zone_parent_path = NodePath("../PlayerAttacks/DamageZones")
 beam_scene = ExtResource("9_8e817")
 beam_parent_path = NodePath("../PlayerAttacks/Beams")
-
-[node name="TargetRectangle" parent="." unique_id=231060104 instance=ExtResource("11_ossvp")]
 
 [node name="PlayerAttacks" type="Node" parent="." unique_id=643289807]
 
