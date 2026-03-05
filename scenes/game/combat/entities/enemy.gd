@@ -1,16 +1,20 @@
 extends Node2D
 
-
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@export var enemy_stats: EnemyResource
+var current_hp: int 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	current_hp = enemy_stats.max_hp
+	anim.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	global_position.y += enemy_stats.speed * delta
 
-
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	pass # Replace with function body.
+func take_damage(amount: int) -> void:
+	current_hp = max(0, current_hp - amount)
+	if(current_hp <= 0): 
+		queue_free()
+		

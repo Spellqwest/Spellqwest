@@ -3,13 +3,49 @@
 [ext_resource type="Script" uid="uid://bb6711hoq4n6k" path="res://scripts/combat/enemies/enemy_resource.gd" id="1_cicpy"]
 [ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="1_kpweo"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpweo"]
+atlas = ExtResource("1_kpweo")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lthh"]
+atlas = ExtResource("1_kpweo")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_40bey"]
+atlas = ExtResource("1_kpweo")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ig81"]
+atlas = ExtResource("1_kpweo")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kldgj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpweo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lthh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_40bey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ig81")
+}],
+"loop": true,
+"name": &"enemy_idle",
+"speed": 1.5
+}]
+
 [resource]
 script = ExtResource("1_cicpy")
 id = "testgrunt"
 display_name = "Test Grunt"
 max_hp = 8
-speed = 120.0
+speed = 20.0
 contact_damage = 5
-icon = ExtResource("1_kpweo")
+enemy_frames = SubResource("SpriteFrames_kldgj")
 gold_reward = 4
 metadata/_custom_type_script = "uid://bb6711hoq4n6k"
