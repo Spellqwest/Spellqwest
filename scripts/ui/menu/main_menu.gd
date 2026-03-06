@@ -1,3 +1,4 @@
+@tool
 extends Control
 
 @onready var settings_window: Window = $SettingsWindow
