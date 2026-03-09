@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ctueyk25isx7l"]
+
+[ext_resource type="Script" uid="uid://b10tlwx8b88w3" path="res://scenes/ui/map/map_screen.gd" id="1_quytf"]
+[ext_resource type="Script" uid="uid://dsauqxhay0wum" path="res://scenes/ui/map/map_path_layer.gd" id="1_yp7ql"]
+[ext_resource type="PackedScene" uid="uid://db3hiju2fpmpo" path="res://scenes/game/map/MapNodes.tscn" id="2_pyuba"]
+
+[node name="MapScreen" type="Node2D" unique_id=229224555]
+script = ExtResource("1_quytf")
+map_node_scene = ExtResource("2_pyuba")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=399833746]
+
+[node name="Paths" type="Node2D" parent="." unique_id=534476911]
+script = ExtResource("1_yp7ql")
+
+[node name="Nodes" type="Node2D" parent="." unique_id=568494846]

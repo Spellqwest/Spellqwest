@@ -1,0 +1,218 @@
+@tool
+extends Node2D
+class_name MapScreen
+
+signal node_chosen(node_data)
+signal combat_requested(node_data)
+signal shop_requested(node_data)
+signal treasure_requested(node_data)
+signal special_requested(node_data)
+signal boss_requested(node_data)
+
+const MapFloorData = preload("res://data/map/map_stage_data.gd")
+const MapNodeData = preload("res://data/map/map_node_data.gd")
+const MapGenerator = preload("res://data/map/map_generator.gd")
+
+@export var map_node_scene: PackedScene
+@export var mouse_follow_strength: float = 220.0
+@export var wheel_scroll_amount: float = 120.0
+@export var drag_enabled: bool = true
+
+@onready var paths: Node2D = $Paths
+@onready var nodes_root: Node2D = $Nodes
+@onready var camera: Camera2D = $Camera2D
+
+var _dragging: bool = false
+var _last_mouse_pos: Vector2 = Vector2.ZERO
+var _base_camera_y: float = 0.0
+
+var run_state: RunState
+var floor_data: MapFloorData
+var _node_views: Dictionary = {}
+
+func _ready() -> void:
+	if camera != null:
+		camera.enabled = true
+
+func _process(_delta: float) -> void:
+	if camera == null or floor_data == null:
+		return
+
+	if _dragging:
+		return
+
+	var viewport_size: Vector2 = get_viewport_rect().size
+	if viewport_size.y <= 0.0:
+		return
+
+	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	var normalized_y: float = (mouse_pos.y / viewport_size.y) - 0.5
+	var target_y: float = _base_camera_y + normalized_y * mouse_follow_strength
+
+	camera.position.y = target_y
+	_clamp_camera()
+
+func setup(p_run_state: RunState) -> void:
+	run_state = p_run_state
+
+func generate_new_floor(stage_index: int, seed: int = 0) -> void:
+	var generator := MapGenerator.new()
+	floor_data = generator.generate_floor(stage_index, seed)
+	_rebuild_view()
+
+func _rebuild_view() -> void:
+	if floor_data == null:
+		push_error("MapScreen: floor_data is null.")
+		return
+
+	if map_node_scene == null:
+		push_error("MapScreen: map_node_scene is not assigned.")
+		return
+
+	_layout_map_roots()
+
+	for child in nodes_root.get_children():
+		child.queue_free()
+	_node_views.clear()
+
+	for node: MapNodeData in floor_data.nodes:
+		var view = map_node_scene.instantiate() as MapNodeView
+		if view == null:
+			push_error("MapScreen: failed to instantiate MapNodeView scene.")
+			return
+
+		nodes_root.add_child(view)
+		view.setup(node)
+		view.pressed.connect(_on_node_pressed)
+		_node_views[node.id] = view
+
+	if paths.has_method("set_floor_data"):
+		paths.set_floor_data(floor_data)
+
+	_focus_on_current_node()
+
+func _refresh_view() -> void:
+	for node_id in _node_views.keys():
+		var view: MapNodeView = _node_views[node_id] as MapNodeView
+		if view != null:
+			view.refresh()
+
+	if paths.has_method("set_floor_data"):
+		paths.set_floor_data(floor_data)
+
+func _on_node_pressed(node_id: int) -> void:
+	var node := floor_data.get_node_by_id(node_id)
+	if node == null or not node.available:
+		return
+
+	_move_to_node(node)
+	node_chosen.emit(node)
+	_emit_event_signal(node)
+
+func _move_to_node(node: MapNodeData) -> void:
+	var previous := floor_data.get_node_by_id(floor_data.current_node_id)
+	if previous != null:
+		previous.available = false
+
+	floor_data.current_node_id = node.id
+	node.visited = true
+	node.revealed = true
+
+	for n: MapNodeData in floor_data.nodes:
+		n.available = false
+
+	for child: MapNodeData in floor_data.get_children_of(node.id):
+		child.available = true
+		child.revealed = true
+
+	_refresh_view()
+	_focus_on_current_node()
+
+func _emit_event_signal(node: MapNodeData) -> void:
+	match node.type:
+		MapNodeData.NodeType.COMBAT, MapNodeData.NodeType.HARD_COMBAT:
+			combat_requested.emit(node)
+		MapNodeData.NodeType.BOSS:
+			boss_requested.emit(node)
+		MapNodeData.NodeType.SHOP:
+			shop_requested.emit(node)
+		MapNodeData.NodeType.TREASURE:
+			treasure_requested.emit(node)
+		MapNodeData.NodeType.SPECIAL:
+			special_requested.emit(node)
+		MapNodeData.NodeType.START:
+			pass
+
+func _layout_map_roots() -> void:
+	var viewport_size: Vector2 = get_viewport_rect().size
+	var anchor := Vector2(viewport_size.x * 0.5, viewport_size.y - 140.0)
+
+	nodes_root.position = anchor
+	paths.position = anchor
+
+func _unhandled_input(event: InputEvent) -> void:
+	if camera == null:
+		return
+
+	if event is InputEventMouseButton:
+		if drag_enabled and event.button_index == MOUSE_BUTTON_MIDDLE:
+			_dragging = event.pressed
+			_last_mouse_pos = event.position
+			if _dragging:
+				_base_camera_y = camera.position.y
+
+		elif event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+			_base_camera_y -= wheel_scroll_amount
+			camera.position.y = _base_camera_y
+			_clamp_camera()
+			_base_camera_y = camera.position.y
+
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
+			_base_camera_y += wheel_scroll_amount
+			camera.position.y = _base_camera_y
+			_clamp_camera()
+			_base_camera_y = camera.position.y
+
+	elif event is InputEventMouseMotion and _dragging:
+		var delta: Vector2 = event.position - _last_mouse_pos
+		camera.position.y -= delta.y
+		_last_mouse_pos = event.position
+		_clamp_camera()
+		_base_camera_y = camera.position.y
+
+func _clamp_camera() -> void:
+	if floor_data == null or camera == null:
+		return
+
+	var top_y: float = 999999.0
+	var bottom_y: float = -999999.0
+
+	for node: MapNodeData in floor_data.nodes:
+		top_y = min(top_y, node.position.y)
+		bottom_y = max(bottom_y, node.position.y)
+
+	var viewport_size: Vector2 = get_viewport_rect().size
+	var half_h: float = viewport_size.y * 0.5
+
+	var min_y: float = top_y + nodes_root.position.y + half_h - 120.0
+	var max_y: float = bottom_y + nodes_root.position.y - half_h + 120.0
+
+	if min_y > max_y:
+		var mid: float = (min_y + max_y) * 0.5
+		min_y = mid
+		max_y = mid
+
+	camera.position.x = viewport_size.x * 0.5
+	camera.position.y = clamp(camera.position.y, min_y, max_y)
+
+func _focus_on_current_node() -> void:
+	if floor_data == null or camera == null:
+		return
+
+	var current := floor_data.get_node_by_id(floor_data.current_node_id)
+	if current == null:
+		return
+
+	camera.position = nodes_root.position + current.position
+	_clamp_camera()
+	_base_camera_y = camera.position.y
