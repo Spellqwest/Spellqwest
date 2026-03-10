@@ -19,8 +19,8 @@ func generate_floor(stage_index: int, seed: int = 0) -> MapFloorData:
 	floor.stage_index = stage_index
 	floor.seed = seed
 
-	var regular_layers := 7
-	var lane_count := 5
+	var regular_layers := 4
+	var lane_count := 4
 	
 	var layer_spacing := 220.0
 	var lane_spacing := 220.0

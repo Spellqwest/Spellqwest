@@ -3,7 +3,7 @@ extends Node2D
 ##############################################
 #Global Variables
 ##############################################
-@export var enemy_scene:= preload("res://scenes/game/combat/entities/Enemy.tscn") 
+@export var enemy_scene:= preload("res://scenes/game/combat/enemies/Enemy.tscn") 
 
 var baseYPos = 100
 

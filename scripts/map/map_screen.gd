@@ -14,8 +14,12 @@ const MapNodeData = preload("res://data/map/map_node_data.gd")
 const MapGenerator = preload("res://data/map/map_generator.gd")
 
 @export var map_node_scene: PackedScene
+
 @export var mouse_follow_strength: float = 220.0
-@export var wheel_scroll_amount: float = 120.0
+@export var edge_scroll_zone: float = 120.0
+@export var edge_scroll_speed: float = 520.0
+@export var edge_scroll_curve: float = 2.0
+@export var wheel_scroll_amount: float = 80.0
 @export var drag_enabled: bool = true
 
 @onready var paths: Node2D = $Paths
@@ -31,10 +35,10 @@ var floor_data: MapFloorData
 var _node_views: Dictionary = {}
 
 func _ready() -> void:
-	if camera != null:
-		camera.enabled = true
+	visibility_changed.connect(_on_visibility_changed)
+	_on_visibility_changed()
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if camera == null or floor_data == null:
 		return
 
@@ -46,14 +50,38 @@ func _process(_delta: float) -> void:
 		return
 
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
-	var normalized_y: float = (mouse_pos.y / viewport_size.y) - 0.5
-	var target_y: float = _base_camera_y + normalized_y * mouse_follow_strength
 
-	camera.position.y = target_y
+	var normalized_y: float = (mouse_pos.y / viewport_size.y) - 0.5
+	var follow_offset: float = normalized_y * mouse_follow_strength
+
+	var edge_velocity: float = 0.0
+
+	if mouse_pos.y < edge_scroll_zone:
+		var edge_t: float = 1.0 - (mouse_pos.y / edge_scroll_zone)
+		edge_t = pow(edge_t, edge_scroll_curve)
+		edge_velocity = -edge_t * edge_scroll_speed
+	elif mouse_pos.y > viewport_size.y - edge_scroll_zone:
+		var dist_from_bottom: float = viewport_size.y - mouse_pos.y
+		var edge_t: float = 1.0 - (dist_from_bottom / edge_scroll_zone)
+		edge_t = pow(edge_t, edge_scroll_curve)
+		edge_velocity = edge_t * edge_scroll_speed
+
+	_base_camera_y += edge_velocity * delta
+
+	camera.position.y = _base_camera_y + follow_offset
+
 	_clamp_camera()
+
+	_base_camera_y = camera.position.y - follow_offset
 
 func setup(p_run_state: RunState) -> void:
 	run_state = p_run_state
+
+func _on_visibility_changed() -> void:
+	if camera == null:
+		return
+
+	camera.enabled = visible
 
 func generate_new_floor(stage_index: int, seed: int = 0) -> void:
 	var generator := MapGenerator.new()
@@ -162,20 +190,18 @@ func _unhandled_input(event: InputEvent) -> void:
 				_base_camera_y = camera.position.y
 
 		elif event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
-			_base_camera_y -= wheel_scroll_amount
-			camera.position.y = _base_camera_y
+			camera.position.y -= wheel_scroll_amount
 			_clamp_camera()
 			_base_camera_y = camera.position.y
 
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
-			_base_camera_y += wheel_scroll_amount
-			camera.position.y = _base_camera_y
+			camera.position.y += wheel_scroll_amount
 			_clamp_camera()
 			_base_camera_y = camera.position.y
 
 	elif event is InputEventMouseMotion and _dragging:
-		var delta: Vector2 = event.position - _last_mouse_pos
-		camera.position.y -= delta.y
+		var delta_pos: Vector2 = event.position - _last_mouse_pos
+		camera.position.y -= delta_pos.y
 		_last_mouse_pos = event.position
 		_clamp_camera()
 		_base_camera_y = camera.position.y

@@ -19,6 +19,7 @@ func setup(_run_state: RunState, _spell_book: SpellBook) -> void:
 
 func _ready() -> void:
 	visibility_changed.connect(_on_visibility_changed)
+	_on_visibility_changed()
 
 	typing.token_typed.connect(_on_token_typed)
 	typing.buffer_changed.connect(_on_buffer_changed)
@@ -34,14 +35,9 @@ func _ready() -> void:
 		_init_run_spells()
 
 func _on_visibility_changed() -> void:
-	if canvas_layer != null:
-		canvas_layer.visible = visible
-
-	set_process(visible)
-	set_physics_process(visible)
-	set_process_input(visible)
-	set_process_unhandled_input(visible)
-	set_process_unhandled_key_input(visible)
+	var combat_camera: Camera2D = get_node_or_null("Camera2D")
+	if combat_camera != null:
+		combat_camera.enabled = visible
 
 func _init_run_spells() -> void:
 	run_state.learn_all_spells(spell_book.get_all_spells())
