@@ -2,8 +2,13 @@
 extends Node
 class_name RunState
 
+const MapStageData = preload("res://data/map/map_stage_data.gd")
+
 @export var stats: PlayerStats
 var learned_spell_ids: Dictionary = {}  # id -> true
+
+var current_map_stage: MapStageData
+var current_stage_index: int = 1
 
 func learn_spell(id: StringName) -> void:
 	learned_spell_ids[id] = true

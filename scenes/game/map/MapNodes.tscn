@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://db3hiju2fpmpo"]
+
+[ext_resource type="Script" uid="uid://de6y70di54pqp" path="res://scripts/map/map_node_view.gd" id="1_t1l11"]
+[ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="2_oh0e2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n685t"]
+
+[node name="MapNodes" type="Node2D" unique_id=2035033151]
+script = ExtResource("1_t1l11")
+
+[node name="ButtonArea" type="Area2D" parent="." unique_id=1918609341]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ButtonArea" unique_id=689207773]
+shape = SubResource("RectangleShape2D_n685t")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1002323802]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_oh0e2")
+
+[node name="StateLabel" type="Label" parent="." unique_id=1413828631]
+offset_right = 40.0
+offset_bottom = 23.0
