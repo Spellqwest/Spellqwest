@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://6mt2oo5sxy7c" path="res://resources/spells/fire.tres" id="6_fgvbs"]
 [ext_resource type="Resource" uid="uid://cluomifsomujk" path="res://resources/spells/laser.tres" id="7_6u1c1"]
 [ext_resource type="Resource" uid="uid://di7atophu2kny" path="res://resources/spells/boom.tres" id="8_y5swq"]
+[ext_resource type="PackedScene" uid="uid://ceblru1cl82tc" path="res://scenes/_shared/common_ui/popups/InventoryPopup.tscn" id="11_6u1c1"]
 [ext_resource type="PackedScene" uid="uid://ctueyk25isx7l" path="res://scenes/game/map/MapScreen.tscn" id="12_fgvbs"]
 
 [sub_resource type="Resource" id="Resource_kprca"]
@@ -33,9 +34,16 @@ script = ExtResource("1_icvq8")
 [node name="SpellPopup" parent="RunUI" unique_id=2123588879 instance=ExtResource("1_e37qp")]
 visible = false
 
+[node name="InventoryPopup" parent="RunUI" unique_id=360807276 instance=ExtResource("11_6u1c1")]
+visible = false
+
 [node name="Screens" type="Node" parent="." unique_id=647361186]
 
 [node name="CombatScreen" parent="Screens" unique_id=207275243 instance=ExtResource("2_icvq8")]
+process_mode = 4
 visible = false
 
 [node name="MapScreen" parent="Screens" unique_id=229224555 instance=ExtResource("12_fgvbs")]
+edge_scroll_zone = 120.0
+edge_scroll_speed = 520.0
+edge_scroll_curve = 2.0

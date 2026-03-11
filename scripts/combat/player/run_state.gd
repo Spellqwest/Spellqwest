@@ -6,6 +6,7 @@ const MapStageData = preload("res://data/map/map_stage_data.gd")
 
 @export var stats: PlayerStats
 var learned_spell_ids: Dictionary = {}  # id -> true
+@export var current_coins: int = 0
 
 var current_map_stage: MapStageData
 var current_stage_index: int = 1
