@@ -11,6 +11,11 @@ metadata/_custom_type_script = "uid://cqb8fogul3fmo"
 
 [resource]
 script = ExtResource("1_mr6qb")
+id = &"item_potion_health"
+display_name = "Health Potion"
+description = "Heals u lol"
 icon = ExtResource("1_tip3f")
+can_use_on_map = true
+can_use_in_combat = true
 effect = SubResource("Resource_l12i4")
 metadata/_custom_type_script = "uid://cu2pbc8m06lkg"
