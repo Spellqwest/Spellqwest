@@ -51,26 +51,28 @@ func _update_buttons() -> void:
 		equip_button.visible = false
 		use_button.visible = false
 		inspect_button.visible = false
-		return
+	else:
+		equip_button.visible = (
+			_item.item_type == ItemResource.ItemType.CONSUMABLE
+			or _item.item_type == ItemResource.ItemType.WEAPON
+		)
 
-	equip_button.visible = (
-		_item.item_type == ItemResource.ItemType.CONSUMABLE
-		or _item.item_type == ItemResource.ItemType.WEAPON
-	)
+		use_button.visible = (
+			_item.item_type == ItemResource.ItemType.CONSUMABLE
+			and _item.can_use_on_map
+		)
 
-	use_button.visible = (
-		_item.item_type == ItemResource.ItemType.CONSUMABLE
-		and _item.can_use_on_map
-	)
+		inspect_button.visible = true
 
-	inspect_button.visible = true
+	vbox.queue_sort()
+	panel.reset_size()
 
 func _position_panel(screen_position: Vector2) -> void:
 	var viewport_size: Vector2 = get_viewport_rect().size
 	var panel_size: Vector2 = panel.size
 
 	if panel_size == Vector2.ZERO:
-		panel_size = panel.custom_minimum_size
+		panel_size = panel.get_combined_minimum_size()
 
 	var pos: Vector2 = screen_position
 
