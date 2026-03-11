@@ -48,3 +48,7 @@ func _center_panel() -> void:
 		panel_size = panel.custom_minimum_size
 
 	panel.position = (viewport_size - panel_size) * 0.5
+
+
+func _on_close_button_pressed() -> void:
+	hide_popup()

@@ -16,8 +16,10 @@ script = ExtResource("1_v5uiv")
 [node name="Keyboard" parent="." unique_id=1499620130 instance=ExtResource("2_8jdeh")]
 position = Vector2(-7, 500)
 player_offset = Vector2(-4, -35)
+equipped_item_offset = Vector2(0, 42)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1983014796]
+layer = -10
 
 [node name="CombatHud" parent="CanvasLayer" unique_id=334824799 instance=ExtResource("4_3mw0u")]
 
