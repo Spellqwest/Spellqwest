@@ -36,3 +36,6 @@ func _input(event: InputEvent) -> void:
 		spell_popup.hide_popup()
 		inventory_popup.hide_popup()
 		get_viewport().set_input_as_handled()
+
+func _on_test_button_pressed() -> void:
+	print("Button Works")
