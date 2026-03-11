@@ -67,6 +67,7 @@ layout_mode = 2
 
 [node name="ItemsPanel" type="PanelContainer" parent="Panel/Margin/VBox" unique_id=88945119]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="ItemsMargin" type="MarginContainer" parent="Panel/Margin/VBox/ItemsPanel" unique_id=1692601578]
 layout_mode = 2

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://3gvbhrt8iapk"]
+
+[ext_resource type="Script" uid="uid://cu2pbc8m06lkg" path="res://scripts/inventory/items/item_resource.gd" id="1_gxexs"]
+[ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="1_u8t5v"]
+
+[resource]
+script = ExtResource("1_gxexs")
+id = &"item_passive_inkflask"
+display_name = "Ink Flask"
+description = "Increases your max typing speed slightly"
+item_type = 2
+icon = ExtResource("1_u8t5v")
+metadata/_custom_type_script = "uid://cu2pbc8m06lkg"
