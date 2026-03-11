@@ -24,7 +24,10 @@ func _ready() -> void:
 	typing.buffer_changed.connect(_on_buffer_changed)
 	typing.buffer_submitted.connect(_on_buffer_submitted)
 	cast_buffer.spell_ready.connect(_on_spell_ready)
-
+	
+	if run_state != null and run_state.stats != null:
+		player.apply_run_stats(run_state.stats)
+	
 	hud.set_player(player)
 	hud.set_cast_buffer(cast_buffer)
 	
@@ -46,6 +49,12 @@ func _init_run_spells() -> void:
 func _on_token_typed(token: String) -> void:
 	keyboard.handle_letter(token)
 
+	match token:
+		",":
+			_try_use_equipped_consumable()
+		".":
+			_try_use_equipped_weapon()
+
 func _on_buffer_changed(buf: String) -> void:
 	hud.set_typed_text(buf)
 
@@ -65,3 +74,44 @@ func _on_buffer_submitted(buf: String) -> void:
 func _on_spell_ready(spell: SpellResource) -> void:
 	var origin: Vector2 = keyboard.player.global_position
 	caster.cast(spell, origin)
+	
+func _refresh_equipped_item_display() -> void:
+	if run_state == null or run_state.inventory == null:
+		keyboard.refresh_equipped_items(null, null)
+		return
+
+	keyboard.refresh_equipped_items(
+		run_state.inventory.equipped_consumable,
+		run_state.inventory.equipped_weapon
+	)
+	
+func _try_use_equipped_consumable() -> void:
+	if run_state == null or run_state.inventory == null:
+		return
+
+	var item = run_state.inventory.equipped_consumable
+	if item == null:
+		return
+
+	if run_state.can_use_item(item):
+		run_state.use_item(item)
+		_sync_player_from_run_state()
+		_refresh_equipped_item_display()
+
+func _try_use_equipped_weapon() -> void:
+	if run_state == null or run_state.inventory == null:
+		return
+
+	var item = run_state.inventory.equipped_weapon
+	if item == null:
+		return
+
+	if run_state.can_use_item(item):
+		run_state.use_item(item)
+		_refresh_equipped_item_display()
+		
+func _sync_player_from_run_state() -> void:
+	if run_state == null or run_state.stats == null:
+		return
+
+	player.apply_run_stats(run_state.stats)

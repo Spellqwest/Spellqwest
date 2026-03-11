@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://ddx4366807jsp"]
 
 [ext_resource type="Script" uid="uid://bn83yejcn6qtv" path="res://scripts/ui/widgets/inventory_popup.gd" id="1_5cyxb"]
+[ext_resource type="PackedScene" uid="uid://bb1gbbps8q057" path="res://scenes/ui/inventory/ItemActionPopup.tscn" id="2_fkk2e"]
+[ext_resource type="PackedScene" uid="uid://dtbr7v6p31b4c" path="res://scenes/ui/inventory/ItemInspectPopup.tscn" id="3_fkk2e"]
 
 [node name="InventoryPopup" type="Control" unique_id=360807276]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,8 +17,8 @@ script = ExtResource("1_5cyxb")
 
 [node name="Panel" type="PanelContainer" parent="." unique_id=1175619550]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 88.0
+offset_bottom = 218.0
 mouse_filter = 1
 mouse_behavior_recursive = 2
 
@@ -83,3 +86,10 @@ layout_mode = 2
 [node name="ItemsGrid" type="GridContainer" parent="Panel/Margin/VBox/ItemsPanel/ItemsMargin/ItemsScroll" unique_id=282618367]
 layout_mode = 2
 columns = 4
+
+[node name="ItemActionPopup" parent="." unique_id=736320527 instance=ExtResource("2_fkk2e")]
+visible = false
+layout_mode = 1
+
+[node name="ItemInspectPopup" parent="." unique_id=2102415532 instance=ExtResource("3_fkk2e")]
+layout_mode = 1

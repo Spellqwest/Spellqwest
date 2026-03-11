@@ -10,6 +10,8 @@ const ItemResource = preload("res://scripts/inventory/items/item_resource.gd")
 @onready var weapon_slot_label: Label = $Panel/Margin/VBox/EquipRow/WeaponSlot/WeaponSlotMargin/WeaponSlotLabel
 @onready var items_scroll: ScrollContainer = $Panel/Margin/VBox/ItemsPanel/ItemsMargin/ItemsScroll
 @onready var items_grid: GridContainer = $Panel/Margin/VBox/ItemsPanel/ItemsMargin/ItemsScroll/ItemsGrid
+@onready var item_action_popup: ItemActionPopup = $ItemActionPopup
+@onready var item_inspect_popup: ItemInspectPopup = $ItemInspectPopup
 
 var _run_state: RunState
 var _inventory: InventoryState
@@ -20,6 +22,10 @@ func _ready() -> void:
 	
 	if items_grid != null:
 		items_grid.columns = 4
+
+	item_action_popup.equip_requested.connect(_on_action_equip_requested)
+	item_action_popup.use_requested.connect(_on_action_use_requested)
+	item_action_popup.inspect_requested.connect(_on_action_inspect_requested)
 	
 	_set_layout()
 
@@ -48,6 +54,8 @@ func show_popup(run_state: RunState) -> void:
 	show()
 
 func hide_popup() -> void:
+	item_action_popup.hide_popup()
+	item_inspect_popup.hide_popup()
 	hide()
 
 func _on_inventory_changed() -> void:
@@ -141,17 +149,28 @@ func _make_item_slot(item: ItemResource) -> Button:
 		button.text = item.display_name
 
 	button.pressed.connect(func() -> void:
-		_on_item_pressed(item)
+		var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+		item_action_popup.show_for_item(item, mouse_pos)
 	)
 
 	return button
 
-func _on_item_pressed(item: ItemResource) -> void:
-	if _inventory == null or item == null:
+func _on_action_equip_requested(item: ItemResource) -> void:
+	if _run_state == null or item == null:
 		return
 
-	match item.item_type:
-		ItemResource.ItemType.CONSUMABLE, ItemResource.ItemType.WEAPON:
-			_inventory.equip(item)
-		ItemResource.ItemType.PASSIVE:
-			pass
+	_run_state.equip_item(item)
+	_refresh()
+
+func _on_action_use_requested(item: ItemResource) -> void:
+	if _run_state == null or item == null:
+		return
+
+	_run_state.use_item(item)
+	_refresh()
+
+func _on_action_inspect_requested(item: ItemResource) -> void:
+	if item == null:
+		return
+
+	item_inspect_popup.show_for_item(item)

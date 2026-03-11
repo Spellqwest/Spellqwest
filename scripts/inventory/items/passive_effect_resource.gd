@@ -3,7 +3,7 @@ class_name PassiveEffect
 
 func on_pickup(_run_state: RunState) -> void:
 	pass
-
+#
 func on_combat_started(_run_state: RunState) -> void:
 	pass
 

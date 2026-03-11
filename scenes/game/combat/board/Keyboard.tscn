@@ -1014,12 +1014,13 @@ sources/1 = SubResource("TileSetAtlasSource_scijj")
 size = Vector2(650, 53)
 
 [node name="KeyboardArea" type="Area2D" unique_id=794398389]
-position = Vector2(-7, 0)
+position = Vector2(672.5, 0)
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_gnik0")
 player_offset = Vector2(10, -12)
 pressed_atlas_texture = ExtResource("64_roqie")
+equipped_item_offset = null
 
 [node name="Player" parent="." unique_id=933002215 instance=ExtResource("31_2qogm")]
 z_index = 1
@@ -1032,5 +1033,7 @@ tile_set = SubResource("TileSet_uwdj8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1613664522]
 position = Vector2(5, -62.5)
 shape = SubResource("RectangleShape2D_gbbh5")
+
+[node name="EquippedItems" type="Node2D" parent="." unique_id=661931521]
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

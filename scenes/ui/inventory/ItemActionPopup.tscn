@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bb1gbbps8q057"]
 
-[ext_resource type="Script" path="res://scripts/inventory/item_action_popup.gd" id="1_q6am8"]
+[ext_resource type="Script" uid="uid://bewp2rt5e7657" path="res://scripts/inventory/item_action_popup.gd" id="1_q6am8"]
 
 [node name="ItemActionPopup" type="Control" unique_id=736320527]
 layout_mode = 3
@@ -24,9 +24,12 @@ layout_mode = 2
 
 [node name="EquipButton" type="Button" parent="Panel/Margin/VBox" unique_id=1971372680]
 layout_mode = 2
+text = "Equip"
 
 [node name="UseButton" type="Button" parent="Panel/Margin/VBox" unique_id=1950003445]
 layout_mode = 2
+text = "Use"
 
 [node name="InspectButton" type="Button" parent="Panel/Margin/VBox" unique_id=134256400]
 layout_mode = 2
+text = "Inspect"

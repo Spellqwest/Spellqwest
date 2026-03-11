@@ -112,7 +112,6 @@ func use_item(item: ItemResource) -> bool:
 			inventory.remove_item(item)
 			return true
 		ItemResource.ItemType.WEAPON:
-			# Usually weapons are not consumed.
 			return true
 		_:
 			return false

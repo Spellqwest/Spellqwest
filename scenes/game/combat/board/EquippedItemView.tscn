@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://b42jspnsq48q3"]
+
+[ext_resource type="Script" uid="uid://dpnwx3tv0obk" path="res://scripts/combat/keyboard/equipped_item_view.gd" id="1_nh1tu"]
+
+[node name="EquippedItemView" type="Node2D" unique_id=281853756]
+script = ExtResource("1_nh1tu")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1894451359]
+
+[node name="NameLabel" type="Label" parent="." unique_id=1904354887]
+offset_right = 40.0
+offset_bottom = 23.0
