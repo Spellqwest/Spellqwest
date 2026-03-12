@@ -20,6 +20,8 @@ func _ready() -> void:
 	map_screen.shop_requested.connect(_on_shop_requested)
 	map_screen.treasure_requested.connect(_on_treasure_requested)
 	map_screen.special_requested.connect(_on_special_requested)
+	
+	run_state.add_test_items()
 
 	_activate_screen(map_screen)
 

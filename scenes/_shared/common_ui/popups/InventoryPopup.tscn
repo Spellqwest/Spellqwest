@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://ceblru1cl82tc"]
+
+[ext_resource type="Script" uid="uid://bn83yejcn6qtv" path="res://scripts/ui/widgets/inventory_popup.gd" id="1_5cyxb"]
+
+[node name="InventoryPopup" type="Control" unique_id=360807276]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5cyxb")
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=1175619550]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Margin" type="MarginContainer" parent="Panel" unique_id=2129869514]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin" unique_id=1398127530]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Header" type="HBoxContainer" parent="Panel/Margin/VBox" unique_id=942566993]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/Margin/VBox/Header" unique_id=38638634]
+layout_mode = 2
+
+[node name="Coins" type="Label" parent="Panel/Margin/VBox/Header" unique_id=1025695660]
+layout_mode = 2
+
+[node name="EquipRow" type="HBoxContainer" parent="Panel/Margin/VBox" unique_id=12716652]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ConsumableSlot" type="PanelContainer" parent="Panel/Margin/VBox/EquipRow" unique_id=1505593722]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ConsumableSlotMargin" type="MarginContainer" parent="Panel/Margin/VBox/EquipRow/ConsumableSlot" unique_id=248376474]
+layout_mode = 2
+
+[node name="ConsumableSlotLabel" type="Label" parent="Panel/Margin/VBox/EquipRow/ConsumableSlot/ConsumableSlotMargin" unique_id=1871531590]
+layout_mode = 2
+
+[node name="WeaponSlot" type="PanelContainer" parent="Panel/Margin/VBox/EquipRow" unique_id=1354840885]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WeaponSlotMargin" type="MarginContainer" parent="Panel/Margin/VBox/EquipRow/WeaponSlot" unique_id=126932109]
+layout_mode = 2
+
+[node name="WeaponSlotLabel" type="Label" parent="Panel/Margin/VBox/EquipRow/WeaponSlot/WeaponSlotMargin" unique_id=1704639972]
+layout_mode = 2
+
+[node name="ItemsTitle" type="Label" parent="Panel/Margin/VBox" unique_id=630025597]
+layout_mode = 2
+
+[node name="ItemsPanel" type="PanelContainer" parent="Panel/Margin/VBox" unique_id=88945119]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemsMargin" type="MarginContainer" parent="Panel/Margin/VBox/ItemsPanel" unique_id=1692601578]
+layout_mode = 2
+
+[node name="ItemsScroll" type="ScrollContainer" parent="Panel/Margin/VBox/ItemsPanel/ItemsMargin" unique_id=2002461232]
+layout_mode = 2
+
+[node name="ItemsGrid" type="GridContainer" parent="Panel/Margin/VBox/ItemsPanel/ItemsMargin/ItemsScroll" unique_id=282618367]
+layout_mode = 2
+columns = 4

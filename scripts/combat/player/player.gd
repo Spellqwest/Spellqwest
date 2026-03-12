@@ -11,17 +11,33 @@ var current_hp: int
 var coins: int
 
 func _ready() -> void:
-	current_hp = stats.max_hp
-	coins = stats.starting_coins
+	if stats != null:
+		current_hp = stats.current_hp
+		coins = stats.starting_coins
+	_emit_all()
 
+func apply_run_stats(run_stats: PlayerStats) -> void:
+	if run_stats == null:
+		return
+
+	stats = run_stats
+	current_hp = stats.current_hp
 	_emit_all()
 
 func take_damage(amount: int) -> void:
+	if stats == null:
+		return
+
 	current_hp = max(0, current_hp - amount)
+	stats.current_hp = current_hp
 	emit_signal("hp_changed", current_hp, stats.max_hp)
 
 func heal(amount: int) -> void:
+	if stats == null:
+		return
+
 	current_hp = min(stats.max_hp, current_hp + amount)
+	stats.current_hp = current_hp
 	emit_signal("hp_changed", current_hp, stats.max_hp)
 
 func add_coins(amount: int) -> void:
@@ -36,5 +52,6 @@ func spend_coins(amount: int) -> bool:
 	return true
 
 func _emit_all() -> void:
-	emit_signal("hp_changed", current_hp, stats.max_hp)
+	if stats != null:
+		emit_signal("hp_changed", current_hp, stats.max_hp)
 	emit_signal("coins_changed", coins)

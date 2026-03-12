@@ -5,23 +5,22 @@
 [ext_resource type="Script" uid="uid://cgukf43uocl0f" path="res://scripts/_shared/run_root.gd" id="1_ud2q2"]
 [ext_resource type="PackedScene" uid="uid://dmrugvhx56n0h" path="res://scenes/game/combat/CombatScreen.tscn" id="2_icvq8"]
 [ext_resource type="Script" uid="uid://b600gyftk50ak" path="res://scripts/combat/player/run_state.gd" id="2_vj8ib"]
+[ext_resource type="Resource" uid="uid://hnjtgorluvht" path="res://resources/player_stats.tres" id="3_6u1c1"]
 [ext_resource type="Script" uid="uid://de7cu4a00xfj3" path="res://scripts/combat/spells/spell_book.gd" id="3_kprca"]
-[ext_resource type="Script" uid="uid://ct6gekhqednlr" path="res://scripts/combat/player/player_resource.gd" id="3_vj8ib"]
 [ext_resource type="Resource" uid="uid://bh1sycq6ypbhb" path="res://resources/spells/acid.tres" id="5_lpsnw"]
 [ext_resource type="Resource" uid="uid://6mt2oo5sxy7c" path="res://resources/spells/fire.tres" id="6_fgvbs"]
 [ext_resource type="Resource" uid="uid://cluomifsomujk" path="res://resources/spells/laser.tres" id="7_6u1c1"]
 [ext_resource type="Resource" uid="uid://di7atophu2kny" path="res://resources/spells/boom.tres" id="8_y5swq"]
+[ext_resource type="PackedScene" uid="uid://ddx4366807jsp" path="res://scenes/ui/inventory/InventoryPopup.tscn" id="11_6u1c1"]
 [ext_resource type="PackedScene" uid="uid://ctueyk25isx7l" path="res://scenes/game/map/MapScreen.tscn" id="12_fgvbs"]
-
-[sub_resource type="Resource" id="Resource_kprca"]
-script = ExtResource("3_vj8ib")
 
 [node name="RunRoot" type="Node" unique_id=1492517185]
 script = ExtResource("1_ud2q2")
 
 [node name="RunState" type="Node" parent="." unique_id=1419385208]
 script = ExtResource("2_vj8ib")
-stats = SubResource("Resource_kprca")
+current_coins = 50
+stats = ExtResource("3_6u1c1")
 
 [node name="SpellBook" type="Node" parent="." unique_id=1639903750]
 script = ExtResource("3_kprca")
@@ -31,11 +30,17 @@ spells = Array[Resource]([ExtResource("5_lpsnw"), ExtResource("8_y5swq"), ExtRes
 script = ExtResource("1_icvq8")
 
 [node name="SpellPopup" parent="RunUI" unique_id=2123588879 instance=ExtResource("1_e37qp")]
-visible = false
+
+[node name="InventoryPopup" parent="RunUI" unique_id=360807276 instance=ExtResource("11_6u1c1")]
+mouse_filter = 2
 
 [node name="Screens" type="Node" parent="." unique_id=647361186]
 
 [node name="CombatScreen" parent="Screens" unique_id=207275243 instance=ExtResource("2_icvq8")]
+process_mode = 4
 visible = false
 
 [node name="MapScreen" parent="Screens" unique_id=229224555 instance=ExtResource("12_fgvbs")]
+edge_scroll_zone = 120.0
+edge_scroll_speed = 520.0
+edge_scroll_curve = 2.0

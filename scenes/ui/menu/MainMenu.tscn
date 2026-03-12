@@ -47,6 +47,7 @@ text = "Quit"
 [node name="SettingsWindow" type="Window" parent="." unique_id=431325105]
 oversampling_override = 1.0
 size = Vector2i(400, 200)
+visible = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SettingsWindow" unique_id=1225082104]
 offset_left = 4.0

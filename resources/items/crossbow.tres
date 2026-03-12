@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://dkugau2y6gv23"]
+
+[ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="1_8pfdb"]
+[ext_resource type="Script" uid="uid://cu2pbc8m06lkg" path="res://scripts/inventory/items/item_resource.gd" id="1_okjip"]
+
+[resource]
+script = ExtResource("1_okjip")
+id = &"item_weapon_crossbow"
+display_name = "Crossbow"
+description = "Shoots at nearest Enemy"
+item_type = 1
+icon = ExtResource("1_8pfdb")
+metadata/_custom_type_script = "uid://cu2pbc8m06lkg"
