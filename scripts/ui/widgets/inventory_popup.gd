@@ -1,6 +1,9 @@
 extends Control
 class_name InventoryPopup
 
+signal item_used(item)
+signal item_equipped(item)
+
 const InventoryState = preload("res://scripts/inventory/inventory_state.gd")
 const ItemResource = preload("res://scripts/inventory/items/item_resource.gd")
 
@@ -161,13 +164,16 @@ func _on_action_equip_requested(item: ItemResource) -> void:
 
 	_run_state.equip_item(item)
 	_refresh()
+	item_equipped.emit(item)
 
 func _on_action_use_requested(item: ItemResource) -> void:
 	if _run_state == null or item == null:
 		return
 
-	_run_state.use_item(item)
-	_refresh()
+	if _run_state.can_use_item(item):
+		_run_state.use_item(item)
+		_refresh()
+		item_used.emit(item)
 
 func _on_action_inspect_requested(item: ItemResource) -> void:
 	if item == null:

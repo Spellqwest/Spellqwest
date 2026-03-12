@@ -9,6 +9,7 @@ class_name CombatScreen
 @onready var typing = $TypingInput
 @onready var cast_buffer = $Keyboard/Player/CastBuffer
 @onready var caster = $CombatCaster
+@onready var inventory_popup: InventoryPopup = $"../../RunUI/InventoryPopup"
 
 var spell_book: SpellBook
 var run_state: RunState
@@ -27,6 +28,9 @@ func _ready() -> void:
 	
 	if run_state != null and run_state.stats != null:
 		player.apply_run_stats(run_state.stats)
+	
+	inventory_popup.item_used.connect(_on_inventory_item_used)
+	inventory_popup.item_equipped.connect(_on_inventory_item_equipped)
 	
 	hud.set_player(player)
 	hud.set_cast_buffer(cast_buffer)
@@ -115,3 +119,10 @@ func _sync_player_from_run_state() -> void:
 		return
 
 	player.apply_run_stats(run_state.stats)
+
+func _on_inventory_item_used(_item: ItemResource) -> void:
+	_sync_player_from_run_state()
+	_refresh_equipped_item_display()
+
+func _on_inventory_item_equipped(_item: ItemResource) -> void:
+	_refresh_equipped_item_display()
