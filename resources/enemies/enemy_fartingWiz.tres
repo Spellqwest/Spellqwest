@@ -1,0 +1,98 @@
+[gd_resource type="Resource" script_class="EnemyResource" format=3 uid="uid://b734c2nqg2t6f"]
+
+[ext_resource type="Texture2D" uid="uid://ca4hri54uj0cb" path="res://assets/visual/characters/enemies/enemy_farting_wizard.png" id="1_5xw62"]
+[ext_resource type="Script" uid="uid://bb6711hoq4n6k" path="res://scripts/combat/enemies/enemy_resource.gd" id="1_q10uq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2khj"]
+atlas = ExtResource("1_5xw62")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4oav"]
+atlas = ExtResource("1_5xw62")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khwin"]
+atlas = ExtResource("1_5xw62")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1jb1"]
+atlas = ExtResource("1_5xw62")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ellem"]
+atlas = ExtResource("1_5xw62")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lplj4"]
+atlas = ExtResource("1_5xw62")
+region = Rect2(800, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_td6ks"]
+atlas = ExtResource("1_5xw62")
+region = Rect2(900, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xw62"]
+atlas = ExtResource("1_5xw62")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vixb7"]
+atlas = ExtResource("1_5xw62")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n5yh"]
+atlas = ExtResource("1_5xw62")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p31vr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2khj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4oav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khwin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1jb1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ellem")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lplj4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_td6ks")
+}],
+"loop": true,
+"name": &"enemy_attack",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xw62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vixb7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n5yh")
+}],
+"loop": true,
+"name": &"enemy_idle",
+"speed": 2.0
+}]
+
+[resource]
+script = ExtResource("1_q10uq")
+id = "fartinWiz"
+display_name = "Farting Wizard"
+type = 2
+max_hp = 30
+speed = 15.0
+contact_damage = 5
+enemy_frames = SubResource("SpriteFrames_p31vr")
+metadata/_custom_type_script = "uid://bb6711hoq4n6k"

@@ -1,11 +1,16 @@
 extends Node2D
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
-@export var enemy_stats: EnemyResource
+@export var enemy_choices: Array[EnemyResource]
+var enemy_stats: EnemyResource
 var current_hp: int 
+var randomEnemy: int
+var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	randomEnemy = rng.randi_range(0, enemy_choices.size()-1)
+	enemy_stats = enemy_choices[randomEnemy]
 	current_hp = enemy_stats.max_hp
 	anim.sprite_frames = enemy_stats.enemy_frames
 	anim.play("enemy_idle")

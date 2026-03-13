@@ -1,0 +1,84 @@
+[gd_resource type="Resource" script_class="EnemyResource" format=3 uid="uid://bkwt4bv7f2agb"]
+
+[ext_resource type="Script" uid="uid://bb6711hoq4n6k" path="res://scripts/combat/enemies/enemy_resource.gd" id="1_dkuqr"]
+[ext_resource type="Texture2D" uid="uid://bjxdwvr00vghw" path="res://assets/visual/characters/enemies/enemy_troll.png" id="1_fhyde"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18jsw"]
+atlas = ExtResource("1_fhyde")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54km0"]
+atlas = ExtResource("1_fhyde")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tg5ts"]
+atlas = ExtResource("1_fhyde")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7ena"]
+atlas = ExtResource("1_fhyde")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gt8nu"]
+atlas = ExtResource("1_fhyde")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_58ryy"]
+atlas = ExtResource("1_fhyde")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1quk"]
+atlas = ExtResource("1_fhyde")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hidly"]
+atlas = ExtResource("1_fhyde")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xkeqy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18jsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54km0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tg5ts")
+}],
+"loop": true,
+"name": &"enemy_attack",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7ena")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gt8nu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_58ryy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1quk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hidly")
+}],
+"loop": true,
+"name": &"enemy_idle",
+"speed": 2.0
+}]
+
+[resource]
+script = ExtResource("1_dkuqr")
+id = "troll"
+display_name = "Troll"
+type = 1
+max_hp = 100
+speed = 5.0
+contact_damage = 15
+enemy_frames = SubResource("SpriteFrames_xkeqy")
+metadata/_custom_type_script = "uid://bb6711hoq4n6k"

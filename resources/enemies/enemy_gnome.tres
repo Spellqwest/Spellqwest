@@ -1,0 +1,90 @@
+[gd_resource type="Resource" script_class="EnemyResource" format=3 uid="uid://djftsbsboj1kn"]
+
+[ext_resource type="Texture2D" uid="uid://ba6s2ldenlhrs" path="res://assets/visual/characters/enemies/enemy_gnome.png" id="1_264nr"]
+[ext_resource type="Script" uid="uid://bb6711hoq4n6k" path="res://scripts/combat/enemies/enemy_resource.gd" id="1_o716i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eh7kp"]
+atlas = ExtResource("1_264nr")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etgbr"]
+atlas = ExtResource("1_264nr")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cebg4"]
+atlas = ExtResource("1_264nr")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gix2"]
+atlas = ExtResource("1_264nr")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmlm0"]
+atlas = ExtResource("1_264nr")
+region = Rect2(800, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02yxe"]
+atlas = ExtResource("1_264nr")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvy5e"]
+atlas = ExtResource("1_264nr")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wgko"]
+atlas = ExtResource("1_264nr")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_op80i"]
+atlas = ExtResource("1_264nr")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p5ivm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eh7kp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etgbr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cebg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gix2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmlm0")
+}],
+"loop": true,
+"name": &"enemy_attack",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02yxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvy5e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wgko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_op80i")
+}],
+"loop": true,
+"name": &"enemy_idle",
+"speed": 2.0
+}]
+
+[resource]
+script = ExtResource("1_o716i")
+id = "gnome"
+display_name = "Gnome"
+speed = 20.0
+contact_damage = 2
+enemy_frames = SubResource("SpriteFrames_p5ivm")
+gold_reward = 1
+metadata/_custom_type_script = "uid://bb6711hoq4n6k"
