@@ -7,7 +7,8 @@ var current_hp: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	current_hp = enemy_stats.max_hp
-	anim.play()
+	anim.sprite_frames = enemy_stats.enemy_frames
+	anim.play("enemy_idle")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -21,4 +22,8 @@ func take_damage(amount: int) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if(area.has_method("player_damaged")):
 		area.call("player_damaged", enemy_stats.contact_damage)
+		anim.play("enemy_attack")
+
+func _on_animation_looped() -> void:
+	if(anim.animation == "enemy_attack"):
 		queue_free()
