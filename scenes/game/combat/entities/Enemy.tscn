@@ -1,31 +1,28 @@
 [gd_scene format=3 uid="uid://dtyn235oh0i1s"]
 
-[ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="1_7s70j"]
 [ext_resource type="Script" uid="uid://e0ewfa888245" path="res://scenes/game/combat/entities/enemy.gd" id="1_43hdt"]
 [ext_resource type="Resource" uid="uid://cm0ortatcdrrr" path="res://resources/enemies/test_grunt.tres" id="2_7mk2x"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7mk2x"]
-atlas = ExtResource("1_7s70j")
-region = Rect2(0, 0, 64, 64)
+[ext_resource type="Texture2D" uid="uid://ba6s2ldenlhrs" path="res://assets/visual/characters/enemies/enemy_gnome_V2.3.png" id="3_7mk2x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r0jhp"]
-atlas = ExtResource("1_7s70j")
-region = Rect2(64, 0, 64, 64)
+atlas = ExtResource("3_7mk2x")
+region = Rect2(0, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iq00j"]
-atlas = ExtResource("1_7s70j")
-region = Rect2(64, 64, 64, 64)
+atlas = ExtResource("3_7mk2x")
+region = Rect2(100, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ypgpa"]
-atlas = ExtResource("1_7s70j")
-region = Rect2(0, 64, 64, 64)
+atlas = ExtResource("3_7mk2x")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0ge7"]
+atlas = ExtResource("3_7mk2x")
+region = Rect2(300, 0, 100, 100)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x0ge7"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7mk2x")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_r0jhp")
 }, {
@@ -34,10 +31,13 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ypgpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x0ge7")
 }],
 "loop": true,
 "name": &"default",
-"speed": 1.0
+"speed": 2.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jxn12"]
