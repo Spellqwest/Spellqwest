@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cwndtny7s78d7" path="res://scripts/combat/enemies/enemy_field.gd" id="1_leacl"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fapg0"]
+
 [node name="EnemyField" type="Node2D" unique_id=124356476]
 script = ExtResource("1_leacl")
 
@@ -9,4 +11,65 @@ script = ExtResource("1_leacl")
 wait_time = 5.0
 autostart = true
 
+[node name="SpawnPoint1" type="Marker2D" parent="." unique_id=714061110]
+position = Vector2(314, 100)
+
+[node name="SpawnArea" type="Area2D" parent="SpawnPoint1" unique_id=652632503]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnPoint1/SpawnArea" unique_id=1574865060]
+position = Vector2(0, 38)
+scale = Vector2(3, 5)
+shape = SubResource("RectangleShape2D_fapg0")
+
+[node name="SpawnPoint2" type="Marker2D" parent="." unique_id=443377279]
+position = Vector2(446, 100)
+
+[node name="SpawnArea" type="Area2D" parent="SpawnPoint2" unique_id=1559135644]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnPoint2/SpawnArea" unique_id=2096698186]
+position = Vector2(0, 38)
+scale = Vector2(3, 5)
+shape = SubResource("RectangleShape2D_fapg0")
+
+[node name="SpawnPoint3" type="Marker2D" parent="." unique_id=361061994]
+position = Vector2(574, 100)
+
+[node name="SpawnArea" type="Area2D" parent="SpawnPoint3" unique_id=792039338]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnPoint3/SpawnArea" unique_id=1294518329]
+position = Vector2(0, 38)
+scale = Vector2(3, 5)
+shape = SubResource("RectangleShape2D_fapg0")
+
+[node name="SpawnPoint4" type="Marker2D" parent="." unique_id=923212945]
+position = Vector2(698, 100)
+
+[node name="SpawnArea" type="Area2D" parent="SpawnPoint4" unique_id=345556160]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnPoint4/SpawnArea" unique_id=1042996267]
+position = Vector2(0, 38)
+scale = Vector2(3, 5)
+shape = SubResource("RectangleShape2D_fapg0")
+
+[node name="SpawnPoint5" type="Marker2D" parent="." unique_id=622330948]
+position = Vector2(826, 100)
+
+[node name="SpawnArea" type="Area2D" parent="SpawnPoint5" unique_id=124815797]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnPoint5/SpawnArea" unique_id=1369873048]
+position = Vector2(0, 38)
+scale = Vector2(3, 5)
+shape = SubResource("RectangleShape2D_fapg0")
+
+[connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]

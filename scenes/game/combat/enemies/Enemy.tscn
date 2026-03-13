@@ -25,7 +25,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jxn12"]
 size = Vector2(64, 62)
 
-[node name="Enemy" type="Area2D" unique_id=123919857]
+[node name="Enemy" type="Area2D" unique_id=123919857 groups=["Enemy"]]
 scale = Vector2(2, 2)
 collision_layer = 4
 collision_mask = 32
@@ -34,7 +34,7 @@ enemy_choices = Array[ExtResource("2_3gstx")]([ExtResource("3_tbbnm"), ExtResour
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=941970582]
 sprite_frames = SubResource("SpriteFrames_v1sf8")
-frame_progress = 0.27717656
+frame_progress = 0.37161875
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2003421444]
 shape = SubResource("RectangleShape2D_jxn12")
