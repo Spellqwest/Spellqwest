@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cddydqcioelua"]
 
-[ext_resource type="Script" uid="uid://cwndtny7s78d7" path="res://scenes/game/combat/entities/enemy_field.gd" id="1_leacl"]
+[ext_resource type="Script" uid="uid://cwndtny7s78d7" path="res://scripts/combat/enemies/enemy_field.gd" id="1_leacl"]
 
 [node name="EnemyField" type="Node2D" unique_id=124356476]
 script = ExtResource("1_leacl")
