@@ -6,13 +6,9 @@ signal token_typed(token: String)
 signal buffer_changed(buffer: String)
 signal buffer_submitted(buffer: String)
 
-@export var typing_delay: float = 0.1 #100ms delay
 var buffer: String = ""
-var _can_type: bool = true
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not _can_type:
-		return
 	if not (event is InputEventKey) or not event.pressed or event.echo:
 		return
 	var e := event as InputEventKey
@@ -22,7 +18,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		emit_signal("buffer_submitted", buffer)
 		buffer = ""
 		emit_signal("buffer_changed", buffer)
-		_start_cooldown()
 		return
 
 	# Backspace deletes DEBUG
@@ -30,7 +25,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		if buffer.length() > 0:
 			buffer = buffer.substr(0, buffer.length() - 1)
 			emit_signal("buffer_changed", buffer)
-		_start_cooldown()
 		return
 
 	var token := _key_to_token(e)
@@ -44,8 +38,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not non_typing_tokens.has(token):
 		buffer += token
 		emit_signal("buffer_changed", buffer)
-
-	_start_cooldown()
 
 func _key_to_token(e: InputEventKey) -> String:
 	if e.keycode == KEY_SHIFT:
@@ -62,8 +54,3 @@ func _key_to_token(e: InputEventKey) -> String:
 			return s
 
 	return ""
-
-func _start_cooldown() -> void:
-	_can_type = false
-	await get_tree().create_timer(typing_delay).timeout
-	_can_type = true

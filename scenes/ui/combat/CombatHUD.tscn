@@ -57,6 +57,10 @@ layout_mode = 2
 layout_mode = 2
 text = "HP: 100/100"
 
+[node name="ManaLabel" type="Label" parent="MarginContainer/TopBar/VBoxContainer"]
+layout_mode = 2
+text = "Mana: 100/100"
+
 [node name="ChargeLabel" type="Label" parent="MarginContainer/TopBar/VBoxContainer" unique_id=1369618604]
 layout_mode = 2
 text = "Charge: 0/50"

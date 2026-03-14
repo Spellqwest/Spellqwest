@@ -51,6 +51,9 @@ func _init_run_spells() -> void:
 	run_state.learn_all_spells(spell_book.get_all_spells())
 
 func _on_token_typed(token: String) -> void:
+	if not player.use_mana(2.0):
+		return
+
 	keyboard.handle_letter(token)
 
 	match token:
@@ -78,6 +81,7 @@ func _on_buffer_submitted(buf: String) -> void:
 func _on_spell_ready(spell: SpellResource) -> void:
 	var origin: Vector2 = keyboard.player.global_position
 	caster.cast(spell, origin)
+	player.pause_mana_regen(1.0)
 	
 func _refresh_equipped_item_display() -> void:
 	if run_state == null or run_state.inventory == null:
