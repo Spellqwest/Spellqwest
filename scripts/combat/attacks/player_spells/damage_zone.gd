@@ -119,5 +119,5 @@ func _on_tick() -> void:
 		_deal_damage(a, tick_damage)
 
 func _deal_damage(target: Area2D, amount: int) -> void:
-	if target.has_method("take_damage"):
+	if target.is_in_group("enemy"):
 		target.call("take_damage", amount)

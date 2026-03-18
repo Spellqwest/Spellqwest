@@ -23,7 +23,7 @@ func _on_enemy_spawn_timer_timeout() -> void:
 		var area: Area2D = spawn.get_node("SpawnArea")
 		if not area.has_overlapping_areas():
 			free_spawns.append(spawn)
-
+	
 	if free_spawns.is_empty():
 		return
 	

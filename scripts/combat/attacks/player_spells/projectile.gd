@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 	global_position += velocity * delta
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.has_method("take_damage"):
+	if area.is_in_group("enemy"):
 		area.call("take_damage", damage)
 
 	emit_signal("impacted", global_position, area)
