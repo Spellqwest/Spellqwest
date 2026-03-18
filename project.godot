@@ -26,7 +26,9 @@ version_control/autoload_on_startup=true
 
 [global_group]
 
-Enemy="Any entity that is not a projectile, is able to take by and make damage to the player"
+enemy="Any entity that is not a projectile, is able to take by and make damage to the player"
+projectile="Any object that represents an projectile and can be cast by any entity"
+player="The entity the player is supposed to control"
 
 [input]
 

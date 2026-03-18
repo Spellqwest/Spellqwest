@@ -8,7 +8,7 @@
 script = ExtResource("1_leacl")
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=1245629443]
-wait_time = 5.0
+wait_time = 2.0
 autostart = true
 
 [node name="SpawnPoint1" type="Marker2D" parent="." unique_id=714061110]

@@ -3,6 +3,7 @@ extends Node2D
 class_name Player
 
 signal hp_changed(current: int, max: int)
+signal hp_empty
 signal coins_changed(coins: int)
 
 @export var stats: PlayerStats
@@ -30,7 +31,11 @@ func take_damage(amount: int) -> void:
 
 	current_hp = max(0, current_hp - amount)
 	stats.current_hp = current_hp
-	emit_signal("hp_changed", current_hp, stats.max_hp)
+	
+	if(current_hp > 0):
+		emit_signal("hp_changed", current_hp, stats.max_hp)
+	else:
+		emit_signal("hp_empty")
 
 func heal(amount: int) -> void:
 	if stats == null:
