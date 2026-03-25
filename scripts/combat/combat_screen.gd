@@ -10,13 +10,21 @@ class_name CombatScreen
 @onready var cast_buffer = $Keyboard/Player/CastBuffer
 @onready var caster = $CombatCaster
 @onready var inventory_popup: InventoryPopup = $"../../RunUI/InventoryPopup"
+@onready var enemy_field = $EnemyField
 
 var spell_book: SpellBook
 var run_state: RunState
 
+var enemies_to_defeat: int = 2
+var defeated_enemies: int
+
+var combat_finished: bool
+
 func setup(_run_state: RunState, _spell_book: SpellBook) -> void:
 	run_state = _run_state
 	spell_book = _spell_book
+	defeated_enemies = 0
+	combat_finished = false
 
 func _ready() -> void:
 	visibility_changed.connect(_on_visibility_changed)
@@ -31,6 +39,9 @@ func _ready() -> void:
 	
 	inventory_popup.item_used.connect(_on_inventory_item_used)
 	inventory_popup.item_equipped.connect(_on_inventory_item_equipped)
+	
+	enemy_field.enemy_entity_died.connect(_on_enemy_died)
+	player.hp_empty.connect(_on_player_died)
 	
 	hud.set_player(player)
 	hud.set_cast_buffer(cast_buffer)
@@ -126,3 +137,25 @@ func _on_inventory_item_used(_item: ItemResource) -> void:
 
 func _on_inventory_item_equipped(_item: ItemResource) -> void:
 	_refresh_equipped_item_display()
+
+func _on_enemy_died() -> void:
+	if(combat_finished):
+		return
+		
+	defeated_enemies += 1
+	
+	if(defeated_enemies >= enemies_to_defeat):
+		combat_finished = true
+		end_combat()
+
+func _on_player_died() -> void:
+	if(combat_finished):
+		return
+	
+	combat_finished = true
+	end_combat()
+
+func end_combat() -> void:
+	enemy_field.stop_timer()
+	await get_tree().create_timer(0.5).timeout
+	get_tree().change_scene_to_file("res://scenes/game/RunRoot.tscn")
