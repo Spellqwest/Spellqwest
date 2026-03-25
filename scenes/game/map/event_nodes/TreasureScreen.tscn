@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://dkxos6w5xsfwu"]
+
+[ext_resource type="Script" uid="uid://dl7b5qkenfb1" path="res://scripts/events/treasure/treasure_screen.gd" id="1_h6ndg"]
+
+[node name="TreasureScreen" type="Control" unique_id=169990159]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h6ndg")
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=173372945]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -54.0
+offset_right = 20.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="Panel" unique_id=1261913062]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin" unique_id=115553117]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="Panel/Margin/VBox" unique_id=2113180260]
+layout_mode = 2
+
+[node name="PromptLabel" type="Label" parent="Panel/Margin/VBox" unique_id=919303699]
+layout_mode = 2
+
+[node name="WordHolder" type="Control" parent="Panel/Margin/VBox" unique_id=623155469]
+layout_mode = 2
+
+[node name="BaseWordLabel" type="Label" parent="Panel/Margin/VBox/WordHolder" unique_id=1929608737]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="TypedWordLabel" type="Label" parent="Panel/Margin/VBox/WordHolder" unique_id=1038178993]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Spacer" type="Label" parent="Panel/Margin/VBox" unique_id=1963979298]
+layout_mode = 2
+
+[node name="RewardLabel" type="Label" parent="Panel/Margin/VBox" unique_id=1661455895]
+layout_mode = 2

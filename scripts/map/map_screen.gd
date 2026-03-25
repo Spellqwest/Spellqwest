@@ -22,6 +22,16 @@ const MapGenerator = preload("res://data/map/map_generator.gd")
 @export var wheel_scroll_amount: float = 80.0
 @export var drag_enabled: bool = true
 
+@export_enum(
+	"None:-1",
+	"Combat:1",
+	"Hard Combat:2",
+	"Boss:3",
+	"Shop:4",
+	"Treasure:5",
+	"Special:6"
+) var debug_force_first_layer_node_type: int = -1
+
 @onready var paths: Node2D = $Paths
 @onready var nodes_root: Node2D = $Nodes
 @onready var camera: Camera2D = $Camera2D
@@ -85,7 +95,11 @@ func _on_visibility_changed() -> void:
 
 func generate_new_floor(stage_index: int, seed: int = 0) -> void:
 	var generator := MapGenerator.new()
-	floor_data = generator.generate_floor(stage_index, seed)
+	floor_data = generator.generate_floor(
+		stage_index,
+		seed,
+		debug_force_first_layer_node_type
+	)
 	_rebuild_view()
 
 func _rebuild_view() -> void:

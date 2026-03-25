@@ -7,6 +7,7 @@ class_name RunRoot
 @onready var run_ui: RunUI = $RunUI
 @onready var map_screen: MapScreen = $Screens/MapScreen
 @onready var combat_screen: CombatScreen = $Screens/CombatScreen
+@onready var treasure_screen: TreasureScreen = $Screens/TreasureScreen
 
 func _ready() -> void:
 	spell_book.set_spells(ContentDB.get_all_spells())
@@ -20,6 +21,9 @@ func _ready() -> void:
 	map_screen.shop_requested.connect(_on_shop_requested)
 	map_screen.treasure_requested.connect(_on_treasure_requested)
 	map_screen.special_requested.connect(_on_special_requested)
+	
+	treasure_screen.setup(run_state)
+	treasure_screen.proceed_requested.connect(_on_treasure_proceed_requested)
 	
 	run_state.add_test_items()
 
@@ -48,11 +52,11 @@ func _activate_screen(active_screen: Node) -> void:
 func _show_map() -> void:
 	_activate_screen(map_screen)
 
-	if run_state.current_map_floor == null:
+	if run_state.current_map_stage == null:
 		map_screen.generate_new_floor(run_state.current_stage_index)
-		run_state.current_map_floor = map_screen.floor_data
+		run_state.current_map_stage = map_screen.floor_data
 	else:
-		map_screen.floor_data = run_state.current_map_floor
+		map_screen.floor_data = run_state.current_map_stage
 		map_screen.call_deferred("_rebuild_view")
 
 func _show_combat() -> void:
@@ -67,8 +71,17 @@ func _on_boss_requested(node_data) -> void:
 func _on_shop_requested(node_data) -> void:
 	print("Open shop for node: ", node_data.id)
 
-func _on_treasure_requested(node_data) -> void:
-	print("Open treasure for node: ", node_data.id)
+func _on_treasure_requested(_node_data) -> void:
+	_show_treasure()
+	treasure_screen.begin_treasure()
 
 func _on_special_requested(node_data) -> void:
 	print("Open special event for node: ", node_data.id)
+	
+func _show_treasure() -> void:
+	map_screen.hide()
+	combat_screen.hide()
+	treasure_screen.show()
+
+func _on_treasure_proceed_requested() -> void:
+	_show_map()
