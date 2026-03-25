@@ -15,6 +15,14 @@
 [ext_resource type="PackedScene" uid="uid://ctueyk25isx7l" path="res://scenes/game/map/MapScreen.tscn" id="12_fgvbs"]
 [ext_resource type="PackedScene" uid="uid://dkxos6w5xsfwu" path="res://scenes/game/map/event_nodes/TreasureScreen.tscn" id="14_y5swq"]
 [ext_resource type="Resource" uid="uid://d0svul002c7se" path="res://data/rng_pools/treasure_item_pool.tres" id="15_u4i30"]
+[ext_resource type="PackedScene" uid="uid://dwjt0mdlbhxgl" path="res://scenes/game/map/event_nodes/ShopScreen.tscn" id="16_fcuve"]
+[ext_resource type="Script" uid="uid://cu2pbc8m06lkg" path="res://scripts/inventory/items/item_resource.gd" id="17_nlbd8"]
+[ext_resource type="Script" uid="uid://cumfmatkjwbb6" path="res://scripts/_shared/rng/item_pools/shop_item_pool.gd" id="18_ctqjm"]
+[ext_resource type="Resource" uid="uid://cse8v4powmsij" path="res://resources/items/health_potion.tres" id="19_a7ykd"]
+
+[sub_resource type="Resource" id="Resource_wejxs"]
+script = ExtResource("18_ctqjm")
+metadata/_custom_type_script = "uid://cumfmatkjwbb6"
 
 [node name="RunRoot" type="Node" unique_id=1492517185]
 script = ExtResource("1_ud2q2")
@@ -46,7 +54,12 @@ visible = false
 edge_scroll_zone = 120.0
 edge_scroll_speed = 520.0
 edge_scroll_curve = 2.0
-debug_force_first_layer_node_type = 5
+debug_force_first_layer_node_type = 4
 
 [node name="TreasureScreen" parent="Screens" unique_id=169990159 instance=ExtResource("14_y5swq")]
 treasure_pool = ExtResource("15_u4i30")
+
+[node name="ShopScreen" parent="Screens" unique_id=1585607554 instance=ExtResource("16_fcuve")]
+shop_pool = SubResource("Resource_wejxs")
+guaranteed_health_potion = ExtResource("19_a7ykd")
+guaranteed_mana_potion = ExtResource("19_a7ykd")

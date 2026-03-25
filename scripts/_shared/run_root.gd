@@ -8,6 +8,7 @@ class_name RunRoot
 @onready var map_screen: MapScreen = $Screens/MapScreen
 @onready var combat_screen: CombatScreen = $Screens/CombatScreen
 @onready var treasure_screen: TreasureScreen = $Screens/TreasureScreen
+@onready var shop_screen: ShopScreen = $Screens/ShopScreen
 
 func _ready() -> void:
 	spell_book.set_spells(ContentDB.get_all_spells())
@@ -24,6 +25,9 @@ func _ready() -> void:
 	
 	treasure_screen.setup(run_state)
 	treasure_screen.proceed_requested.connect(_on_treasure_proceed_requested)
+	
+	shop_screen.setup(run_state)
+	shop_screen.proceed_requested.connect(_on_shop_proceed_requested)
 	
 	run_state.add_test_items()
 
@@ -68,8 +72,9 @@ func _on_combat_requested(node_data) -> void:
 func _on_boss_requested(node_data) -> void:
 	_show_combat()
 
-func _on_shop_requested(node_data) -> void:
-	print("Open shop for node: ", node_data.id)
+func _on_shop_requested(_node_data) -> void:
+	_show_shop()
+	shop_screen.begin_shop()
 
 func _on_treasure_requested(_node_data) -> void:
 	_show_treasure()
@@ -83,5 +88,14 @@ func _show_treasure() -> void:
 	combat_screen.hide()
 	treasure_screen.show()
 
+func _show_shop() -> void:
+	map_screen.hide()
+	combat_screen.hide()
+	treasure_screen.hide()
+	shop_screen.show()
+
 func _on_treasure_proceed_requested() -> void:
+	_show_map()
+
+func _on_shop_proceed_requested() -> void:
 	_show_map()
