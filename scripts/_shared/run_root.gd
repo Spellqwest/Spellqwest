@@ -15,8 +15,9 @@ func _ready() -> void:
 	run_state.learn_all_spells(spell_book.get_all_spells())
 
 	combat_screen.setup(run_state, spell_book)
+	combat_screen.proceed_requested.connect(_on_combat_proceed_requested)
+	
 	map_screen.setup(run_state)
-
 	map_screen.combat_requested.connect(_on_combat_requested)
 	map_screen.boss_requested.connect(_on_boss_requested)
 	map_screen.shop_requested.connect(_on_shop_requested)
@@ -98,4 +99,7 @@ func _on_treasure_proceed_requested() -> void:
 	_show_map()
 
 func _on_shop_proceed_requested() -> void:
+	_show_map()
+
+func _on_combat_proceed_requested() -> void:
 	_show_map()

@@ -3,14 +3,28 @@
 [ext_resource type="Script" uid="uid://b10tlwx8b88w3" path="res://scripts/map/map_screen.gd" id="1_quytf"]
 [ext_resource type="Script" uid="uid://dsauqxhay0wum" path="res://scripts/map/map_path_layer.gd" id="1_yp7ql"]
 [ext_resource type="PackedScene" uid="uid://db3hiju2fpmpo" path="res://scenes/game/map/MapNodes.tscn" id="2_pyuba"]
+[ext_resource type="Texture2D" uid="uid://ce4eofx8k7k4" path="res://assets/visual/characters/player/qwentin_frame1.png" id="4_nv6pd"]
+[ext_resource type="Texture2D" uid="uid://c8vsuumyw7tie" path="res://assets/visual/characters/player/qwentin_frame2.png" id="5_jejvg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gum7p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_nv6pd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_jejvg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.5
+}]
 
 [node name="MapScreen" type="Node2D" unique_id=229224555]
 script = ExtResource("1_quytf")
 map_node_scene = ExtResource("2_pyuba")
-edge_scroll_zone = null
-edge_scroll_speed = null
-edge_scroll_curve = null
 wheel_scroll_amount = 120.0
+move_speed = null
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=399833746]
 
@@ -18,3 +32,8 @@ wheel_scroll_amount = 120.0
 script = ExtResource("1_yp7ql")
 
 [node name="Nodes" type="Node2D" parent="." unique_id=568494846]
+
+[node name="MapAvatar" type="AnimatedSprite2D" parent="." unique_id=439110845]
+scale = Vector2(0.65, 0.65)
+sprite_frames = SubResource("SpriteFrames_gum7p")
+frame_progress = 0.18527839

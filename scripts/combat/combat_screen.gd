@@ -2,6 +2,8 @@
 extends Node2D
 class_name CombatScreen
 
+signal proceed_requested
+
 @onready var keyboard = $Keyboard
 @onready var player = $Keyboard/Player
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
@@ -11,6 +13,11 @@ class_name CombatScreen
 @onready var caster = $CombatCaster
 @onready var inventory_popup: InventoryPopup = $"../../RunUI/InventoryPopup"
 @onready var enemy_field = $EnemyField
+
+@onready var player_attacks = $PlayerAttacks
+@onready var projectiles_root: Node = $PlayerAttacks/Projectiles
+@onready var beams_root: Node = $PlayerAttacks/Beams
+@onready var damage_zones_root: Node = $PlayerAttacks/DamageZones
 
 var spell_book: SpellBook
 var run_state: RunState
@@ -155,7 +162,20 @@ func _on_player_died() -> void:
 	combat_finished = true
 	end_combat()
 
+func _clear_player_attacks() -> void:
+	_clear_children(projectiles_root)
+	_clear_children(beams_root)
+	_clear_children(damage_zones_root)
+
+func _clear_children(root: Node) -> void:
+	if root == null:
+		return
+
+	for child in root.get_children():
+		child.queue_free()
+
 func end_combat() -> void:
 	enemy_field.stop_timer()
+	_clear_player_attacks()
 	await get_tree().create_timer(0.5).timeout
-	get_tree().change_scene_to_file("res://scenes/game/RunRoot.tscn")
+	proceed_requested.emit()

@@ -21,6 +21,7 @@ const MapGenerator = preload("res://data/map/map_generator.gd")
 @export var edge_scroll_curve: float = 2.0
 @export var wheel_scroll_amount: float = 80.0
 @export var drag_enabled: bool = true
+@export var move_speed: float = 300.0
 
 @export_enum(
 	"None:-1",
@@ -35,6 +36,10 @@ const MapGenerator = preload("res://data/map/map_generator.gd")
 @onready var paths: Node2D = $Paths
 @onready var nodes_root: Node2D = $Nodes
 @onready var camera: Camera2D = $Camera2D
+@onready var map_avatar: AnimatedSprite2D = $MapAvatar
+
+var _is_moving_to_node: bool = false
+var _pending_node: MapNodeData
 
 var _dragging: bool = false
 var _last_mouse_pos: Vector2 = Vector2.ZERO
@@ -47,9 +52,19 @@ var _node_views: Dictionary = {}
 func _ready() -> void:
 	visibility_changed.connect(_on_visibility_changed)
 	_on_visibility_changed()
+	
+	if camera != null:
+		camera.enabled = true
+
+	if map_avatar != null and map_avatar.sprite_frames != null:
+		map_avatar.play("default")
 
 func _process(delta: float) -> void:
 	if camera == null or floor_data == null:
+		return
+
+	if _is_moving_to_node:
+		_update_avatar_movement(delta)
 		return
 
 	if _dragging:
@@ -60,8 +75,8 @@ func _process(delta: float) -> void:
 		return
 
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
-
 	var normalized_y: float = (mouse_pos.y / viewport_size.y) - 0.5
+	var target_y: float = _base_camera_y + normalized_y * mouse_follow_strength
 	var follow_offset: float = normalized_y * mouse_follow_strength
 
 	var edge_velocity: float = 0.0
@@ -77,11 +92,8 @@ func _process(delta: float) -> void:
 		edge_velocity = edge_t * edge_scroll_speed
 
 	_base_camera_y += edge_velocity * delta
-
-	camera.position.y = _base_camera_y + follow_offset
-
+	camera.position.y = target_y
 	_clamp_camera()
-
 	_base_camera_y = camera.position.y - follow_offset
 
 func setup(p_run_state: RunState) -> void:
@@ -132,6 +144,7 @@ func _rebuild_view() -> void:
 		paths.set_floor_data(floor_data)
 
 	_focus_on_current_node()
+	_position_avatar_on_current_node()
 
 func _refresh_view() -> void:
 	for node_id in _node_views.keys():
@@ -143,13 +156,21 @@ func _refresh_view() -> void:
 		paths.set_floor_data(floor_data)
 
 func _on_node_pressed(node_id: int) -> void:
+	if _is_moving_to_node:
+		return
+
 	var node := floor_data.get_node_by_id(node_id)
 	if node == null or not node.available:
 		return
 
-	_move_to_node(node)
-	node_chosen.emit(node)
-	_emit_event_signal(node)
+	_pending_node = node
+	_is_moving_to_node = true
+
+	if map_avatar != null and map_avatar.sprite_frames != null:
+		map_avatar.play("default")
+
+	var local_avatar_x: float = map_avatar.position.x - nodes_root.position.x
+	map_avatar.flip_h = node.position.x < local_avatar_x
 
 func _move_to_node(node: MapNodeData) -> void:
 	var previous := floor_data.get_node_by_id(floor_data.current_node_id)
@@ -256,3 +277,44 @@ func _focus_on_current_node() -> void:
 	camera.position = nodes_root.position + current.position
 	_clamp_camera()
 	_base_camera_y = camera.position.y
+
+func _position_avatar_on_current_node() -> void:
+	if floor_data == null or map_avatar == null:
+		return
+
+	var current := floor_data.get_node_by_id(floor_data.current_node_id)
+	if current == null:
+		return
+
+	map_avatar.position = nodes_root.position + current.position
+
+func _update_avatar_movement(delta: float) -> void:
+	if _pending_node == null or map_avatar == null:
+		_is_moving_to_node = false
+		return
+
+	var target_pos: Vector2 = nodes_root.position + _pending_node.position
+	var to_target: Vector2 = target_pos - map_avatar.position
+	var distance: float = to_target.length()
+
+	if distance <= move_speed * delta:
+		map_avatar.position = target_pos
+		_on_avatar_reached_pending_node()
+		return
+
+	map_avatar.position += to_target.normalized() * move_speed * delta
+	
+func _on_avatar_reached_pending_node() -> void:
+	if map_avatar != null and map_avatar.sprite_frames != null:
+		map_avatar.play("default")
+
+	var node := _pending_node
+	_pending_node = null
+	_is_moving_to_node = false
+
+	if node == null:
+		return
+
+	_move_to_node(node)
+	node_chosen.emit(node)
+	_emit_event_signal(node)
