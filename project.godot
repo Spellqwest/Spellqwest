@@ -19,6 +19,7 @@ config/icon="res://assets/icon.svg"
 
 ContentDB="*uid://ey3u2mqwfxvt"
 Talo="*uid://bpmdn8oc34pg7"
+TaloTracker="*res://scripts/_shared/talo_tracker.gd"
 
 [editor]
 
