@@ -42,5 +42,11 @@ func _on_enemy_spawn_timer_timeout() -> void:
 func _on_enemy_died() -> void:
 	emit_signal("enemy_entity_died")
 	
-func stop_timer() -> void:
+func combat_end() -> void:
 		spawnTimer.stop()
+		for child in get_children():
+			if child.is_in_group("enemy"):
+				child.queue_free()
+
+func combat_start() -> void:
+		spawnTimer.start()

@@ -127,6 +127,8 @@ func _rebuild_view() -> void:
 
 	for child in nodes_root.get_children():
 		child.queue_free()
+	
+	await get_tree().process_frame
 	_node_views.clear()
 
 	for node: MapNodeData in floor_data.nodes:

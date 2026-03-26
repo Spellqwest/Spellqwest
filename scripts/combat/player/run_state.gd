@@ -127,3 +127,6 @@ func add_test_items() -> void:
 	add_item(preload("res://resources/items/ink_flask.tres"))
 	add_item(preload("res://resources/items/crossbow.tres"))
 	current_coins = 50
+
+func game_over_reset() -> void:
+	stats.current_hp = stats.max_hp

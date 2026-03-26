@@ -3,6 +3,7 @@ extends Node2D
 class_name CombatScreen
 
 signal proceed_requested
+signal game_over
 
 @onready var keyboard = $Keyboard
 @onready var player = $Keyboard/Player
@@ -26,6 +27,7 @@ var enemies_to_defeat: int = 2
 var defeated_enemies: int
 
 var combat_finished: bool
+var player_won: bool
 
 func setup(_run_state: RunState, _spell_book: SpellBook) -> void:
 	run_state = _run_state
@@ -153,6 +155,7 @@ func _on_enemy_died() -> void:
 	
 	if(defeated_enemies >= enemies_to_defeat):
 		combat_finished = true
+		player_won = true
 		end_combat()
 
 func _on_player_died() -> void:
@@ -175,7 +178,20 @@ func _clear_children(root: Node) -> void:
 		child.queue_free()
 
 func end_combat() -> void:
-	enemy_field.stop_timer()
+	enemy_field.combat_end()
 	_clear_player_attacks()
 	await get_tree().create_timer(0.5).timeout
-	proceed_requested.emit()
+	
+	#TODO
+	#Implement that based on win/lose there is a visualization of it to see
+	
+	if(player_won):
+		proceed_requested.emit()
+	else:
+		game_over.emit()
+
+func start_combat():
+	defeated_enemies = 0
+	combat_finished = false
+	player_won = false
+	enemy_field.combat_start()

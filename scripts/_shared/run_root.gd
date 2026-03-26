@@ -16,6 +16,7 @@ func _ready() -> void:
 
 	combat_screen.setup(run_state, spell_book)
 	combat_screen.proceed_requested.connect(_on_combat_proceed_requested)
+	combat_screen.game_over.connect(_on_game_over)
 	
 	map_screen.setup(run_state)
 	map_screen.combat_requested.connect(_on_combat_requested)
@@ -66,6 +67,7 @@ func _show_map() -> void:
 
 func _show_combat() -> void:
 	_activate_screen(combat_screen)
+	combat_screen.start_combat()
 
 func _on_combat_requested(node_data) -> void:
 	_show_combat()
@@ -102,4 +104,10 @@ func _on_shop_proceed_requested() -> void:
 	_show_map()
 
 func _on_combat_proceed_requested() -> void:
+	_show_map()
+
+func _on_game_over() -> void:
+	run_state.current_map_stage = null
+	run_state.game_over_reset() #Redundant. But needed for later working with playerstats
+	combat_screen.player.heal(run_state.stats.current_hp)
 	_show_map()
