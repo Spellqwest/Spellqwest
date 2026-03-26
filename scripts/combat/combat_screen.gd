@@ -5,6 +5,11 @@ class_name CombatScreen
 signal proceed_requested
 signal game_over
 
+@export var victory_texture: Texture2D
+@export var game_over_texture: Texture2D
+
+@onready var result_image: TextureRect = $CanvasLayer/CombatResult
+
 @onready var keyboard = $Keyboard
 @onready var player = $Keyboard/Player
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
@@ -54,6 +59,8 @@ func _ready() -> void:
 	
 	hud.set_player(player)
 	hud.set_cast_buffer(cast_buffer)
+	
+	result_image.hide()
 	
 	_on_visibility_changed()
 
@@ -180,8 +187,10 @@ func _clear_children(root: Node) -> void:
 func end_combat() -> void:
 	enemy_field.combat_end()
 	_clear_player_attacks()
-	await get_tree().create_timer(0.5).timeout
 	
+	_show_result()
+	
+	await get_tree().create_timer(2.0).timeout
 	#TODO
 	#Implement that based on win/lose there is a visualization of it to see
 	
@@ -194,4 +203,28 @@ func start_combat():
 	defeated_enemies = 0
 	combat_finished = false
 	player_won = false
+	
+	set_process(true)
+	typing.set_process(true)
+	
+	hud.show()
+	result_image.hide()
+	
 	enemy_field.combat_start()
+	_sync_player_from_run_state()
+	
+func _show_result() -> void:
+	print("SHOW RESULT CALLED")
+	print(result_image)
+	print("SIZE :" + str(result_image.size))
+	print("Texture:", victory_texture)
+	set_process(false)
+	typing.set_process(false)
+	
+	hud.hide()
+	
+	if player_won:
+		result_image.texture = victory_texture
+	else:
+		result_image.texture = game_over_texture
+	result_image.show()
