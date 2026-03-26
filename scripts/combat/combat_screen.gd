@@ -159,18 +159,18 @@ func _on_inventory_item_equipped(_item: ItemResource) -> void:
 	_refresh_equipped_item_display()
 
 func _on_enemy_died() -> void:
-	if(combat_finished):
+	if (combat_finished):
 		return
 		
 	defeated_enemies += 1
 	
-	if(defeated_enemies >= enemies_to_defeat):
+	if (defeated_enemies >= enemies_to_defeat):
 		combat_finished = true
 		player_won = true
 		end_combat()
 
 func _on_player_died() -> void:
-	if(combat_finished):
+	if (combat_finished):
 		return
 	
 	combat_finished = true
@@ -198,7 +198,7 @@ func end_combat() -> void:
 	#TODO
 	#Implement that based on win/lose there is a visualization of it to see
 	
-	if(player_won):
+	if (player_won):
 		proceed_requested.emit()
 	else:
 		game_over.emit()
@@ -228,7 +228,9 @@ func _show_result() -> void:
 	hud.hide()
 	
 	if player_won:
+		TaloTracker.track_combat_end(true, run_state.current_stage_index)
 		result_image.texture = victory_texture
 	else:
+		TaloTracker.track_combat_end(false, run_state.current_stage_index)
 		result_image.texture = game_over_texture
 	result_image.show()

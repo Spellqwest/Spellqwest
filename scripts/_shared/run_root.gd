@@ -11,6 +11,7 @@ class_name RunRoot
 @onready var shop_screen: ShopScreen = $Screens/ShopScreen
 
 func _ready() -> void:
+	TaloTracker.track_run_started()
 	spell_book.set_spells(ContentDB.get_all_spells())
 	run_state.learn_all_spells(spell_book.get_all_spells())
 
