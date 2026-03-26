@@ -7,6 +7,7 @@ extends Node
 @onready var grid: GridContainer = $CastPanel/CastGrid
 
 @onready var hp_label: Label = $MarginContainer/TopBar/VBoxContainer/HealthLabel
+@onready var mana_label: Label = $MarginContainer/TopBar/VBoxContainer/ManaLabel
 @onready var charge_label: Label = $MarginContainer/TopBar/VBoxContainer/ChargeLabel
 @onready var coins_label: Label = $MarginContainer/TopBar/CoinLabel
 
@@ -54,6 +55,8 @@ func set_player(p: Player) -> void:
 	if player != null:
 		if player.hp_changed.is_connected(_on_hp_changed):
 			player.hp_changed.disconnect(_on_hp_changed)
+		if player.mana_changed.is_connected(_on_mana_changed):
+			player.mana_changed.disconnect(_on_mana_changed)
 		if player.coins_changed.is_connected(_on_coins_changed):
 			player.coins_changed.disconnect(_on_coins_changed)
 
@@ -62,13 +65,18 @@ func set_player(p: Player) -> void:
 		return
 
 	player.hp_changed.connect(_on_hp_changed)
+	player.mana_changed.connect(_on_mana_changed)
 	player.coins_changed.connect(_on_coins_changed)
 
 	_on_hp_changed(player.current_hp, player.stats.max_hp)
+	_on_mana_changed(player.current_mana, player.stats.max_mana)
 	_on_coins_changed(player.coins)
 
 func _on_hp_changed(current: int, max_hp: int) -> void:
 	hp_label.text = "HP: %d/%d" % [current, max_hp]
+
+func _on_mana_changed(current: float, max_mana: float) -> void:
+	mana_label.text = "Mana: %d/%d" % [int(current), int(max_mana)]
 
 func _on_coins_changed(coins: int) -> void:
 	coins_label.text = "Coins: %d" % coins
