@@ -18,11 +18,16 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 ContentDB="*uid://ey3u2mqwfxvt"
+Talo="*uid://bpmdn8oc34pg7"
 
 [editor]
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/talo/plugin.cfg")
 
 [global_group]
 
