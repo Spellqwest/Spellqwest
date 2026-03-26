@@ -5,6 +5,7 @@ class_name Player
 signal hp_changed(current: int, max: int)
 signal mana_changed(current: float, max: float)
 signal mana_regen_changed(current: float)
+signal hp_empty
 signal coins_changed(coins: int)
 
 @export var stats: PlayerStats
@@ -40,8 +41,19 @@ func take_damage(amount: int) -> void:
 		return
 
 	current_hp = max(0, current_hp - amount)
+	#print(str(current_hp))
 	stats.current_hp = current_hp
+	
 	emit_signal("hp_changed", current_hp, stats.max_hp)
+	
+	if(current_hp <= 0):
+		emit_signal("hp_empty")
+	
+	#if(current_hp > 0):
+		#emit_signal("hp_changed", current_hp, stats.max_hp)
+	#else:
+		#emit_signal("hp_empty")
+		#without hp_changed being active, the hud won't update the players health
 
 func heal(amount: int) -> void:
 	if stats == null:

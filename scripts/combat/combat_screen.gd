@@ -2,6 +2,14 @@
 extends Node2D
 class_name CombatScreen
 
+signal proceed_requested
+signal game_over
+
+@export var victory_texture: Texture2D
+@export var game_over_texture: Texture2D
+
+@onready var result_image: TextureRect = $CanvasLayer/CombatResult
+
 @onready var keyboard = $Keyboard
 @onready var player = $Keyboard/Player
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
@@ -10,13 +18,27 @@ class_name CombatScreen
 @onready var cast_buffer = $Keyboard/Player/CastBuffer
 @onready var caster = $CombatCaster
 @onready var inventory_popup: InventoryPopup = $"../../RunUI/InventoryPopup"
+@onready var enemy_field = $EnemyField
+
+@onready var player_attacks = $PlayerAttacks
+@onready var projectiles_root: Node = $PlayerAttacks/Projectiles
+@onready var beams_root: Node = $PlayerAttacks/Beams
+@onready var damage_zones_root: Node = $PlayerAttacks/DamageZones
 
 var spell_book: SpellBook
 var run_state: RunState
 
+var enemies_to_defeat: int = 2
+var defeated_enemies: int
+
+var combat_finished: bool
+var player_won: bool
+
 func setup(_run_state: RunState, _spell_book: SpellBook) -> void:
 	run_state = _run_state
 	spell_book = _spell_book
+	defeated_enemies = 0
+	combat_finished = false
 
 func _ready() -> void:
 	visibility_changed.connect(_on_visibility_changed)
@@ -32,8 +54,13 @@ func _ready() -> void:
 	inventory_popup.item_used.connect(_on_inventory_item_used)
 	inventory_popup.item_equipped.connect(_on_inventory_item_equipped)
 	
+	enemy_field.enemy_entity_died.connect(_on_enemy_died)
+	player.hp_empty.connect(_on_player_died)
+	
 	hud.set_player(player)
 	hud.set_cast_buffer(cast_buffer)
+	
+	result_image.hide()
 	
 	_on_visibility_changed()
 
@@ -130,3 +157,78 @@ func _on_inventory_item_used(_item: ItemResource) -> void:
 
 func _on_inventory_item_equipped(_item: ItemResource) -> void:
 	_refresh_equipped_item_display()
+
+func _on_enemy_died() -> void:
+	if(combat_finished):
+		return
+		
+	defeated_enemies += 1
+	
+	if(defeated_enemies >= enemies_to_defeat):
+		combat_finished = true
+		player_won = true
+		end_combat()
+
+func _on_player_died() -> void:
+	if(combat_finished):
+		return
+	
+	combat_finished = true
+	end_combat()
+
+func _clear_player_attacks() -> void:
+	_clear_children(projectiles_root)
+	_clear_children(beams_root)
+	_clear_children(damage_zones_root)
+
+func _clear_children(root: Node) -> void:
+	if root == null:
+		return
+
+	for child in root.get_children():
+		child.queue_free()
+
+func end_combat() -> void:
+	enemy_field.combat_end()
+	_clear_player_attacks()
+	
+	_show_result()
+	
+	await get_tree().create_timer(2.0).timeout
+	#TODO
+	#Implement that based on win/lose there is a visualization of it to see
+	
+	if(player_won):
+		proceed_requested.emit()
+	else:
+		game_over.emit()
+
+func start_combat():
+	defeated_enemies = 0
+	combat_finished = false
+	player_won = false
+	
+	set_process(true)
+	typing.set_process(true)
+	
+	hud.show()
+	result_image.hide()
+	
+	enemy_field.combat_start()
+	_sync_player_from_run_state()
+	
+func _show_result() -> void:
+	print("SHOW RESULT CALLED")
+	print(result_image)
+	print("SIZE :" + str(result_image.size))
+	print("Texture:", victory_texture)
+	set_process(false)
+	typing.set_process(false)
+	
+	hud.hide()
+	
+	if player_won:
+		result_image.texture = victory_texture
+	else:
+		result_image.texture = game_over_texture
+	result_image.show()

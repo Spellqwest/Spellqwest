@@ -3,34 +3,50 @@ extends Node2D
 ##############################################
 #Global Variables
 ##############################################
+signal enemy_entity_died
+
 @export var enemy_scene:= preload("res://scenes/game/combat/enemies/Enemy.tscn") 
 
-var baseYPos = 100
-
-var enemy_waves: Dictionary = {
-	1: Vector2(314.0, baseYPos),
-	2: Vector2(446.0, baseYPos),
-	3: Vector2(574.0, baseYPos),
-	4: Vector2(698.0, baseYPos),
-	5: Vector2(826.0, baseYPos)
-}
+var spawnPoints: Array[Marker2D] = []
 var rng = RandomNumberGenerator.new()
-var randomPos = -1
-var blocked_enemy_positions = Array([], TYPE_INT, "", null)
+var spawnTimer: Timer
 
 ##############################################
 #Functions
 ##############################################
+func _ready() -> void:
+	for child in get_children():
+		if child is Marker2D:
+			spawnPoints.append(child)
+	spawnTimer = $SpawnTimer
+	_on_enemy_spawn_timer_timeout()
+
 func _on_enemy_spawn_timer_timeout() -> void:
-	var enemy = enemy_scene.instantiate()
-	randomPos = rng.randi_range(1, 5)
+	var free_spawns: Array[Marker2D] = []
+
+	for spawn in spawnPoints:
+		var area: Area2D = spawn.get_node("SpawnArea")
+		if not area.has_overlapping_areas():
+			free_spawns.append(spawn)
 	
-	if(!blocked_enemy_positions.has(randomPos)):
-		enemy.position = enemy_waves[randomPos]
-		blocked_enemy_positions.append(randomPos)
-		print("used enemy positions: " + str(blocked_enemy_positions))
-		print("spawning enemy on: " + str(enemy.position))
-		add_child(enemy)
-	print("in timer method mit rng: " + str(randomPos))
-	if(blocked_enemy_positions.size() == 5): 
-		blocked_enemy_positions = Array([], TYPE_INT, "", null)
+	if free_spawns.is_empty():
+		return
+	
+	var spawn_point = free_spawns[rng.randi_range(0, free_spawns.size() - 1)]
+	var enemy: Enemy = enemy_scene.instantiate()
+	
+	enemy.global_position = spawn_point.global_position
+	enemy.enemy_died.connect(_on_enemy_died)
+	add_child(enemy)
+
+func _on_enemy_died() -> void:
+	emit_signal("enemy_entity_died")
+	
+func combat_end() -> void:
+		spawnTimer.stop()
+		for child in get_children():
+			if child.is_in_group("enemy"):
+				child.queue_free()
+
+func combat_start() -> void:
+		spawnTimer.start()

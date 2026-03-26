@@ -81,7 +81,7 @@ func _configure_hitbox() -> void:
 
 func _on_tick() -> void:
 	for a in get_overlapping_areas():
-		if a.has_method("take_damage"):
+		if a.is_in_group("enemy"):
 			a.call("take_damage", damage)
 
 func _end_after(t: float) -> void:

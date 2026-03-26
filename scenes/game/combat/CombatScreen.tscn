@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bcnn7pxgtty48" path="res://scripts/combat/combat_screen.gd" id="1_v5uiv"]
 [ext_resource type="PackedScene" uid="uid://dg0d2tj5k7oio" path="res://scenes/game/combat/board/Keyboard.tscn" id="2_8jdeh"]
+[ext_resource type="Texture2D" uid="uid://c3v5m73i24j8a" path="res://assets/visual/ui/combat_over/victory.png" id="2_ossvp"]
+[ext_resource type="Texture2D" uid="uid://b3d5hfs2357r1" path="res://assets/visual/ui/combat_over/game_over.png" id="3_l4sx5"]
 [ext_resource type="PackedScene" uid="uid://ggotfsx1sk0r" path="res://scenes/ui/combat/CombatHUD.tscn" id="4_3mw0u"]
 [ext_resource type="PackedScene" uid="uid://cddydqcioelua" path="res://scenes/game/combat/enemies/EnemyField.tscn" id="4_v5uiv"]
 [ext_resource type="Script" uid="uid://sfowtyk7n7dt" path="res://scripts/combat/keyboard/typing_input.gd" id="5_8jdeh"]
@@ -12,16 +14,26 @@
 
 [node name="CombatScreen" type="Node2D" unique_id=207275243]
 script = ExtResource("1_v5uiv")
-
-[node name="Keyboard" parent="." unique_id=1499620130 instance=ExtResource("2_8jdeh")]
-position = Vector2(-7, 500)
-player_offset = Vector2(-4, -35)
-equipped_item_offset = Vector2(0, 42)
+victory_texture = ExtResource("2_ossvp")
+game_over_texture = ExtResource("3_l4sx5")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1983014796]
-layer = -10
 
 [node name="CombatHud" parent="CanvasLayer" unique_id=334824799 instance=ExtResource("4_3mw0u")]
+
+[node name="CombatResult" type="TextureRect" parent="CanvasLayer" unique_id=1068509665]
+z_index = 100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Keyboard" parent="." unique_id=1499620130 instance=ExtResource("2_8jdeh")]
+position = Vector2(659, 500)
+player_offset = Vector2(-4, -35)
 
 [node name="EnemyField" parent="." unique_id=124356476 instance=ExtResource("4_v5uiv")]
 

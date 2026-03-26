@@ -7,7 +7,11 @@ const MapFloorData = preload("res://data/map/map_stage_data.gd")
 var _rng := RandomNumberGenerator.new()
 var _next_id: int = 0
 
-func generate_floor(stage_index: int, seed: int = 0) -> MapFloorData:
+func generate_floor(
+	stage_index: int,
+	seed: int = 0,
+	debug_force_first_layer_node_type: int = -1
+) -> MapFloorData:
 	_next_id = 0
 
 	if seed == 0:
@@ -63,6 +67,9 @@ func generate_floor(stage_index: int, seed: int = 0) -> MapFloorData:
 				var node := _make_node(_roll_node_type(layer_idx, regular_layers), layer_idx, lane, pos)
 				layer_nodes.append(node)
 				floor.nodes.append(node)
+		
+		if layer_idx == 1:
+			_debug_force_node_in_first_layer(layer_nodes, floor, debug_force_first_layer_node_type)
 
 		layers.append(layer_nodes)
 
@@ -107,8 +114,16 @@ func _spawn_chance_for_layer(layer_idx: int, regular_layers: int) -> float:
 
 
 func _roll_node_type(layer_idx: int, regular_layers: int) -> int:
-	if layer_idx <= 1:
-		return MapNodeData.NodeType.COMBAT
+	if layer_idx == 1:
+		var first_roll := _rng.randf()
+		if first_roll < 0.60:
+			return MapNodeData.NodeType.COMBAT
+		elif first_roll < 0.80:
+			return MapNodeData.NodeType.HARD_COMBAT
+		elif first_roll < 0.90:
+			return MapNodeData.NodeType.TREASURE
+		else:
+			return MapNodeData.NodeType.SPECIAL
 
 	var roll := _rng.randf()
 
@@ -123,13 +138,11 @@ func _roll_node_type(layer_idx: int, regular_layers: int) -> int:
 	else:
 		return MapNodeData.NodeType.SHOP
 
-
 func _layer_has_lane(layer_nodes: Array[MapNodeData], lane: int) -> bool:
 	for node in layer_nodes:
 		if node.lane_index == lane:
 			return true
 	return false
-
 
 func _connect_layers(from_layer: Array, to_layer: Array) -> void:
 	if from_layer.is_empty() or to_layer.is_empty():
@@ -151,7 +164,6 @@ func _connect_layers(from_layer: Array, to_layer: Array) -> void:
 			if nearest_from != null:
 				_link_nodes(nearest_from, to_node)
 
-
 func _sorted_by_lane_distance(from_node: MapNodeData, nodes: Array) -> Array[MapNodeData]:
 	var copy: Array[MapNodeData] = []
 	for n in nodes:
@@ -166,7 +178,6 @@ func _sorted_by_lane_distance(from_node: MapNodeData, nodes: Array) -> Array[Map
 	)
 
 	return copy
-
 
 func _nearest_node_by_lane(target: MapNodeData, nodes: Array) -> MapNodeData:
 	var best: MapNodeData = null
@@ -217,7 +228,6 @@ func _prune_unreachable_from_start(floor: MapFloorData) -> void:
 				filtered.append(out_id)
 		node.outgoing_ids = filtered
 
-
 func _rebuild_incoming_links(floor: MapFloorData) -> void:
 	for node in floor.nodes:
 		node.incoming_ids.clear()
@@ -228,6 +238,27 @@ func _rebuild_incoming_links(floor: MapFloorData) -> void:
 			if child != null and not child.incoming_ids.has(node.id):
 				child.incoming_ids.append(node.id)
 
+func _debug_force_node_in_first_layer(
+	layer_nodes: Array[MapNodeData],
+	floor: MapFloorData,
+	forced_type: int
+) -> void:
+	if forced_type == -1:
+		return
+
+	if layer_nodes.is_empty():
+		return
+
+	# If the forced type already exists, do nothing.
+	for node: MapNodeData in layer_nodes:
+		if node.type == forced_type:
+			return
+
+	# Replace one existing node in the first layer.
+	# Middle node is a good default target.
+	var target_index: int = int(layer_nodes.size() / 2)
+	var target_node: MapNodeData = layer_nodes[target_index]
+	target_node.type = forced_type
 
 func _refresh_availability(floor: MapFloorData) -> void:
 	for node in floor.nodes:
