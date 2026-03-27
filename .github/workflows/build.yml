@@ -1,0 +1,52 @@
+name: "Build Spellqwest"
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+env:
+  GODOT_VERSION: 4.3.stable
+  PROJECT_PATH: .
+
+jobs:
+  export:
+    name: Export Spellqwest
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [linux, windows, macos]
+        include:
+          - platform: linux
+            preset: "Linux/X11"
+            output_path: "build/linux/spellqwest.x86_64"
+          - platform: windows
+            preset: "Windows Desktop"
+            output_path: "build/windows/spellqwest.exe"
+          - platform: macos
+            preset: "macOS"
+            output_path: "build/macos/spellqwest.zip"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: ${{ env.GODOT_VERSION }}
+          use-dotnet: false
+
+      - name: Export Game
+        run: |
+          mkdir -p $(dirname ${{ matrix.output_path }})
+          godot --headless --path ${{ env.PROJECT_PATH }} --export-release "${{ matrix.preset }}" "${{ matrix.output_path }}"
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: spellqwest-${{ matrix.platform }}
+          path: build/${{ matrix.platform }}
+          if-no-files-found: error
