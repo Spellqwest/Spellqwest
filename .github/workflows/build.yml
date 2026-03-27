@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 env:
-  GODOT_VERSION: 4.3.stable
+  GODOT_VERSION: 4.6.1
   PROJECT_PATH: .
 
 jobs:
@@ -38,6 +38,11 @@ jobs:
         with:
           version: ${{ env.GODOT_VERSION }}
           use-dotnet: false
+          include-templates: true
+
+      - name: Import Assets
+        run: |
+          godot --headless --path ${{ env.PROJECT_PATH }} --editor --quit || true
 
       - name: Export Game
         run: |

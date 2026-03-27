@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="Spellqwest"
-run/main_scene="uid://cp072soujnfuy"
+run/main_scene="res://scenes/game/RunRoot.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://assets/icon.svg"
 
 [autoload]
 
-ContentDB="*uid://ey3u2mqwfxvt"
-Talo="*uid://bpmdn8oc34pg7"
+ContentDB="*res://scripts/autoload/ContentDB.gd"
+Talo="*res://addons/talo/talo_manager.gd"
 TaloTracker="*res://scripts/_shared/talo_tracker.gd"
 
 [editor]
