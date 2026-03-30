@@ -1,13 +1,19 @@
 [gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://3gvbhrt8iapk"]
 
+[ext_resource type="Script" uid="uid://b0vs8yt1qh4s0" path="res://scripts/inventory/items/effects/regen_effect.gd" id="1_d5yxs"]
 [ext_resource type="Script" uid="uid://cu2pbc8m06lkg" path="res://scripts/inventory/items/item_resource.gd" id="1_gxexs"]
 [ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="1_u8t5v"]
+
+[sub_resource type="Resource" id="Resource_wccw3"]
+script = ExtResource("1_d5yxs")
+metadata/_custom_type_script = "uid://b0vs8yt1qh4s0"
 
 [resource]
 script = ExtResource("1_gxexs")
 id = &"item_passive_inkflask"
 display_name = "Ink Flask"
-description = "Increases your max typing speed slightly"
+description = "1 Health regen per Second"
 item_type = 2
 icon = ExtResource("1_u8t5v")
+effect = SubResource("Resource_wccw3")
 metadata/_custom_type_script = "uid://cu2pbc8m06lkg"

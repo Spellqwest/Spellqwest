@@ -5,6 +5,8 @@ class_name CombatScreen
 signal proceed_requested
 signal game_over
 
+const PassiveEffect = preload("res://scripts/inventory/items/passive_effect_resource.gd")
+
 @export var victory_texture: Texture2D
 @export var game_over_texture: Texture2D
 
@@ -24,6 +26,8 @@ signal game_over
 @onready var projectiles_root: Node = $PlayerAttacks/Projectiles
 @onready var beams_root: Node = $PlayerAttacks/Beams
 @onready var damage_zones_root: Node = $PlayerAttacks/DamageZones
+
+var _active_passive_effects: Array[PassiveEffect] = []
 
 var spell_book: SpellBook
 var run_state: RunState
@@ -77,6 +81,11 @@ func _on_visibility_changed() -> void:
 	canvas_layer.visible = visible
 	if combat_camera != null:
 		combat_camera.enabled = visible
+	
+	if visible:
+		_activate_passive_effects()
+	else:
+		_deactivate_passive_effects()
 
 func _init_run_spells() -> void:
 	run_state.learn_all_spells(spell_book.get_all_spells())
@@ -198,6 +207,8 @@ func _clear_children(root: Node) -> void:
 		child.queue_free()
 
 func end_combat() -> void:
+	_deactivate_passive_effects()
+	
 	if run_state != null:
 		run_state.current_use_context = RunState.USE_CONTEXT_MAP
 		run_state.clear_current_combat_screen()
@@ -294,3 +305,32 @@ func spawn_weapon_projectile(
 		var p := projectile as Projectile
 		p.global_position = player.global_position
 		p.setup(velocity, damage, frames, anim_name, projectile_scale)
+
+func _activate_passive_effects() -> void:
+	_active_passive_effects.clear()
+
+	if run_state == null or run_state.inventory == null:
+		return
+
+	var passives: Array[ItemResource] = run_state.inventory.get_passives()
+	for item: ItemResource in passives:
+		if item == null or item.effect == null:
+			continue
+
+		var effect: Variant = item.effect
+		if not effect is PassiveEffect:
+			continue
+
+		_active_passive_effects.append(effect)
+		effect.on_combat_started(run_state, self)
+
+func _deactivate_passive_effects() -> void:
+	for passive: PassiveEffect in _active_passive_effects:
+		if passive != null:
+			passive.on_combat_ended(run_state, self)
+
+	_active_passive_effects.clear()
+
+func sync_player_and_hud_from_run_state() -> void:
+	_sync_player_from_run_state()
+	_refresh_equipped_item_display()
