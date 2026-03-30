@@ -278,7 +278,8 @@ func spawn_weapon_projectile(
 	damage: int,
 	projectile_scene: PackedScene,
 	frames: SpriteFrames,
-	anim_name: StringName
+	anim_name: StringName,
+	projectile_scale: Vector2 = Vector2.ONE
 ) -> void:
 	if projectiles_root == null or projectile_scene == null:
 		return
@@ -292,4 +293,4 @@ func spawn_weapon_projectile(
 	if projectile is Projectile:
 		var p := projectile as Projectile
 		p.global_position = player.global_position
-		p.setup(velocity, damage, frames, anim_name)
+		p.setup(velocity, damage, frames, anim_name, projectile_scale)

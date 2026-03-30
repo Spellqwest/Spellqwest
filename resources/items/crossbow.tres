@@ -21,13 +21,14 @@ script = ExtResource("1_ym8a1")
 projectile_scene = ExtResource("1_vd401")
 damage = 25
 projectile_frames = SubResource("SpriteFrames_vd401")
+projectile_scale = Vector2(0.3, 0.3)
 metadata/_custom_type_script = "uid://brw2o3iqh4u0q"
 
 [resource]
 script = ExtResource("1_okjip")
-id = &"item_weapon_crossbow"
+id = &"item_crossbow"
 display_name = "Crossbow"
-description = "Shoots at nearest Enemy"
+description = "Shoots at nearest enemy"
 item_type = 1
 icon = ExtResource("1_8pfdb")
 can_use_in_combat = true

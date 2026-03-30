@@ -37,7 +37,7 @@ func _cast_projectile(spell: ProjectileSpellResource, origin: Vector2) -> void:
 	var spd: float = spell.projectile_speed
 	var vel := Vector2(0, -spd)
 
-	p.setup(vel, spell.damage, spell.spell_frames, spell.spell_anim)
+	p.setup(vel, spell.damage, spell.spell_frames, spell.spell_anim, spell.projectile_scale)
 
 func _cast_aoe_projectile(spell: AOESpellResource, origin: Vector2) -> void:
 	if projectile_scene == null:
@@ -53,7 +53,7 @@ func _cast_aoe_projectile(spell: AOESpellResource, origin: Vector2) -> void:
 
 	var vel := Vector2(0, -spell.projectile_speed)
 
-	p.setup(vel, spell.damage, spell.spell_frames, spell.spell_anim)
+	p.setup(vel, spell.damage, spell.spell_frames, spell.spell_anim, spell.projectile_scale)
 
 	p.impacted.connect(_on_projectile_impacted_spawn_zone.bind(spell), CONNECT_ONE_SHOT)
 

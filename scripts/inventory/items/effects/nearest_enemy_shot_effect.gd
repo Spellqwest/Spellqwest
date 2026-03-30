@@ -8,6 +8,7 @@ const Projectile = preload("res://scenes/game/combat/entities/damageEntitiy/Play
 @export var damage: int = 1
 @export var projectile_frames: SpriteFrames
 @export var projectile_animation: StringName = &"default"
+@export var projectile_scale: Vector2 = Vector2.ONE
 
 func apply_weapon(run_state: RunState, combat_screen: CombatScreen) -> void:
 	if run_state == null or combat_screen == null:
@@ -29,5 +30,6 @@ func apply_weapon(run_state: RunState, combat_screen: CombatScreen) -> void:
 		damage,
 		projectile_scene,
 		projectile_frames,
-		projectile_animation
+		projectile_animation,
+		projectile_scale
 	)

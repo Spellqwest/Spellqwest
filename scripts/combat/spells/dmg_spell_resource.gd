@@ -9,6 +9,7 @@ enum SpellType { PROJECTILE, AOE, BEAM, MELEE }
 @export var damage: int
 @export var type: SpellType
 @export var cast_time: float
+@export var projectile_scale: Vector2 = Vector2.ONE
 
 @export var spell_frames: SpriteFrames
 @export var spell_anim: StringName = &"default"
