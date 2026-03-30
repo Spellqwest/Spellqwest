@@ -11,9 +11,11 @@ signal impacted(world_pos: Vector2, hit_area: Area2D)
 var velocity: Vector2 = Vector2.ZERO
 var damage: int = 0
 
-func setup(v: Vector2, dmg: int, frames: SpriteFrames, anim_name: StringName) -> void:
+func setup(v: Vector2, dmg: int, frames: SpriteFrames, anim_name: StringName, projectile_scale: Vector2 = Vector2.ONE) -> void:
 	velocity = v
 	damage = dmg
+	scale = projectile_scale
+
 	if frames != null:
 		anim.sprite_frames = frames
 	if anim.sprite_frames != null and anim.sprite_frames.has_animation(String(anim_name)):
