@@ -20,6 +20,7 @@ func _ready() -> void:
 	current_hp = enemy_stats.max_hp
 	currentSpeed = enemy_stats.speed
 	anim.sprite_frames = enemy_stats.enemy_frames
+	add_to_group("combat_enemy")
 	anim.play("enemy_idle")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

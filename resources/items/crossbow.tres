@@ -2,6 +2,26 @@
 
 [ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="1_8pfdb"]
 [ext_resource type="Script" uid="uid://cu2pbc8m06lkg" path="res://scripts/inventory/items/item_resource.gd" id="1_okjip"]
+[ext_resource type="PackedScene" uid="uid://cdcf7epaotmw7" path="res://scenes/game/combat/entities/damageEntitiy/PlayerProjectile.tscn" id="1_vd401"]
+[ext_resource type="Script" uid="uid://brw2o3iqh4u0q" path="res://scripts/inventory/items/effects/nearest_enemy_shot_effect.gd" id="1_ym8a1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vd401"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8pfdb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Resource" id="Resource_bjd7d"]
+script = ExtResource("1_ym8a1")
+projectile_scene = ExtResource("1_vd401")
+damage = 25
+projectile_frames = SubResource("SpriteFrames_vd401")
+metadata/_custom_type_script = "uid://brw2o3iqh4u0q"
 
 [resource]
 script = ExtResource("1_okjip")
@@ -10,4 +30,7 @@ display_name = "Crossbow"
 description = "Shoots at nearest Enemy"
 item_type = 1
 icon = ExtResource("1_8pfdb")
+can_use_in_combat = true
+requires_equip_to_use = true
+effect = SubResource("Resource_bjd7d")
 metadata/_custom_type_script = "uid://cu2pbc8m06lkg"

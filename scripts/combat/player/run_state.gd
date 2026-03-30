@@ -5,6 +5,7 @@ class_name RunState
 const MapStageData = preload("res://data/map/map_stage_data.gd")
 const InventoryState = preload("res://scripts/inventory/inventory_state.gd")
 const ItemResource = preload("res://scripts/inventory/items/item_resource.gd")
+const WeaponEffect = preload("res://scripts/inventory/items/weapon_effect.gd")
 
 const USE_CONTEXT_MAP := 0
 const USE_CONTEXT_COMBAT := 1
@@ -15,6 +16,7 @@ const USE_CONTEXT_COMBAT := 1
 var inventory: InventoryState
 var current_use_context: int = USE_CONTEXT_MAP
 var current_map_stage: MapStageData
+var current_combat_screen: CombatScreen
 var current_stage_index: int = 1
 var has_next_hit_shield: bool = false
 var learned_spell_ids: Dictionary = {}  # id -> true
@@ -104,21 +106,36 @@ func use_item(item: ItemResource) -> bool:
 	if not can_use_item(item):
 		return false
 
-	if item.effect != null:
-		item.effect.apply(self, current_use_context)
+	if item == null or item.effect == null:
+		return false
 
 	match item.item_type:
 		ItemResource.ItemType.CONSUMABLE:
+			item.effect.apply(self, current_use_context)
 			inventory.remove_item(item)
 			return true
+
 		ItemResource.ItemType.WEAPON:
-			return true
-		_:
+			if item.effect is WeaponEffect:
+				var weapon_effect := item.effect as WeaponEffect
+				weapon_effect.apply_weapon(self, current_combat_screen)
+				return true
 			return false
+
+		ItemResource.ItemType.PASSIVE:
+			return false
+
+	return false
 
 func get_owned_passives() -> Array[ItemResource]:
 	ensure_inventory()
 	return inventory.get_passives()
+
+func set_current_combat_screen(screen: CombatScreen) -> void:
+	current_combat_screen = screen
+
+func clear_current_combat_screen() -> void:
+	current_combat_screen = null
 
 #DEBUG
 func add_test_items() -> void:

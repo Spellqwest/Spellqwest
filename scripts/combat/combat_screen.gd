@@ -40,6 +40,10 @@ func setup(_run_state: RunState, _spell_book: SpellBook) -> void:
 	defeated_enemies = 0
 	combat_finished = false
 
+	if run_state != null:
+		run_state.current_use_context = RunState.USE_CONTEXT_COMBAT
+		run_state.set_current_combat_screen(self)
+
 func _ready() -> void:
 	visibility_changed.connect(_on_visibility_changed)
 
@@ -135,11 +139,16 @@ func _try_use_equipped_consumable() -> void:
 
 func _try_use_equipped_weapon() -> void:
 	if run_state == null or run_state.inventory == null:
+		print("weapon use: no run_state or inventory")
 		return
 
 	var item = run_state.inventory.equipped_weapon
 	if item == null:
+		print("weapon use: no equipped weapon")
 		return
+
+	print("weapon use: trying ", item.display_name)
+	print("weapon use: can_use_item = ", run_state.can_use_item(item))
 
 	if run_state.can_use_item(item):
 		run_state.use_item(item)
@@ -189,6 +198,10 @@ func _clear_children(root: Node) -> void:
 		child.queue_free()
 
 func end_combat() -> void:
+	if run_state != null:
+		run_state.current_use_context = RunState.USE_CONTEXT_MAP
+		run_state.clear_current_combat_screen()
+	
 	enemy_field.combat_end()
 	_clear_player_attacks()
 	
@@ -234,3 +247,49 @@ func _show_result() -> void:
 		TaloTracker.track_combat_end(false, run_state.current_stage_index)
 		result_image.texture = game_over_texture
 	result_image.show()
+
+func get_nearest_enemy_to_player() -> Node2D:
+	if player == null:
+		return null
+
+	var enemies: Array[Node] = get_tree().get_nodes_in_group("enemy")
+	var best_enemy: Node2D = null
+	var best_dist_sq: float = INF
+
+	for enemy_node in enemies:
+		if enemy_node == null:
+			continue
+		if not enemy_node is Node2D:
+			continue
+
+		var enemy := enemy_node as Node2D
+		if not is_instance_valid(enemy):
+			continue
+
+		var dist_sq: float = player.global_position.distance_squared_to(enemy.global_position)
+		if dist_sq < best_dist_sq:
+			best_dist_sq = dist_sq
+			best_enemy = enemy
+
+	return best_enemy
+
+func spawn_weapon_projectile(
+	velocity: Vector2,
+	damage: int,
+	projectile_scene: PackedScene,
+	frames: SpriteFrames,
+	anim_name: StringName
+) -> void:
+	if projectiles_root == null or projectile_scene == null:
+		return
+
+	var projectile = projectile_scene.instantiate()
+	if projectile == null:
+		return
+
+	projectiles_root.add_child(projectile)
+
+	if projectile is Projectile:
+		var p := projectile as Projectile
+		p.global_position = player.global_position
+		p.setup(velocity, damage, frames, anim_name)
