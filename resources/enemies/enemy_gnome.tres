@@ -1,7 +1,12 @@
 [gd_resource type="Resource" script_class="EnemyResource" format=3 uid="uid://djftsbsboj1kn"]
 
 [ext_resource type="Texture2D" uid="uid://ba6s2ldenlhrs" path="res://assets/visual/characters/enemies/enemy_gnome.png" id="1_264nr"]
+[ext_resource type="Script" uid="uid://bml4dokr7yoml" path="res://scripts/combat/enemies/behaviours/grunt_behaviour.gd" id="1_eh7kp"]
 [ext_resource type="Script" uid="uid://bb6711hoq4n6k" path="res://scripts/combat/enemies/enemy_resource.gd" id="1_o716i"]
+
+[sub_resource type="Resource" id="Resource_etgbr"]
+script = ExtResource("1_eh7kp")
+metadata/_custom_type_script = "uid://bml4dokr7yoml"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eh7kp"]
 atlas = ExtResource("1_264nr")
@@ -87,4 +92,5 @@ speed = 20.0
 contact_damage = 2
 enemy_frames = SubResource("SpriteFrames_p5ivm")
 gold_reward = 1
+behaviour = SubResource("Resource_etgbr")
 metadata/_custom_type_script = "uid://bb6711hoq4n6k"

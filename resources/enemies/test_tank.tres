@@ -1,7 +1,11 @@
 [gd_resource type="Resource" script_class="EnemyResource" format=3 uid="uid://yoxj2rv88dcf"]
 
-[ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="1_l5050"]
+[ext_resource type="Script" uid="uid://bml4dokr7yoml" path="res://scripts/combat/enemies/behaviours/grunt_behaviour.gd" id="1_l5050"]
 [ext_resource type="Script" uid="uid://bb6711hoq4n6k" path="res://scripts/combat/enemies/enemy_resource.gd" id="2_yj8ey"]
+
+[sub_resource type="Resource" id="Resource_yj8ey"]
+script = ExtResource("1_l5050")
+metadata/_custom_type_script = "uid://bml4dokr7yoml"
 
 [resource]
 script = ExtResource("2_yj8ey")
@@ -11,6 +15,6 @@ type = 1
 max_hp = 16
 speed = 40.0
 contact_damage = 3
-icon = ExtResource("1_l5050")
 gold_reward = 6
+behaviour = SubResource("Resource_yj8ey")
 metadata/_custom_type_script = "uid://bb6711hoq4n6k"

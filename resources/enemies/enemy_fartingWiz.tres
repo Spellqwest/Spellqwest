@@ -1,7 +1,14 @@
 [gd_resource type="Resource" script_class="EnemyResource" format=3 uid="uid://b734c2nqg2t6f"]
 
 [ext_resource type="Texture2D" uid="uid://ca4hri54uj0cb" path="res://assets/visual/characters/enemies/enemy_farting_wizard.png" id="1_5xw62"]
+[ext_resource type="PackedScene" uid="uid://cgxl2pyeg3xem" path="res://scenes/game/combat/entities/damageEntity/EnemyProjectile.tscn" id="1_6n5yh"]
 [ext_resource type="Script" uid="uid://bb6711hoq4n6k" path="res://scripts/combat/enemies/enemy_resource.gd" id="1_q10uq"]
+[ext_resource type="Script" uid="uid://d3s7n7a8jlddx" path="res://scripts/combat/enemies/behaviours/ranged_behaviour.gd" id="1_vixb7"]
+
+[sub_resource type="Resource" id="Resource_6n5yh"]
+script = ExtResource("1_vixb7")
+projectile_scene = ExtResource("1_6n5yh")
+metadata/_custom_type_script = "uid://d3s7n7a8jlddx"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n2khj"]
 atlas = ExtResource("1_5xw62")
@@ -95,4 +102,5 @@ max_hp = 30
 speed = 15.0
 contact_damage = 5
 enemy_frames = SubResource("SpriteFrames_p31vr")
+behaviour = SubResource("Resource_6n5yh")
 metadata/_custom_type_script = "uid://bb6711hoq4n6k"

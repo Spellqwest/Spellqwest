@@ -1014,7 +1014,7 @@ sources/1 = SubResource("TileSetAtlasSource_scijj")
 size = Vector2(650, 53)
 
 [node name="KeyboardArea" type="Area2D" unique_id=794398389]
-position = Vector2(833.5, 0)
+position = Vector2(1075.5, 0)
 collision_layer = 64
 collision_mask = 0
 script = ExtResource("1_gnik0")

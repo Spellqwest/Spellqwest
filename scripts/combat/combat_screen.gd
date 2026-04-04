@@ -94,6 +94,7 @@ func _on_token_typed(token: String) -> void:
 	if not player.use_mana(2.0):
 		return
 
+	typing.append_to_buffer(token)
 	keyboard.handle_letter(token)
 
 	match token:
@@ -215,6 +216,11 @@ func end_combat() -> void:
 	
 	enemy_field.combat_end()
 	_clear_player_attacks()
+	typing.buffer = ""
+	typing.emit_signal("buffer_changed", "")
+	player.current_mana = player.stats.max_mana
+	player.stats.current_mana = player.stats.max_mana
+	player.emit_signal("mana_changed", player.current_mana, player.stats.max_mana)
 	
 	_show_result()
 	

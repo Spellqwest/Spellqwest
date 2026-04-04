@@ -1,7 +1,7 @@
 extends WeaponEffect
 class_name ShootNearestEnemyEffect
 
-const Projectile = preload("res://scenes/game/combat/entities/damageEntitiy/PlayerProjectile.tscn")
+const Projectile = preload("res://scenes/game/combat/entities/damageEntity/PlayerProjectile.tscn")
 
 @export var projectile_scene: PackedScene
 @export var projectile_speed: float = 500.0

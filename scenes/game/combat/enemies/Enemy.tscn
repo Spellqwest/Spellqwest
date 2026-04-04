@@ -27,8 +27,8 @@ size = Vector2(64, 62)
 
 [node name="Enemy" type="Area2D" unique_id=123919857 groups=["enemy"]]
 scale = Vector2(2, 2)
-collision_layer = 4
-collision_mask = 96
+collision_layer = 2
+collision_mask = 69
 script = ExtResource("1_43hdt")
 enemy_choices = Array[ExtResource("2_3gstx")]([ExtResource("3_tbbnm"), ExtResource("4_ukmka"), ExtResource("5_8qxis")])
 

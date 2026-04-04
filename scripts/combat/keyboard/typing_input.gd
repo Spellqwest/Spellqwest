@@ -33,6 +33,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	emit_signal("token_typed", token)
 
+func append_to_buffer(token: String) -> void:
 	var non_typing_tokens := {"shift": true, ".": true, ",": true}
 
 	if not non_typing_tokens.has(token):

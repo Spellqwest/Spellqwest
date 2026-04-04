@@ -17,5 +17,8 @@ enum EnemyType { GRUNT, TANK, RANGED, ELITE, BOSS }
 @export var enemy_frames: SpriteFrames
 @export var enemy_anim: StringName = &"enemy_idle"
 
-# Optional: rewards (für die demo)
-@export var gold_reward: int 
+# Rewards
+@export var gold_reward: int
+
+# Behaviour
+@export var behaviour: EnemyBehaviour

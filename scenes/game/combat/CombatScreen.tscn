@@ -8,9 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://cddydqcioelua" path="res://scenes/game/combat/enemies/EnemyField.tscn" id="4_v5uiv"]
 [ext_resource type="Script" uid="uid://sfowtyk7n7dt" path="res://scripts/combat/keyboard/typing_input.gd" id="5_8jdeh"]
 [ext_resource type="Script" uid="uid://bywsfladnesh6" path="res://scripts/combat/combat_caster.gd" id="6_xcp1j"]
-[ext_resource type="PackedScene" uid="uid://cdcf7epaotmw7" path="res://scenes/game/combat/entities/damageEntitiy/PlayerProjectile.tscn" id="7_l4sx5"]
-[ext_resource type="PackedScene" uid="uid://c4wn5dt427owq" path="res://scenes/game/combat/entities/damageEntitiy/Beam.tscn" id="9_8e817"]
-[ext_resource type="PackedScene" uid="uid://dyp7rxt6wdhhx" path="res://scenes/game/combat/entities/damageEntitiy/DamageZone.tscn" id="13_se7e0"]
+[ext_resource type="PackedScene" uid="uid://cdcf7epaotmw7" path="res://scenes/game/combat/entities/damageEntity/PlayerProjectile.tscn" id="7_l4sx5"]
+[ext_resource type="PackedScene" uid="uid://c4wn5dt427owq" path="res://scenes/game/combat/entities/damageEntity/Beam.tscn" id="9_8e817"]
+[ext_resource type="PackedScene" uid="uid://dyp7rxt6wdhhx" path="res://scenes/game/combat/entities/damageEntity/DamageZone.tscn" id="13_se7e0"]
 
 [node name="CombatScreen" type="Node2D" unique_id=207275243]
 script = ExtResource("1_v5uiv")
