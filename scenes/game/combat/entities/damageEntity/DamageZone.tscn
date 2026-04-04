@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://dyp7rxt6wdhhx"]
 
-[ext_resource type="Script" uid="uid://c5rujmq30725r" path="res://scripts/combat/attacks/player_spells/damage_zone.gd" id="1_jxwtm"]
+[ext_resource type="Script" uid="uid://c5rujmq30725r" path="res://scripts/combat/attacks/player_spells/damage_zone.gd" id="1_kfgl1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oqjmf"]
 
 [node name="DamageZone" type="Area2D" unique_id=1779708309]
-collision_layer = 16
-collision_mask = 4
-script = ExtResource("1_jxwtm")
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_kfgl1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=496378553]
 shape = SubResource("CircleShape2D_oqjmf")

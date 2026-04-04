@@ -5,8 +5,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pt44j"]
 
 [node name="Beam" type="Area2D" unique_id=1823437104]
-collision_layer = 32
-collision_mask = 4
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_pggl2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1344191599]

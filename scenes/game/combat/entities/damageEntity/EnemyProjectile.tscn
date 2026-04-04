@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cgxl2pyeg3xem"]
+
+[ext_resource type="Script" uid="uid://ds7708fyj43sh" path="res://scripts/combat/attacks/enemy_projectile.gd" id="1_gmnwo"]
+[ext_resource type="Texture2D" uid="uid://dkoqsv5sxxido" path="res://assets/visual/projectiles/spells/spell_fire/spell_fire_1.png" id="2_52y6i"]
+[ext_resource type="Texture2D" uid="uid://pdf03pgvitdt" path="res://assets/visual/projectiles/spells/spell_fire/spell_fire_2.png" id="3_ut3de"]
+[ext_resource type="Texture2D" uid="uid://d1t0napfobiaj" path="res://assets/visual/projectiles/spells/spell_fire/spell_fire_3.png" id="4_v2hjy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_thekf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_52y6i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ut3de")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_v2hjy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_52y6i"]
+
+[node name="EnemyProjectile" type="Area2D" unique_id=377321145]
+process_mode = 3
+collision_layer = 8
+script = ExtResource("1_gmnwo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=320468991]
+sprite_frames = SubResource("SpriteFrames_thekf")
+flip_v = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2024294796]
+shape = SubResource("CapsuleShape2D_52y6i")
