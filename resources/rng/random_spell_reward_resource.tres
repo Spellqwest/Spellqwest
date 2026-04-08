@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="RandomSpellRewardResource" format=3 uid="uid://cci01ravd6ayu"]
+
+[ext_resource type="Script" uid="uid://dixorf8ghv4w" path="res://scripts/events/random_spell_reward_resource.gd" id="1_nvchh"]
+
+[resource]
+script = ExtResource("1_nvchh")
+display_name = "Mysterious Tome"
+description = "Learn a random spell you do not already know."
+shop_value = 120
+metadata/_custom_type_script = "uid://dixorf8ghv4w"

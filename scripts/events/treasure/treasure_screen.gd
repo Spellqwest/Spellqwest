@@ -4,6 +4,7 @@ class_name TreasureScreen
 signal proceed_requested
 
 const TreasureItemPool = preload("res://scripts/_shared/rng/item_pools/treasure_item_pool.gd")
+const RewardResource = preload("res://scripts/events/reward_resource.gd")
 const ItemResource = preload("res://scripts/inventory/items/item_resource.gd")
 
 enum Step {
@@ -24,7 +25,9 @@ var _rng := RandomNumberGenerator.new()
 var _step: int = Step.OPEN_CHEST
 var _target_word: String = "OPEN"
 var _typed_count: int = 0
+
 var _granted_item: ItemResource
+var _granted_special_reward: RewardResource
 
 func _ready() -> void:
 	hide()
@@ -35,7 +38,7 @@ func _ready() -> void:
 	offset_bottom = 0
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	_rng.randomize()
-	
+
 	base_word_label.modulate = Color(1, 1, 1, 0.35)
 	typed_word_label.modulate = Color(1, 1, 1, 1.0)
 
@@ -47,6 +50,7 @@ func begin_treasure() -> void:
 	_target_word = "OPEN"
 	_typed_count = 0
 	_granted_item = null
+	_granted_special_reward = null
 
 	title_label.text = "Treasure"
 	prompt_label.text = "Type OPEN to open the chest."
@@ -97,14 +101,37 @@ func _open_chest() -> void:
 	if treasure_pool == null:
 		reward_label.text = "No treasure pool assigned."
 	else:
-		_granted_item = treasure_pool.roll_random_item(_rng)
+		var rolled: Dictionary = treasure_pool.roll_random_entry(_rng, run_state)
 
-		if _granted_item == null:
+		if rolled.is_empty():
 			reward_label.text = "The chest was empty."
 		else:
-			if run_state != null:
-				run_state.add_item(_granted_item)
-			reward_label.text = "You found: %s" % _granted_item.display_name
+			var entry_type: String = str(rolled.get("type", ""))
+			var value = rolled.get("value", null)
+
+			match entry_type:
+				"item":
+					_granted_item = value as ItemResource
+					if _granted_item == null:
+						reward_label.text = "The chest was empty."
+					else:
+						if run_state != null:
+							run_state.add_item(_granted_item)
+						reward_label.text = "You found: %s" % _granted_item.display_name
+
+				"reward":
+					_granted_special_reward = value as RewardResource
+					if _granted_special_reward == null:
+						reward_label.text = "The chest was empty."
+					else:
+						var granted: bool = _granted_special_reward.grant(run_state)
+						if granted:
+							reward_label.text = "You found: %s" % _granted_special_reward.display_name
+						else:
+							reward_label.text = "The chest was empty."
+
+				_:
+					reward_label.text = "The chest was empty."
 
 	_step = Step.PROCEED
 	_target_word = "PROCEED"

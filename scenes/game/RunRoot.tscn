@@ -46,9 +46,7 @@ process_mode = 4
 visible = false
 
 [node name="MapScreen" parent="Screens" unique_id=229224555 instance=ExtResource("12_fgvbs")]
-edge_scroll_zone = 120.0
-edge_scroll_speed = 520.0
-edge_scroll_curve = 2.0
+move_speed = 300.0
 debug_force_first_layer_node_type = 4
 
 [node name="TreasureScreen" parent="Screens" unique_id=169990159 instance=ExtResource("14_y5swq")]

@@ -2,10 +2,14 @@
 
 [ext_resource type="Script" uid="uid://cu2pbc8m06lkg" path="res://scripts/inventory/items/item_resource.gd" id="1_v6yyy"]
 [ext_resource type="Script" uid="uid://cumfmatkjwbb6" path="res://scripts/_shared/rng/item_pools/shop_item_pool.gd" id="2_rhril"]
+[ext_resource type="Resource" uid="uid://cse8v4powmsij" path="res://resources/items/health_potion.tres" id="2_wscpw"]
 [ext_resource type="Resource" uid="uid://3gvbhrt8iapk" path="res://resources/items/ink_flask.tres" id="3_357no"]
 [ext_resource type="Resource" uid="uid://dkugau2y6gv23" path="res://resources/items/crossbow.tres" id="4_wscpw"]
+[ext_resource type="Script" uid="uid://dyecng4fd2fau" path="res://scripts/events/reward_resource.gd" id="6_vk146"]
+[ext_resource type="Resource" uid="uid://cci01ravd6ayu" path="res://resources/rng/random_spell_reward_resource.tres" id="7_r5qhp"]
 
 [resource]
 script = ExtResource("2_rhril")
-items = Array[ExtResource("1_v6yyy")]([ExtResource("3_357no"), ExtResource("4_wscpw")])
+items = Array[ExtResource("1_v6yyy")]([ExtResource("2_wscpw"), ExtResource("4_wscpw"), ExtResource("3_357no")])
+special_rewards = Array[ExtResource("6_vk146")]([ExtResource("7_r5qhp")])
 metadata/_custom_type_script = "uid://cumfmatkjwbb6"
