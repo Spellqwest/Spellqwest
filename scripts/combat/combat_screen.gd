@@ -122,6 +122,7 @@ func _on_spell_ready(spell: SpellResource) -> void:
 	var origin: Vector2 = keyboard.player.global_position
 	caster.cast(spell, origin)
 	player.pause_mana_regen(1.0)
+	TaloTracker.track_spell_use(spell.display_name)
 	
 func _refresh_equipped_item_display() -> void:
 	if run_state == null or run_state.inventory == null:

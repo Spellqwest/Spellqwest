@@ -162,6 +162,7 @@ func _try_buy_item(item: ItemResource) -> void:
 	run_state.add_item(item)
 	_current_shop_items.erase(item)
 
+	TaloTracker.track_item_buy(item.display_name)
 	result_label.text = "Bought: %s" % item.display_name
 	_refresh_all()
 

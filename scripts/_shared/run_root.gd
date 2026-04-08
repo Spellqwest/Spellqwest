@@ -108,7 +108,9 @@ func _on_combat_proceed_requested() -> void:
 	_show_map()
 
 func _on_game_over() -> void:
+	TaloTracker.track_run_end(false, run_state.current_stage_index)
 	run_state.current_map_stage = null
 	run_state.game_over_reset() #Redundant. But needed for later working with playerstats
 	combat_screen.player.heal(run_state.stats.current_hp)
+	TaloTracker.track_run_started()
 	_show_map()

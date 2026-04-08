@@ -113,12 +113,14 @@ func use_item(item: ItemResource) -> bool:
 		ItemResource.ItemType.CONSUMABLE:
 			item.effect.apply(self, current_use_context)
 			inventory.remove_item(item)
+			TaloTracker.track_item_use(item.display_name)
 			return true
 
 		ItemResource.ItemType.WEAPON:
 			if item.effect is WeaponEffect:
 				var weapon_effect := item.effect as WeaponEffect
 				weapon_effect.apply_weapon(self, current_combat_screen)
+				TaloTracker.track_item_use(item.display_name)
 				return true
 			return false
 
@@ -143,7 +145,7 @@ func add_test_items() -> void:
 	add_item(preload("res://resources/items/health_potion.tres"))
 	add_item(preload("res://resources/items/ink_flask.tres"))
 	add_item(preload("res://resources/items/crossbow.tres"))
-	current_coins = 50
+	current_coins = 100
 
 func game_over_reset() -> void:
 	stats.current_hp = stats.max_hp
