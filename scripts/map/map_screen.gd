@@ -75,9 +75,6 @@ func _process(delta: float) -> void:
 		return
 
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
-	var normalized_y: float = (mouse_pos.y / viewport_size.y) - 0.5
-	var target_y: float = _base_camera_y + normalized_y * mouse_follow_strength
-	var follow_offset: float = normalized_y * mouse_follow_strength
 
 	var edge_velocity: float = 0.0
 
@@ -92,9 +89,9 @@ func _process(delta: float) -> void:
 		edge_velocity = edge_t * edge_scroll_speed
 
 	_base_camera_y += edge_velocity * delta
-	camera.position.y = target_y
+	camera.position.y = _base_camera_y
 	_clamp_camera()
-	_base_camera_y = camera.position.y - follow_offset
+	_base_camera_y = camera.position.y
 
 func setup(p_run_state: RunState) -> void:
 	run_state = p_run_state
