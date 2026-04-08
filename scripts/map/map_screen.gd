@@ -316,4 +316,27 @@ func _on_avatar_reached_pending_node() -> void:
 
 	_move_to_node(node)
 	node_chosen.emit(node)
+
+	var type_name := _node_type_to_string(node.type)
+	TaloTracker.track_visit_map_node(type_name, node.id)
+
 	_emit_event_signal(node)
+
+func _node_type_to_string(type: int) -> String:
+	match type:
+		MapNodeData.NodeType.START:
+			return "start"
+		MapNodeData.NodeType.COMBAT:
+			return "combat"
+		MapNodeData.NodeType.HARD_COMBAT:
+			return "hard_combat"
+		MapNodeData.NodeType.BOSS:
+			return "boss"
+		MapNodeData.NodeType.SHOP:
+			return "shop"
+		MapNodeData.NodeType.TREASURE:
+			return "treasure"
+		MapNodeData.NodeType.SPECIAL:
+			return "special"
+		_:
+			return "unknown"
