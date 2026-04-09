@@ -2,7 +2,7 @@ extends Node2D
 
 class_name Enemy
 
-signal enemy_died
+signal enemy_died(gold: int)
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @export var enemy_choices: Array[EnemyResource]
@@ -30,7 +30,7 @@ func _process(delta: float) -> void:
 func take_damage(amount: int) -> void:
 	current_hp = max(0, current_hp - amount)
 	if(current_hp <= 0):
-		emit_signal("enemy_died") 
+		emit_signal("enemy_died", enemy_stats.gold_reward)
 		queue_free()
 
 func _on_area_entered(area: Area2D) -> void:

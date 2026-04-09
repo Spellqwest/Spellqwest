@@ -31,6 +31,66 @@ grow_vertical = 2
 expand_mode = 1
 stretch_mode = 5
 
+[node name="RewardLabel" type="Label" parent="CanvasLayer"]
+z_index = 101
+anchors_preset = 12
+anchor_top = 0.55
+anchor_right = 1.0
+anchor_bottom = 0.7
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+visible = false
+
+[node name="PromptLabel" type="Label" parent="CanvasLayer"]
+z_index = 101
+anchors_preset = 12
+anchor_top = 0.72
+anchor_right = 1.0
+anchor_bottom = 0.78
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+visible = false
+
+[node name="WordHolder" type="Control" parent="CanvasLayer"]
+z_index = 101
+anchors_preset = 12
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 0.88
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+
+[node name="BaseWordLabel" type="Label" parent="CanvasLayer/WordHolder"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 28
+modulate = Color(1, 1, 1, 0.35)
+
+[node name="TypedWordLabel" type="Label" parent="CanvasLayer/WordHolder"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 28
+modulate = Color(1, 1, 1, 1)
+
 [node name="Keyboard" parent="." unique_id=1499620130 instance=ExtResource("2_8jdeh")]
 position = Vector2(-7, 500)
 player_offset = Vector2(-4, -35)

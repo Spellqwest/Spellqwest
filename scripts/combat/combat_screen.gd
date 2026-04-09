@@ -6,11 +6,18 @@ signal proceed_requested
 signal game_over
 
 const PassiveEffect = preload("res://scripts/inventory/items/passive_effect_resource.gd")
+const TreasureItemPool = preload("res://scripts/_shared/rng/item_pools/treasure_item_pool.gd")
+const RewardResource = preload("res://scripts/events/reward_resource.gd")
+const ItemResource = preload("res://scripts/inventory/items/item_resource.gd")
 
 @export var victory_texture: Texture2D
 @export var game_over_texture: Texture2D
 
 @onready var result_image: TextureRect = $CanvasLayer/CombatResult
+@onready var reward_label: Label = $CanvasLayer/RewardLabel
+@onready var prompt_label: Label = $CanvasLayer/PromptLabel
+@onready var base_word_label: Label = $CanvasLayer/WordHolder/BaseWordLabel
+@onready var typed_word_label: Label = $CanvasLayer/WordHolder/TypedWordLabel
 
 @onready var keyboard = $Keyboard
 @onready var player = $Keyboard/Player
@@ -28,6 +35,13 @@ const PassiveEffect = preload("res://scripts/inventory/items/passive_effect_reso
 @onready var damage_zones_root: Node = $PlayerAttacks/DamageZones
 
 var _active_passive_effects: Array[PassiveEffect] = []
+var _treasure_pool = load("res://data/rng_pools/treasure_item_pool.tres")
+var _rng := RandomNumberGenerator.new()
+var _earned_gold: int = 0
+var _loot_reward_text: String = ""
+var _result_target_word: String = "PROCEED"
+var _result_typed_count: int = 0
+var _awaiting_result_input: bool = false
 
 var spell_book: SpellBook
 var run_state: RunState
@@ -177,12 +191,13 @@ func _on_inventory_item_used(_item: ItemResource) -> void:
 func _on_inventory_item_equipped(_item: ItemResource) -> void:
 	_refresh_equipped_item_display()
 
-func _on_enemy_died() -> void:
+func _on_enemy_died(gold: int) -> void:
 	if (combat_finished):
 		return
-		
+
+	_earned_gold += gold
 	defeated_enemies += 1
-	
+
 	if (defeated_enemies >= enemies_to_defeat):
 		combat_finished = true
 		player_won = true
@@ -209,49 +224,78 @@ func _clear_children(root: Node) -> void:
 
 func end_combat() -> void:
 	_deactivate_passive_effects()
-	
+
 	if run_state != null:
 		run_state.current_use_context = RunState.USE_CONTEXT_MAP
 		run_state.clear_current_combat_screen()
-	
+
 	enemy_field.combat_end()
 	_clear_player_attacks()
-	
+
+	if player_won:
+		_grant_combat_rewards()
+
 	_show_result()
-	
-	await get_tree().create_timer(2.0).timeout
-	#TODO
-	#Implement that based on win/lose there is a visualization of it to see
-	
-	if (player_won):
-		proceed_requested.emit()
-	else:
+
+	if not player_won:
+		# Bei Game Over kurz warten, dann automatisch weiter
+		await get_tree().create_timer(2.0).timeout
 		game_over.emit()
 
 func start_combat():
 	defeated_enemies = 0
 	combat_finished = false
 	player_won = false
-	
+	_earned_gold = 0
+	_loot_reward_text = ""
+
 	set_process(true)
 	typing.set_process(true)
-	
+
 	hud.show()
+	keyboard.show()
 	result_image.hide()
-	
+	reward_label.hide()
+	prompt_label.hide()
+	base_word_label.get_parent().hide()
+	_awaiting_result_input = false
+
 	enemy_field.combat_start()
 	_sync_player_from_run_state()
 	
+func _grant_combat_rewards() -> void:
+	if run_state == null:
+		return
+
+	# Gold immer vergeben
+	run_state.current_coins += _earned_gold
+	player.add_coins(_earned_gold)
+
+	# 25% Chance auf Loot aus dem Pool
+	_loot_reward_text = ""
+	if _treasure_pool != null and _rng.randf() <= 0.25:
+		var rolled: Dictionary = _treasure_pool.roll_random_entry(_rng, run_state, spell_book)
+		if not rolled.is_empty():
+			var entry_type: String = str(rolled.get("type", ""))
+			var value = rolled.get("value", null)
+			match entry_type:
+				"item":
+					var item = value as ItemResource
+					if item != null:
+						run_state.add_item(item)
+						_loot_reward_text = item.display_name
+				"reward":
+					var reward = value as RewardResource
+					if reward != null and reward.grant(run_state, spell_book):
+						_loot_reward_text = reward.display_name
+
 func _show_result() -> void:
-	print("SHOW RESULT CALLED")
-	print(result_image)
-	print("SIZE :" + str(result_image.size))
-	print("Texture:", victory_texture)
 	set_process(false)
 	typing.set_process(false)
-	
+
 	hud.hide()
-	
+	keyboard.hide()
+
 	if player_won:
 		TaloTracker.track_combat_end(true, run_state.current_stage_index)
 		result_image.texture = victory_texture
@@ -259,6 +303,63 @@ func _show_result() -> void:
 		TaloTracker.track_combat_end(false, run_state.current_stage_index)
 		result_image.texture = game_over_texture
 	result_image.show()
+
+	if player_won:
+		var reward_text = "+ %d Gold" % _earned_gold
+		if _loot_reward_text != "":
+			reward_text += "\n+ %s" % _loot_reward_text
+		reward_label.text = reward_text
+		reward_label.show()
+
+		# Tipp-Prompt anzeigen
+		_result_target_word = "PROCEED"
+		_result_typed_count = 0
+		_awaiting_result_input = true
+		prompt_label.text = "Type PROCEED to continue."
+		prompt_label.show()
+		_refresh_result_word_display()
+		base_word_label.get_parent().show()
+	else:
+		reward_label.hide()
+		prompt_label.hide()
+		base_word_label.get_parent().hide()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not visible or not _awaiting_result_input:
+		return
+	if event is not InputEventKey:
+		return
+	if not event.pressed or event.echo:
+		return
+
+	var key_event: InputEventKey = event
+	var typed: String = char(key_event.unicode).to_upper()
+	if typed.is_empty():
+		return
+
+	_try_advance_result_word(typed)
+	get_viewport().set_input_as_handled()
+
+func _try_advance_result_word(typed: String) -> void:
+	if _result_typed_count >= _result_target_word.length():
+		return
+
+	var expected: String = _result_target_word.substr(_result_typed_count, 1)
+	if typed != expected:
+		return
+
+	_result_typed_count += 1
+	_refresh_result_word_display()
+
+	if _result_typed_count >= _result_target_word.length():
+		_awaiting_result_input = false
+		prompt_label.hide()
+		base_word_label.get_parent().hide()
+		proceed_requested.emit()
+
+func _refresh_result_word_display() -> void:
+	base_word_label.text = _result_target_word
+	typed_word_label.text = _result_target_word.substr(0, _result_typed_count)
 
 func get_nearest_enemy_to_player() -> Node2D:
 	if player == null:

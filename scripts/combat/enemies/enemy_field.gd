@@ -3,7 +3,7 @@ extends Node2D
 ##############################################
 #Global Variables
 ##############################################
-signal enemy_entity_died
+signal enemy_entity_died(gold: int)
 
 @export var enemy_scene:= preload("res://scenes/game/combat/enemies/Enemy.tscn") 
 
@@ -39,8 +39,8 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	enemy.enemy_died.connect(_on_enemy_died)
 	add_child(enemy)
 
-func _on_enemy_died() -> void:
-	emit_signal("enemy_entity_died")
+func _on_enemy_died(gold: int) -> void:
+	emit_signal("enemy_entity_died", gold)
 	
 func combat_end() -> void:
 		spawnTimer.stop()
