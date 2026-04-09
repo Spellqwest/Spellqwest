@@ -54,6 +54,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="WordHolder" type="Control" parent="Panel/Margin/VBox" unique_id=1652315474]
+custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
 
 [node name="BaseWordLabel" type="Label" parent="Panel/Margin/VBox/WordHolder" unique_id=1791036671]
@@ -67,5 +68,7 @@ offset_right = 1.0
 offset_bottom = 23.0
 
 [node name="ResultLabel" type="Label" parent="Panel/Margin/VBox" unique_id=727476012]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_vertical = 1
+vertical_alignment = 2
