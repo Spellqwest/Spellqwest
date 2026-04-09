@@ -58,13 +58,14 @@ layout_mode = 2
 
 [node name="BaseWordLabel" type="Label" parent="Panel/Margin/VBox/WordHolder" unique_id=1791036671]
 layout_mode = 0
-offset_right = 40.0
+offset_right = 1.0
 offset_bottom = 23.0
 
 [node name="TypedWordLabel" type="Label" parent="Panel/Margin/VBox/WordHolder" unique_id=790676663]
 layout_mode = 0
-offset_right = 40.0
+offset_right = 1.0
 offset_bottom = 23.0
 
 [node name="ResultLabel" type="Label" parent="Panel/Margin/VBox" unique_id=727476012]
 layout_mode = 2
+size_flags_vertical = 1

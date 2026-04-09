@@ -11,7 +11,10 @@
 [ext_resource type="Resource" uid="uid://6mt2oo5sxy7c" path="res://resources/spells/fire.tres" id="6_fgvbs"]
 [ext_resource type="Resource" uid="uid://cluomifsomujk" path="res://resources/spells/laser.tres" id="7_6u1c1"]
 [ext_resource type="Resource" uid="uid://di7atophu2kny" path="res://resources/spells/boom.tres" id="8_y5swq"]
+[ext_resource type="Resource" uid="uid://do03x3j6alilm" path="res://resources/spells/bolt.tres" id="9_a7ykd"]
+[ext_resource type="Resource" uid="uid://cdix2pt0umsm0" path="res://resources/spells/explosion.tres" id="10_wejxs"]
 [ext_resource type="PackedScene" uid="uid://ddx4366807jsp" path="res://scenes/ui/inventory/InventoryPopup.tscn" id="11_6u1c1"]
+[ext_resource type="Resource" uid="uid://ruuk2i4qqqc3" path="res://resources/spells/frost.tres" id="11_u4hwo"]
 [ext_resource type="PackedScene" uid="uid://ctueyk25isx7l" path="res://scenes/game/map/MapScreen.tscn" id="12_fgvbs"]
 [ext_resource type="PackedScene" uid="uid://dkxos6w5xsfwu" path="res://scenes/game/map/event_nodes/TreasureScreen.tscn" id="14_y5swq"]
 [ext_resource type="Resource" uid="uid://d0svul002c7se" path="res://data/rng_pools/treasure_item_pool.tres" id="15_u4i30"]
@@ -24,12 +27,11 @@ script = ExtResource("1_ud2q2")
 
 [node name="RunState" type="Node" parent="." unique_id=1419385208]
 script = ExtResource("2_vj8ib")
-current_coins = 50
 stats = ExtResource("3_6u1c1")
 
 [node name="SpellBook" type="Node" parent="." unique_id=1639903750]
 script = ExtResource("3_kprca")
-spells = Array[Resource]([ExtResource("5_lpsnw"), ExtResource("8_y5swq"), ExtResource("6_fgvbs"), ExtResource("7_6u1c1")])
+spells = Array[Resource]([ExtResource("6_fgvbs"), ExtResource("5_lpsnw"), ExtResource("7_6u1c1"), ExtResource("8_y5swq"), ExtResource("9_a7ykd"), ExtResource("10_wejxs"), ExtResource("11_u4hwo")])
 
 [node name="RunUI" type="CanvasLayer" parent="." unique_id=2063265465]
 script = ExtResource("1_icvq8")
@@ -46,9 +48,7 @@ process_mode = 4
 visible = false
 
 [node name="MapScreen" parent="Screens" unique_id=229224555 instance=ExtResource("12_fgvbs")]
-edge_scroll_zone = 120.0
-edge_scroll_speed = 520.0
-edge_scroll_curve = 2.0
+move_speed = 300.0
 debug_force_first_layer_node_type = 4
 
 [node name="TreasureScreen" parent="Screens" unique_id=169990159 instance=ExtResource("14_y5swq")]

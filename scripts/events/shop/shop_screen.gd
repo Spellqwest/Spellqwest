@@ -4,7 +4,9 @@ class_name ShopScreen
 signal proceed_requested
 
 const ShopItemPool = preload("res://scripts/_shared/rng/item_pools/shop_item_pool.gd")
+const RewardResource = preload("res://scripts/events/reward_resource.gd")
 const ItemResource = preload("res://scripts/inventory/items/item_resource.gd")
+const ItemRewardRuntime = preload("res://scripts/events/item_reward_runtime.gd")
 
 enum Step {
 	SHOPPING,
@@ -24,13 +26,13 @@ enum Step {
 @onready var typed_word_label: Label = $Panel/Margin/VBox/WordHolder/TypedWordLabel
 @onready var result_label: Label = $Panel/Margin/VBox/ResultLabel
 
+var spell_book: SpellBook
 var run_state: RunState
 var _rng := RandomNumberGenerator.new()
 var _step: int = Step.SHOPPING
 var _target_word: String = "PROCEED"
 var _typed_count: int = 0
-
-var _current_shop_items: Array[ItemResource] = []
+var _current_shop_entries: Array = []
 
 func _ready() -> void:
 	hide()
@@ -45,8 +47,9 @@ func _ready() -> void:
 	base_word_label.modulate = Color(1, 1, 1, 0.35)
 	typed_word_label.modulate = Color(1, 1, 1, 1.0)
 
-func setup(p_run_state: RunState) -> void:
+func setup(p_run_state: RunState, p_spell_book: SpellBook) -> void:
 	run_state = p_run_state
+	spell_book = p_spell_book
 
 func begin_shop() -> void:
 	_step = Step.SHOPPING
@@ -63,49 +66,61 @@ func begin_shop() -> void:
 	show()
 
 func _generate_shop_inventory() -> void:
-	_current_shop_items.clear()
+	_current_shop_entries.clear()
 
 	if guaranteed_health_potion != null:
-		_current_shop_items.append(guaranteed_health_potion)
+		_current_shop_entries.append(ItemRewardRuntime.new(guaranteed_health_potion))
 
 	if guaranteed_mana_potion != null:
-		_current_shop_items.append(guaranteed_mana_potion)
+		_current_shop_entries.append(ItemRewardRuntime.new(guaranteed_mana_potion))
 
 	if shop_pool == null:
 		return
 
-	var pool_items: Array[ItemResource] = shop_pool.get_all_items().duplicate()
+	var pool_items: Array[ItemResource] = shop_pool.get_all_valid_items().duplicate()
+	var special_rewards: Array[RewardResource] = shop_pool.get_all_valid_special_rewards(run_state, spell_book).duplicate()
 	var extra_count: int = _rng.randi_range(1, 4)
+	
+	print("Guaranteed health: ", guaranteed_health_potion)
+	print("Pool items before removal: ", pool_items)
+	print("Special rewards: ", special_rewards)
+
+	_remove_first_item_from_array(pool_items, guaranteed_health_potion)
+	_remove_first_item_from_array(pool_items, guaranteed_mana_potion)
+	
+	print("Pool items after guaranteed removal: ", pool_items)
+	print("Extra count: ", extra_count)
 
 	var consumables: Array[ItemResource] = []
-	var non_consumables: Array[ItemResource] = []
-
 	for item: ItemResource in pool_items:
-		if item == null:
-			continue
-		if item.item_type == ItemResource.ItemType.CONSUMABLE:
+		if item != null and item.item_type == ItemResource.ItemType.CONSUMABLE:
 			consumables.append(item)
-		else:
-			non_consumables.append(item)
 
-	# Always min. 1 random consumable
 	if not consumables.is_empty() and extra_count > 0:
-		var forced_consumable := consumables[_rng.randi_range(0, consumables.size() - 1)]
-		_current_shop_items.append(forced_consumable)
+		var forced_consumable: ItemResource = consumables[_rng.randi_range(0, consumables.size() - 1)]
+		_current_shop_entries.append(ItemRewardRuntime.new(forced_consumable))
 		_remove_first_item_from_array(pool_items, forced_consumable)
 		extra_count -= 1
 
-	while extra_count > 0 and not pool_items.is_empty():
-		var idx: int = _rng.randi_range(0, pool_items.size() - 1)
-		var picked: ItemResource = pool_items[idx]
-		_current_shop_items.append(picked)
-		pool_items.remove_at(idx)
-		extra_count -= 1
+	var mixed_entries: Array = []
 
-func _remove_first_item_from_array(array: Array[ItemResource], item: ItemResource) -> void:
-	var idx: int = array.find(item)
-	if idx != -1:
-		array.remove_at(idx)
+	print("Current entries after forced consumable: ", _current_shop_entries)
+	print("Remaining pool items: ", pool_items)
+
+	for item: ItemResource in pool_items:
+		if item != null:
+			mixed_entries.append(ItemRewardRuntime.new(item))
+
+	for reward: RewardResource in special_rewards:
+		if reward != null:
+			mixed_entries.append(reward)
+
+	while extra_count > 0 and not mixed_entries.is_empty():
+		var idx: int = _rng.randi_range(0, mixed_entries.size() - 1)
+		var picked = mixed_entries[idx]
+		_current_shop_entries.append(picked)
+		mixed_entries.remove_at(idx)
+		extra_count -= 1
 
 func _refresh_all() -> void:
 	_refresh_coins()
@@ -116,54 +131,55 @@ func _refresh_coins() -> void:
 	var coins: int = 0
 	if run_state != null:
 		coins = run_state.current_coins
+		print("ShopScreen sees current_coins =", coins)
 	coins_label.text = "Coins: %d" % coins
 
 func _refresh_shop_items() -> void:
 	for child in shop_items_root.get_children():
 		child.queue_free()
 
-	for item: ItemResource in _current_shop_items:
+	for entry in _current_shop_entries:
 		var button := Button.new()
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
-		var name := "Unknown"
-		var price := 0
-		if item != null:
-			name = item.display_name
-			price = item.shop_value
+		var name: String = _entry_display_name(entry)
+		var price: int = _entry_shop_value(entry)
 
 		button.text = "%s - %d coins" % [name, price]
-		button.disabled = not _can_afford(item)
+		button.disabled = not _entry_can_grant(entry) or run_state == null or run_state.current_coins < price
 
 		button.pressed.connect(func() -> void:
-			_try_buy_item(item)
+			_try_buy_entry(entry)
 		)
 
 		shop_items_root.add_child(button)
 
-func _can_afford(item: ItemResource) -> bool:
-	if run_state == null or item == null:
-		return false
-	return run_state.current_coins >= item.shop_value
-
-func _try_buy_item(item: ItemResource) -> void:
-	if run_state == null or item == null:
+func _try_buy_entry(entry) -> void:
+	if run_state == null or entry == null:
 		return
 
-	if not _current_shop_items.has(item):
+	if not _current_shop_entries.has(entry):
 		return
 
-	if not _can_afford(item):
+	var price: int = _entry_shop_value(entry)
+	if run_state.current_coins < price:
 		result_label.text = "Not enough coins."
 		return
 
-	run_state.current_coins -= item.shop_value
-	run_state.add_item(item)
-	_current_shop_items.erase(item)
+	if not _entry_can_grant(entry):
+		result_label.text = "Cannot buy this."
+		return
 
-	TaloTracker.track_item_buy(item.display_name)
-	result_label.text = "Bought: %s" % item.display_name
+	var granted: bool = _entry_grant(entry)
+	if not granted:
+		result_label.text = "Purchase failed."
+		return
+
+	run_state.current_coins -= price
+	_current_shop_entries.erase(entry)
+
+	result_label.text = "Bought: %s" % _entry_display_name(entry)
 	_refresh_all()
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -203,3 +219,59 @@ func _try_advance_word(typed: String) -> void:
 func _refresh_word_display() -> void:
 	base_word_label.text = _target_word
 	typed_word_label.text = _target_word.substr(0, _typed_count)
+
+func _entry_display_name(entry) -> String:
+	if entry == null:
+		return "Unknown"
+
+	if entry is RewardResource:
+		return entry.display_name
+
+	if entry is ItemRewardRuntime:
+		return entry.get_display_name()
+
+	return "Unknown"
+
+func _entry_shop_value(entry) -> int:
+	if entry == null:
+		return 0
+
+	if entry is RewardResource:
+		return entry.shop_value
+
+	if entry is ItemRewardRuntime:
+		return entry.get_shop_value()
+
+	return 0
+
+func _entry_can_grant(entry) -> bool:
+	if run_state == null or entry == null:
+		return false
+
+	if entry is RewardResource:
+		return entry.can_grant(run_state, spell_book)
+
+	if entry is ItemRewardRuntime:
+		return entry.can_grant(run_state)
+
+	return false
+
+func _entry_grant(entry) -> bool:
+	if run_state == null or entry == null:
+		return false
+
+	if entry is RewardResource:
+		return entry.grant(run_state, spell_book)
+
+	if entry is ItemRewardRuntime:
+		return entry.grant(run_state)
+
+	return false
+
+func _remove_first_item_from_array(array: Array[ItemResource], item: ItemResource) -> void:
+	if item == null:
+		return
+
+	var idx: int = array.find(item)
+	if idx != -1:
+		array.remove_at(idx)

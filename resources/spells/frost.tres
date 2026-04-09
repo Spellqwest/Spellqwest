@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="ProjectileSpellResource" format=3 uid="uid://ruuk2i4qqqc3"]
+
+[ext_resource type="Script" uid="uid://pud16bymn56f" path="res://scripts/combat/spells/spell_type_resources/projectile_spell_resource.gd" id="1_iago3"]
+[ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="2_vfc8o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k3sqk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vfc8o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_iago3")
+projectile_speed = 600.0
+id = &"spell_frost"
+display_name = "Frost"
+word = "frost"
+damage = 5
+cast_time = 0.6
+projectile_scale = Vector2(0.5, 0.5)
+spell_frames = SubResource("SpriteFrames_k3sqk")
+metadata/_custom_type_script = "uid://pud16bymn56f"

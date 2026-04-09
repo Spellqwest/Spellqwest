@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="AOESpellResource" format=3 uid="uid://cdix2pt0umsm0"]
+
+[ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="1_7tuuy"]
+[ext_resource type="Script" uid="uid://bdik7pvdf8h0x" path="res://scripts/combat/spells/spell_type_resources/aoe_spell_resource.gd" id="1_fudvi"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xb2lt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7tuuy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_54fvc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7tuuy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_fudvi")
+aoe_radius = 500.0
+aoe_delay = 0.1
+aoe_damage_once = 40
+aoe_duration = 0.1
+aoe_frames = SubResource("SpriteFrames_xb2lt")
+projectile_speed = 200.0
+id = &"spell_explosion"
+display_name = "Explosion"
+word = "explosion"
+type = 1
+cast_time = 1.5
+spell_frames = SubResource("SpriteFrames_54fvc")
+metadata/_custom_type_script = "uid://bdik7pvdf8h0x"
