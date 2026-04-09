@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_nvchh")
+id = &"random_spell"
 display_name = "Mysterious Tome"
 description = "Learn a random spell you do not already know."
 shop_value = 120

@@ -20,6 +20,7 @@ enum Step {
 @onready var typed_word_label: Label = $Panel/Margin/VBox/WordHolder/TypedWordLabel
 @onready var reward_label: Label = $Panel/Margin/VBox/RewardLabel
 
+var spell_book: SpellBook
 var run_state: RunState
 var _rng := RandomNumberGenerator.new()
 var _step: int = Step.OPEN_CHEST
@@ -42,8 +43,9 @@ func _ready() -> void:
 	base_word_label.modulate = Color(1, 1, 1, 0.35)
 	typed_word_label.modulate = Color(1, 1, 1, 1.0)
 
-func setup(p_run_state: RunState) -> void:
+func setup(p_run_state: RunState, p_spell_book: SpellBook) -> void:
 	run_state = p_run_state
+	spell_book = p_spell_book
 
 func begin_treasure() -> void:
 	_step = Step.OPEN_CHEST
@@ -101,7 +103,7 @@ func _open_chest() -> void:
 	if treasure_pool == null:
 		reward_label.text = "No treasure pool assigned."
 	else:
-		var rolled: Dictionary = treasure_pool.roll_random_entry(_rng, run_state)
+		var rolled: Dictionary = treasure_pool.roll_random_entry(_rng, run_state, spell_book)
 
 		if rolled.is_empty():
 			reward_label.text = "The chest was empty."
@@ -124,7 +126,7 @@ func _open_chest() -> void:
 					if _granted_special_reward == null:
 						reward_label.text = "The chest was empty."
 					else:
-						var granted: bool = _granted_special_reward.grant(run_state)
+						var granted: bool = _granted_special_reward.grant(run_state, spell_book)
 						if granted:
 							reward_label.text = "You found: %s" % _granted_special_reward.display_name
 						else:

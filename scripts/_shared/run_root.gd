@@ -12,8 +12,9 @@ class_name RunRoot
 
 func _ready() -> void:
 	TaloTracker.track_run_started()
+	run_state.initialize_run_state()
 	spell_book.set_spells(ContentDB.get_all_spells())
-	run_state.learn_all_spells(spell_book.get_all_spells())
+	_grant_starting_spells()
 
 	combat_screen.setup(run_state, spell_book)
 	combat_screen.proceed_requested.connect(_on_combat_proceed_requested)
@@ -26,10 +27,10 @@ func _ready() -> void:
 	map_screen.treasure_requested.connect(_on_treasure_requested)
 	map_screen.special_requested.connect(_on_special_requested)
 	
-	treasure_screen.setup(run_state)
+	treasure_screen.setup(run_state, spell_book)
 	treasure_screen.proceed_requested.connect(_on_treasure_proceed_requested)
 	
-	shop_screen.setup(run_state)
+	shop_screen.setup(run_state, spell_book)
 	shop_screen.proceed_requested.connect(_on_shop_proceed_requested)
 	
 	run_state.add_test_items()
@@ -114,3 +115,18 @@ func _on_game_over() -> void:
 	combat_screen.player.heal(run_state.stats.current_hp)
 	TaloTracker.track_run_started()
 	_show_map()
+
+func _grant_starting_spells() -> void:
+	run_state.learned_spell_ids.clear()
+
+	var starter_spell_ids: Array[StringName] = [
+		&"spell_fire",
+		&"spell_acid",
+		&"spell_boom",
+		&"spell_laser"
+	]
+
+	for spell_id: StringName in starter_spell_ids:
+		var spell = ContentDB.get_spell(String(spell_id))
+		if spell != null:
+			run_state.learn_spell(spell.id)

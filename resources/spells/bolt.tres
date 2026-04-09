@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="BeamSpellResource" format=3 uid="uid://do03x3j6alilm"]
+
+[ext_resource type="Script" uid="uid://cd325vvg4e8w1" path="res://scripts/combat/spells/spell_type_resources/beam_spell_resource.gd" id="1_m276t"]
+[ext_resource type="Texture2D" uid="uid://bqtpf4hyg7byp" path="res://assets/icon.svg" id="2_1d55q"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o6wq1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1d55q")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_m276t")
+lifetime = 0.1
+hit_delay = 0.1
+id = &"spell_bolt"
+display_name = "Bolt"
+word = "bolt"
+damage = 15
+type = 2
+cast_time = 0.8
+spell_frames = SubResource("SpriteFrames_o6wq1")
+metadata/_custom_type_script = "uid://cd325vvg4e8w1"

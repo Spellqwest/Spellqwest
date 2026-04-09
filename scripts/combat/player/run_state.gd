@@ -24,6 +24,15 @@ var learned_spell_ids: Dictionary = {}  # id -> true
 func _ready() -> void:
 	ensure_inventory()
 
+func initialize_run_state() -> void:
+	if stats != null:
+		current_coins = stats.starting_coins
+	else:
+		current_coins = 0
+
+	learned_spell_ids.clear()
+	ensure_inventory()
+
 func learn_spell(id: StringName) -> void:
 	learned_spell_ids[id] = true
 
@@ -142,10 +151,8 @@ func clear_current_combat_screen() -> void:
 #DEBUG
 func add_test_items() -> void:
 	add_item(preload("res://resources/items/health_potion.tres"))
-	add_item(preload("res://resources/items/health_potion.tres"))
 	add_item(preload("res://resources/items/ink_flask.tres"))
 	add_item(preload("res://resources/items/crossbow.tres"))
-	current_coins = 100
 
 func game_over_reset() -> void:
 	stats.current_hp = stats.max_hp

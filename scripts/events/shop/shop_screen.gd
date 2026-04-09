@@ -26,6 +26,7 @@ enum Step {
 @onready var typed_word_label: Label = $Panel/Margin/VBox/WordHolder/TypedWordLabel
 @onready var result_label: Label = $Panel/Margin/VBox/ResultLabel
 
+var spell_book: SpellBook
 var run_state: RunState
 var _rng := RandomNumberGenerator.new()
 var _step: int = Step.SHOPPING
@@ -46,8 +47,9 @@ func _ready() -> void:
 	base_word_label.modulate = Color(1, 1, 1, 0.35)
 	typed_word_label.modulate = Color(1, 1, 1, 1.0)
 
-func setup(p_run_state: RunState) -> void:
+func setup(p_run_state: RunState, p_spell_book: SpellBook) -> void:
 	run_state = p_run_state
+	spell_book = p_spell_book
 
 func begin_shop() -> void:
 	_step = Step.SHOPPING
@@ -66,7 +68,6 @@ func begin_shop() -> void:
 func _generate_shop_inventory() -> void:
 	_current_shop_entries.clear()
 
-	# Always include guaranteed potion items if assigned.
 	if guaranteed_health_potion != null:
 		_current_shop_entries.append(ItemRewardRuntime.new(guaranteed_health_potion))
 
@@ -77,28 +78,34 @@ func _generate_shop_inventory() -> void:
 		return
 
 	var pool_items: Array[ItemResource] = shop_pool.get_all_valid_items().duplicate()
-	var special_rewards: Array[RewardResource] = shop_pool.get_all_valid_special_rewards(run_state).duplicate()
+	var special_rewards: Array[RewardResource] = shop_pool.get_all_valid_special_rewards(run_state, spell_book).duplicate()
 	var extra_count: int = _rng.randi_range(1, 4)
+	
+	print("Guaranteed health: ", guaranteed_health_potion)
+	print("Pool items before removal: ", pool_items)
+	print("Special rewards: ", special_rewards)
 
-	# Remove guaranteed items from random item pool if they are also present there.
 	_remove_first_item_from_array(pool_items, guaranteed_health_potion)
 	_remove_first_item_from_array(pool_items, guaranteed_mana_potion)
+	
+	print("Pool items after guaranteed removal: ", pool_items)
+	print("Extra count: ", extra_count)
 
-	# Collect consumables from remaining normal item pool.
 	var consumables: Array[ItemResource] = []
 	for item: ItemResource in pool_items:
 		if item != null and item.item_type == ItemResource.ItemType.CONSUMABLE:
 			consumables.append(item)
 
-	# Guarantee at least one consumable among the extra random entries, if possible.
 	if not consumables.is_empty() and extra_count > 0:
 		var forced_consumable: ItemResource = consumables[_rng.randi_range(0, consumables.size() - 1)]
 		_current_shop_entries.append(ItemRewardRuntime.new(forced_consumable))
 		_remove_first_item_from_array(pool_items, forced_consumable)
 		extra_count -= 1
 
-	# Build mixed random pool from remaining normal items + special rewards.
 	var mixed_entries: Array = []
+
+	print("Current entries after forced consumable: ", _current_shop_entries)
+	print("Remaining pool items: ", pool_items)
 
 	for item: ItemResource in pool_items:
 		if item != null:
@@ -108,7 +115,6 @@ func _generate_shop_inventory() -> void:
 		if reward != null:
 			mixed_entries.append(reward)
 
-	# Fill remaining random slots.
 	while extra_count > 0 and not mixed_entries.is_empty():
 		var idx: int = _rng.randi_range(0, mixed_entries.size() - 1)
 		var picked = mixed_entries[idx]
@@ -125,6 +131,7 @@ func _refresh_coins() -> void:
 	var coins: int = 0
 	if run_state != null:
 		coins = run_state.current_coins
+		print("ShopScreen sees current_coins =", coins)
 	coins_label.text = "Coins: %d" % coins
 
 func _refresh_shop_items() -> void:
@@ -242,7 +249,7 @@ func _entry_can_grant(entry) -> bool:
 		return false
 
 	if entry is RewardResource:
-		return entry.can_grant(run_state)
+		return entry.can_grant(run_state, spell_book)
 
 	if entry is ItemRewardRuntime:
 		return entry.can_grant(run_state)
@@ -254,7 +261,7 @@ func _entry_grant(entry) -> bool:
 		return false
 
 	if entry is RewardResource:
-		return entry.grant(run_state)
+		return entry.grant(run_state, spell_book)
 
 	if entry is ItemRewardRuntime:
 		return entry.grant(run_state)

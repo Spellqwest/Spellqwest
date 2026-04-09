@@ -7,7 +7,7 @@ const RewardResource = preload("res://scripts/events/reward_resource.gd")
 @export var items: Array[ItemResource] = []
 @export var special_rewards: Array[RewardResource] = []
 
-func roll_random_entry(rng: RandomNumberGenerator, run_state: RunState) -> Dictionary:
+func roll_random_entry(rng: RandomNumberGenerator, run_state: RunState, spell_book: SpellBook = null) -> Dictionary:
 	var entries: Array = []
 
 	for item: ItemResource in items:
@@ -20,12 +20,12 @@ func roll_random_entry(rng: RandomNumberGenerator, run_state: RunState) -> Dicti
 	for reward: RewardResource in special_rewards:
 		if reward == null:
 			continue
-		if run_state != null and not reward.can_grant(run_state):
+		if run_state != null and not reward.can_grant(run_state, spell_book):
 			continue
 		entries.append({
-				"type": "reward",
-				"value": reward
-			})
+			"type": "reward",
+			"value": reward
+		})
 
 	if entries.is_empty():
 		return {}

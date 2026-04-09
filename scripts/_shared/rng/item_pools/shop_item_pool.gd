@@ -14,12 +14,12 @@ func get_all_valid_items() -> Array[ItemResource]:
 			out.append(item)
 	return out
 
-func get_all_valid_special_rewards(run_state: RunState) -> Array[RewardResource]:
+func get_all_valid_special_rewards(run_state: RunState, spell_book: SpellBook = null) -> Array[RewardResource]:
 	var out: Array[RewardResource] = []
 	for reward: RewardResource in special_rewards:
 		if reward == null:
 			continue
-		if run_state != null and not reward.can_grant(run_state):
+		if run_state != null and not reward.can_grant(run_state, spell_book):
 			continue
 		out.append(reward)
 	return out

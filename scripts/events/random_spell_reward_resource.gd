@@ -1,11 +1,11 @@
 extends RewardResource
 class_name RandomSpellRewardResource
 
-func can_grant(run_state: RunState) -> bool:
-	if run_state == null:
+func can_grant(run_state: RunState, spell_book: SpellBook = null) -> bool:
+	if run_state == null or spell_book == null:
 		return false
 
-	var all_spells: Array = ContentDB.get_all_spells()
+	var all_spells: Array = spell_book.get_all_spells()
 	for spell in all_spells:
 		if spell == null:
 			continue
@@ -14,11 +14,11 @@ func can_grant(run_state: RunState) -> bool:
 
 	return false
 
-func grant(run_state: RunState) -> bool:
-	if run_state == null:
+func grant(run_state: RunState, spell_book: SpellBook = null) -> bool:
+	if run_state == null or spell_book == null:
 		return false
 
-	var all_spells: Array = ContentDB.get_all_spells()
+	var all_spells: Array = spell_book.get_all_spells()
 	var candidates: Array = []
 
 	for spell in all_spells:

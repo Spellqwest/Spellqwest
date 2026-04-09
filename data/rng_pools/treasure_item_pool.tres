@@ -1,8 +1,14 @@
-[gd_resource type="Resource" script_class="TreasureRewardPool" format=3 uid="uid://d0svul002c7se"]
+[gd_resource type="Resource" script_class="TreasureItemPool" format=3 uid="uid://d0svul002c7se"]
 
-[ext_resource type="Script" uid="uid://dyecng4fd2fau" path="res://scripts/events/reward_resource.gd" id="1_eng0b"]
+[ext_resource type="Script" uid="uid://cu2pbc8m06lkg" path="res://scripts/inventory/items/item_resource.gd" id="1_eng0b"]
+[ext_resource type="Resource" uid="uid://dkugau2y6gv23" path="res://resources/items/crossbow.tres" id="2_n28fl"]
 [ext_resource type="Script" uid="uid://bspy40mksxu55" path="res://scripts/_shared/rng/item_pools/treasure_item_pool.gd" id="2_qindk"]
+[ext_resource type="Resource" uid="uid://3gvbhrt8iapk" path="res://resources/items/ink_flask.tres" id="3_gncwb"]
+[ext_resource type="Script" uid="uid://dyecng4fd2fau" path="res://scripts/events/reward_resource.gd" id="5_gncwb"]
+[ext_resource type="Resource" uid="uid://cci01ravd6ayu" path="res://resources/rng/random_spell_reward_resource.tres" id="6_emwkd"]
 
 [resource]
 script = ExtResource("2_qindk")
+items = Array[ExtResource("1_eng0b")]([ExtResource("2_n28fl"), ExtResource("3_gncwb")])
+special_rewards = Array[ExtResource("5_gncwb")]([ExtResource("6_emwkd")])
 metadata/_custom_type_script = "uid://bspy40mksxu55"
